@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *itemImageView;
 @property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) Category *category;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollview;
 
 -(IBAction)saveItem:(id)sender;
 -(IBAction)addNewItem:(id)sender;

@@ -49,6 +49,7 @@ CGFloat animatedDistance;
     self.save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveItem:)];
     
     [[self navigationItem]setRightBarButtonItem:self.save];
+    self.scrollview.contentSize = CGSizeMake(320, 1000);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
