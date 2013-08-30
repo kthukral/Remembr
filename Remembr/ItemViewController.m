@@ -30,13 +30,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.itemTitleView setText:self.itemToPopulate.itemTitle];
-    [self.itemImageView setImage:self.itemToPopulate.itemImage];
-    [self.itemDescriptionView setText:self.itemToPopulate.itemDescription];
+    Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
+
+    [self.itemTitleView setText:item.itemTitle];
+    [self.itemImageView setImage:item.itemImage];
+    [self.itemDescriptionView setText:item.itemDescription];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
     [[self navigationItem]setRightBarButtonItem:edit];
+    [self.itemDescriptionView setScrollEnabled:YES];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
+    
+    [self.itemTitleView setText:item.itemTitle];
+    [self.itemImageView setImage:item.itemImage];
+    [self.itemDescriptionView setText:item.itemDescription];
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,8 +60,16 @@
 - (IBAction)editItem:(id)sender{
     self.editItemView = [[EditItemViewController alloc]initWithNibName:@"EditItemViewController" bundle:nil];
     self.editItemView.itemToEdit = self.itemToPopulate;
-    UINavigationController *navControl = [[UINavigationController alloc]initWithRootViewController:self.editItemView];
-    [self presentModalViewController:navControl animated:YES];
+    self.editItemView.parent = self.parentCategory;
+    self.editItemView.index = self.indexSelected;
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:self.editItemView];
+    //[self.navigationController pushViewController:self.editItemView animated:YES];
+    [self presentModalViewController:nav animated:YES];
+}
+
+- (void)updateItemto:(Item *)item{
+    self.itemToPopulate = item;
 }
 
 @end
