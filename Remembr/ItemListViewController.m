@@ -100,6 +100,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
     self.itemView.itemToPopulate = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
+    self.itemView.parentCategory = self.categorySelected;
+    self.itemView.indexSelected = indexPath.row;
     [self.navigationController pushViewController:self.itemView animated:YES];
     
 }
