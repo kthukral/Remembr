@@ -68,8 +68,6 @@
     [self presentModalViewController:nav animated:YES];
 }
 
-- (void)updateItemto:(Item *)item{
-    self.itemToPopulate = item;
-}
+
 
 @end

@@ -25,6 +25,6 @@
 
 @property (assign, nonatomic)NSInteger indexSelected;
 
-- (void)updateItemto:(Item *)item;
+
 
 @end

@@ -12,6 +12,8 @@
 		9E0C715417CD4D5700098B17 /* ItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C715317CD4D5700098B17 /* ItemListViewController.m */; };
 		9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C715617CDA08200098B17 /* AddItemViewController.m */; };
 		9E0C715917CDA08200098B17 /* AddItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0C715717CDA08200098B17 /* AddItemViewController.xib */; };
+		9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309017D12E6700D96ABC /* Icon@2x.png */; };
+		9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309217D12E8000D96ABC /* Icon@2x.png */; };
 		9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */; };
 		9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */; };
 		9E15B7BD17CFBCBE0025AD8A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */; };
@@ -47,6 +49,8 @@
 		9E0C715517CDA08200098B17 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
 		9E0C715617CDA08200098B17 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
 		9E0C715717CDA08200098B17 /* AddItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddItemViewController.xib; sourceTree = "<group>"; };
+		9E12309017D12E6700D96ABC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		9E12309217D12E8000D96ABC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9E15B7B517CFB3C90025AD8A /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		9EBD66B017C93B04002F41F7 = {
 			isa = PBXGroup;
 			children = (
+				9E12309217D12E8000D96ABC /* Icon@2x.png */,
 				9EBD66C217C93B04002F41F7 /* Remembr */,
 				9EBD66BB17C93B04002F41F7 /* Frameworks */,
 				9EBD66BA17C93B04002F41F7 /* Products */,
@@ -160,6 +165,7 @@
 				9E0C715717CDA08200098B17 /* AddItemViewController.xib */,
 				9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */,
 				9EBD66E617C93F6E002F41F7 /* AddCategoryViewController.xib */,
+				9E12309017D12E6700D96ABC /* Icon@2x.png */,
 				9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */,
 				9EBD66C317C93B04002F41F7 /* Supporting Files */,
 			);
@@ -242,6 +248,8 @@
 				9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */,
 				9E15B7BE17CFBCBE0025AD8A /* ItemViewController.xib in Resources */,
 				9E15B7C317CFC1420025AD8A /* EditItemViewController.xib in Resources */,
+				9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */,
+				9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

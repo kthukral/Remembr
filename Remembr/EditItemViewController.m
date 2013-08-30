@@ -65,8 +65,7 @@ CGFloat animatedDistance;
         [self.editTitleTextField resignFirstResponder];
     }
     self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-    Item *new = [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
-    [self.itemView updateItemto:new];
+    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     
