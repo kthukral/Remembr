@@ -11,6 +11,8 @@
 #import "ItemListViewController.h"
 #import "ItemStore.h"
 #import "EditItemViewController.h"
+#import "Category.h"
+#import "CategoryStore.h"
 
 @interface ItemViewController : UIViewController
 
@@ -19,5 +21,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *itemDescriptionView;
 
 @property (strong, nonatomic) Item *itemToPopulate;
+@property (strong, nonatomic) Category *parentCategory;
+
+@property (assign, nonatomic)NSInteger indexSelected;
+
+- (void)updateItemto:(Item *)item;
 
 @end

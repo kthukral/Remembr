@@ -44,5 +44,14 @@
     return category.itemArray;
 }
 
+- (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index{
+    Item *newItem;
+    newItem = [[Item alloc]initWithTitle:title withImage:image withDescription:description];
+    [category.itemArray removeObjectAtIndex:index];
+    [category.itemArray insertObject:newItem atIndex:index];
+    return newItem;
+}
+
+
 
 @end
