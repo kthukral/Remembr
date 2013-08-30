@@ -30,20 +30,25 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    [self.itemTitleView setText:self.itemToPopulate.itemTitle];
-    [self.itemImageView setImage:self.itemToPopulate.itemImage];
-    [self.itemDescriptionView setText:self.itemToPopulate.itemDescription];
+    Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
+
+    [self.itemTitleView setText:item.itemTitle];
+    [self.itemImageView setImage:item.itemImage];
+    [self.itemDescriptionView setText:item.itemDescription];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
     [[self navigationItem]setRightBarButtonItem:edit];
-    self.scrollView.contentSize = CGSizeMake(320, 1000);
+    [self.itemDescriptionView setScrollEnabled:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [self.itemTitleView setText:self.itemToPopulate.itemTitle];
-    [self.itemImageView setImage:self.itemToPopulate.itemImage];
-    [self.itemDescriptionView setText:self.itemToPopulate.itemDescription];
+    Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
+    
+    [self.itemTitleView setText:item.itemTitle];
+    [self.itemImageView setImage:item.itemImage];
+    [self.itemDescriptionView setText:item.itemDescription];
 }
 
 - (void)didReceiveMemoryWarning

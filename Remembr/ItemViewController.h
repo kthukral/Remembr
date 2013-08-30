@@ -12,6 +12,7 @@
 #import "ItemStore.h"
 #import "EditItemViewController.h"
 #import "Category.h"
+#import "CategoryStore.h"
 
 @interface ItemViewController : UIViewController
 
@@ -23,7 +24,6 @@
 @property (strong, nonatomic) Category *parentCategory;
 
 @property (assign, nonatomic)NSInteger indexSelected;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 - (void)updateItemto:(Item *)item;
 

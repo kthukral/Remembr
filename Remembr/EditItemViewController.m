@@ -40,7 +40,7 @@ CGFloat animatedDistance;
     [self.editImageView setImage:self.itemToEdit.itemImage];
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
-    self.scrollView.contentSize = CGSizeMake(320, 1000);
+    [self.editTextView setScrollEnabled:YES];
     
     UINavigationItem *nav;
     nav.title = @"Remember";

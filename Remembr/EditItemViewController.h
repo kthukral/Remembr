@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *editImageView;
 @property (weak, nonatomic) IBOutlet UITextField *editTitleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) Item *itemToEdit;
 @property (strong, nonatomic) Category *parent;
