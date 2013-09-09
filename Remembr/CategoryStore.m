@@ -75,4 +75,16 @@
     return newCategory;
 }
 
+- (NSString *)itemArchievePath{
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    return [documentDirectory stringByAppendingPathComponent:@"categories.archive"];
+    
+}
+
+- (BOOL)saveChanges{
+    NSString *path = [self itemArchievePath];
+    return [NSKeyedArchiver archiveRootObject:allCatagories toFile:path];
+}
+
 @end

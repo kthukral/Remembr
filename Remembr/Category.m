@@ -29,4 +29,21 @@
     return self;
 }
 
+- (void)
+encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.title forKey:@"title"];
+    [aCoder encodeObject:self.categoryImage forKey:@"categoryImage"];
+    [aCoder encodeObject:self.itemArray forKey:@"itemArray"];
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    self = [super init];
+    if(self){
+        [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
+        [self setCategoryImage:[aDecoder decodeObjectForKey:@"categoryImage"]];
+        [self setItemArray:[aDecoder decodeObjectForKey:@"itemArray"]];
+    }
+    
+    return self;
+}
 @end

@@ -21,4 +21,6 @@
 - (NSArray *)allCatagories;
 - (Category *)createCategoryWithTitle:(NSString *)title;
 
+- (NSString *)itemArchievePath;
+- (BOOL)saveChanges;
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Category : NSObject
+@interface Category : NSObject <NSCoding>
 
 @property (strong,nonatomic) NSString *title;
 @property (strong,nonatomic) UIImage *categoryImage;
