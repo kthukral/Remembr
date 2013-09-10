@@ -32,7 +32,8 @@
 - (void)
 encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.title forKey:@"title"];
-    [aCoder encodeObject:self.categoryImage forKey:@"categoryImage"];
+    NSData *imageData = UIImagePNGRepresentation(self.categoryImage);
+    [aCoder encodeObject:imageData forKey:@"categoryImage"];
     [aCoder encodeObject:self.itemArray forKey:@"itemArray"];
 }
 
@@ -40,8 +41,12 @@ encodeWithCoder:(NSCoder *)aCoder{
     self = [super init];
     if(self){
         [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
-        [self setCategoryImage:[aDecoder decodeObjectForKey:@"categoryImage"]];
+        
         [self setItemArray:[aDecoder decodeObjectForKey:@"itemArray"]];
+        
+        NSData *imageData = [aDecoder decodeObjectForKey:@"categoryImage"];
+        UIImage *image = [[UIImage alloc]initWithData:imageData];
+        self.categoryImage = image;
     }
     
     return self;
