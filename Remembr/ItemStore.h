@@ -20,4 +20,6 @@
 
 - (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index;
 
+- (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent;
+
 @end

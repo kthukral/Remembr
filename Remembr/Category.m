@@ -51,4 +51,8 @@ encodeWithCoder:(NSCoder *)aCoder{
     
     return self;
 }
+
+- (Class)classForCoder{
+    return [self class];
+}
 @end

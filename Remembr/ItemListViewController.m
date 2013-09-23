@@ -36,6 +36,9 @@
     
     [[self navigationItem]setRightBarButtonItem:addButton];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
@@ -108,6 +111,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 68;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        [[ItemStore itemStore]deleteItemAtIndex:indexPath.row withCategory:self.categorySelected];
+        [self.itemListView reloadData];
+    }
+    
 }
 
 @end

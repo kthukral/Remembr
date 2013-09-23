@@ -15,6 +15,7 @@
     NSMutableArray *allCatagories;
 }
 
+
 + (CategoryStore *)categoryStore;
 
 - (Category *)createCategoryWithTitle:(NSString *)title withImage:(UIImage *)image;
@@ -23,4 +24,7 @@
 
 - (NSString *)itemArchievePath;
 - (BOOL)saveChanges;
+
+- (void)updateCategoryArray:(NSMutableArray *)newArray;
+
 @end

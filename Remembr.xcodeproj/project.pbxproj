@@ -37,6 +37,7 @@
 		9EBD66ED17C94B60002F41F7 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */; };
 		9EFB4C7A17C9A5A8005D02A1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */; };
 		9EFB4C7C17C9B0D4005D02A1 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */; };
+		A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +87,8 @@
 		9EFB4C7817C9A5A8005D02A1 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
+		A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoriesViewController.h; sourceTree = "<group>"; };
+		A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoriesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +162,8 @@
 				9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */,
 				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
 				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
+				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
+				A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */,
 				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
 				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
 				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
@@ -214,6 +219,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Karan Thukral";
+				TargetAttributes = {
+					9EBD66B817C93B04002F41F7 = {
+						DevelopmentTeam = CK57PGK62G;
+					};
+				};
 			};
 			buildConfigurationList = 9EBD66B417C93B04002F41F7 /* Build configuration list for PBXProject "Remembr" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -261,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EBD66C917C93B04002F41F7 /* main.m in Sources */,
+				A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */,
 				9EBD66CD17C93B04002F41F7 /* AppDelegate.m in Sources */,
 				9EBD66E017C93CE6002F41F7 /* Category.m in Sources */,
 				9EBD66E317C93E54002F41F7 /* CategoryStore.m in Sources */,
@@ -350,10 +361,13 @@
 		9EBD66D717C93B04002F41F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Remembr/Remembr-Prefix.pch";
 				INFOPLIST_FILE = "Remembr/Remembr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -361,10 +375,13 @@
 		9EBD66D817C93B04002F41F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Remembr/Remembr-Prefix.pch";
 				INFOPLIST_FILE = "Remembr/Remembr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

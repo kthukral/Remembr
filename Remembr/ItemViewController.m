@@ -38,6 +38,9 @@
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     [[self navigationItem]setRightBarButtonItem:edit];
     [self.itemDescriptionView setScrollEnabled:YES];
     
