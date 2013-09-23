@@ -102,5 +102,12 @@
     allCatagories = [[NSMutableArray alloc]initWithArray:newArray];
 }
 
+- (void)updateCategoryAtIndex:(NSInteger)index withCategory:(Category *)category{
+    Category *oldOne = [allCatagories objectAtIndex:index];
+    category.itemArray = oldOne.itemArray;
+    [allCatagories removeObjectAtIndex:index];
+    [allCatagories insertObject:category atIndex:index];
+}
+
 
 @end

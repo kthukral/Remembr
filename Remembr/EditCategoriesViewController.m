@@ -32,7 +32,7 @@
     
     nav.title = @"Edit Categories";
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges: )];
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     
@@ -44,6 +44,10 @@
     self.editCategoryTableView.delegate = self;
     self.editCategoryTableView.dataSource = self;
     [self.view addSubview:self.editCategoryTableView];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [self.editCategoryTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -102,6 +106,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 68;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    EditExistingCategoryViewController *editView = [[EditExistingCategoryViewController alloc]initWithNibName:@"EditExistingCategoryViewController" bundle:nil];
+    editView.categoryToBeEditied = [self.editCategories objectAtIndex:indexPath.row];
+    editView.index = indexPath.row;
+    [self.navigationController pushViewController:editView animated:YES];
+    
 }
 
 @end

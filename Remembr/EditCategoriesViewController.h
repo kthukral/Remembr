@@ -10,6 +10,7 @@
 #import "CategoryStore.h"
 #import "CategoryViewController.h"
 #import "CustomTableViewCell.h"
+#import "EditExistingCategoryViewController.h"
 
 @interface EditCategoriesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

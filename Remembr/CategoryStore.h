@@ -27,4 +27,6 @@
 
 - (void)updateCategoryArray:(NSMutableArray *)newArray;
 
+- (void)updateCategoryAtIndex:(NSInteger)index withCategory:(Category *)category;
+
 @end

@@ -67,7 +67,7 @@
     [self.view addSubview:self.collectionView];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
         [self.collectionView reloadData];
     //}completion:nil];

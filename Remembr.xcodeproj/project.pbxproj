@@ -37,6 +37,8 @@
 		9EBD66ED17C94B60002F41F7 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */; };
 		9EFB4C7A17C9A5A8005D02A1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */; };
 		9EFB4C7C17C9B0D4005D02A1 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */; };
+		A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */; };
+		A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */; };
 		A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +89,9 @@
 		9EFB4C7817C9A5A8005D02A1 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
+		A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExistingCategoryViewController.h; sourceTree = "<group>"; };
+		A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExistingCategoryViewController.m; sourceTree = "<group>"; };
+		A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditExistingCategoryViewController.xib; sourceTree = "<group>"; };
 		A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoriesViewController.h; sourceTree = "<group>"; };
 		A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoriesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +169,9 @@
 				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
 				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
 				A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */,
+				A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */,
+				A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */,
+				A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */,
 				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
 				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
 				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
@@ -256,6 +264,7 @@
 				9EFB4C7C17C9B0D4005D02A1 /* logo.jpg in Resources */,
 				9E0C715917CDA08200098B17 /* AddItemViewController.xib in Resources */,
 				9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */,
+				A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */,
 				9E15B7BE17CFBCBE0025AD8A /* ItemViewController.xib in Resources */,
 				9E15B7C317CFC1420025AD8A /* EditItemViewController.xib in Resources */,
 				9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */,
@@ -283,6 +292,7 @@
 				9E0C715417CD4D5700098B17 /* ItemListViewController.m in Sources */,
 				9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */,
 				9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */,
+				A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */,
 				9E15B7BD17CFBCBE0025AD8A /* ItemViewController.m in Sources */,
 				9E15B7C117CFC1200025AD8A /* EditItemViewController.m in Sources */,
 			);
