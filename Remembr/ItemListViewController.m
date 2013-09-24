@@ -46,17 +46,15 @@
     
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [self.itemListView reloadData];
-    NSLog(@"%@",self.categorySelected.title);
-    for(int i = 0; i<[self.categorySelected.itemArray count];i++){
-        Item *item = [self.categorySelected.itemArray objectAtIndex:i];
-        NSLog(@"Item = %@",item.itemTitle);
-        ;    }
-}
-
 - (void)viewWillAppear:(BOOL)animated{
+    [self.itemListView reloadData];
     self.itemListView.rowHeight = 68;
+//    NSLog(@"%@",self.categorySelected.title);
+//    for(int i = 0; i<[self.categorySelected.itemArray count];i++){
+//        Item *item = [self.categorySelected.itemArray objectAtIndex:i];
+//        NSLog(@"Item = %@",item.itemTitle);
+//        ;    }
+
 }
 
 - (void)didReceiveMemoryWarning
