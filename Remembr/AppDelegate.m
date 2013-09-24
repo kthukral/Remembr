@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "CategoryStore.h"
 
 @implementation AppDelegate
 
@@ -32,6 +33,13 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    BOOL success = [[CategoryStore categoryStore] saveChanges];
+    if (success) {
+        NSLog(@"Saved all of the Categories");
+    } else {
+        NSLog(@"Could not save any of the Categories");
+    }
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

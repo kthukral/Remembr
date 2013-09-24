@@ -48,6 +48,9 @@ CGFloat animatedDistance;
     
     self.save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveItem:)];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     [[self navigationItem]setRightBarButtonItem:self.save];
     [self.description setScrollEnabled:YES];
 }

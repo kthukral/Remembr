@@ -47,6 +47,9 @@ CGFloat animatedDistance;
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveChanges:)];
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     [[self navigationItem]setRightBarButtonItem:save];
     [[self navigationItem]setLeftBarButtonItem:cancel];
 }
@@ -65,8 +68,7 @@ CGFloat animatedDistance;
         [self.editTitleTextField resignFirstResponder];
     }
     self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-    Item *new = [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
-    [self.itemView updateItemto:new];
+    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     

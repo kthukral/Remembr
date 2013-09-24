@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CategoryViewController.h"
+#import "CategoryStore.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

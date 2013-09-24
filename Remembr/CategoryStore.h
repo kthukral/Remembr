@@ -15,10 +15,18 @@
     NSMutableArray *allCatagories;
 }
 
+
 + (CategoryStore *)categoryStore;
 
 - (Category *)createCategoryWithTitle:(NSString *)title withImage:(UIImage *)image;
 - (NSArray *)allCatagories;
 - (Category *)createCategoryWithTitle:(NSString *)title;
+
+- (NSString *)itemArchievePath;
+- (BOOL)saveChanges;
+
+- (void)updateCategoryArray:(NSMutableArray *)newArray;
+
+- (void)updateCategoryAtIndex:(NSInteger)index withCategory:(Category *)category;
 
 @end
