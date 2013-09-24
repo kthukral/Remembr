@@ -27,12 +27,14 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.editCategories = [[NSMutableArray alloc]initWithArray:[[CategoryStore categoryStore]allCatagories]];
+    NSArray *temp = [[CategoryStore categoryStore]allCatagories];
+    
+    self.editCategories = [NSKeyedUnarchiver unarchiveObjectWithData:[NSKeyedArchiver archivedDataWithRootObject:temp]];
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"Edit Categories";
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges: )];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     

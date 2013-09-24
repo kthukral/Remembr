@@ -50,12 +50,12 @@ CGFloat animatedDistance;
 
 - (void) saveChangesToCatagory: (id)sender {
     
-    NSString *newTitle = self.categoryTitleField.text;
+    self.categoryToBeEditied.title = self.categoryTitleField.text;
     
-    Category *newCategory = [[CategoryStore categoryStore]createCategoryWithTitle:newTitle];
-    
-    [[CategoryStore categoryStore]updateCategoryAtIndex:self.index withCategory:newCategory];
-    
+//    Category *newCategory = [[CategoryStore categoryStore]createCategoryWithTitle:newTitle];
+//    
+//    [[CategoryStore categoryStore]updateCategoryAtIndex:self.index withCategory:newCategory];
+//    
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     
