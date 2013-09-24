@@ -52,6 +52,10 @@
     return newItem;
 }
 
+- (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent{
+    [parent.itemArray removeObjectAtIndex:index];
+}
+
 
 
 @end

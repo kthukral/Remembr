@@ -38,6 +38,9 @@
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     [[self navigationItem]setRightBarButtonItem:edit];
     [self.itemDescriptionView setScrollEnabled:YES];
     
@@ -68,8 +71,6 @@
     [self presentModalViewController:nav animated:YES];
 }
 
-- (void)updateItemto:(Item *)item{
-    self.itemToPopulate = item;
-}
+
 
 @end

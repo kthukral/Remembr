@@ -12,6 +12,8 @@
 		9E0C715417CD4D5700098B17 /* ItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C715317CD4D5700098B17 /* ItemListViewController.m */; };
 		9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C715617CDA08200098B17 /* AddItemViewController.m */; };
 		9E0C715917CDA08200098B17 /* AddItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0C715717CDA08200098B17 /* AddItemViewController.xib */; };
+		9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309017D12E6700D96ABC /* Icon@2x.png */; };
+		9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309217D12E8000D96ABC /* Icon@2x.png */; };
 		9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */; };
 		9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */; };
 		9E15B7BD17CFBCBE0025AD8A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */; };
@@ -35,6 +37,9 @@
 		9EBD66ED17C94B60002F41F7 /* CustomCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */; };
 		9EFB4C7A17C9A5A8005D02A1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */; };
 		9EFB4C7C17C9B0D4005D02A1 /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */; };
+		A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */; };
+		A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */; };
+		A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +52,8 @@
 		9E0C715517CDA08200098B17 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
 		9E0C715617CDA08200098B17 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
 		9E0C715717CDA08200098B17 /* AddItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddItemViewController.xib; sourceTree = "<group>"; };
+		9E12309017D12E6700D96ABC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		9E12309217D12E8000D96ABC /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		9E15B7B517CFB3C90025AD8A /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
 		9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 		9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
@@ -82,6 +89,11 @@
 		9EFB4C7817C9A5A8005D02A1 /* CategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryViewController.h; sourceTree = "<group>"; };
 		9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryViewController.m; sourceTree = "<group>"; };
 		9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
+		A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExistingCategoryViewController.h; sourceTree = "<group>"; };
+		A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExistingCategoryViewController.m; sourceTree = "<group>"; };
+		A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditExistingCategoryViewController.xib; sourceTree = "<group>"; };
+		A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoriesViewController.h; sourceTree = "<group>"; };
+		A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoriesViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +113,7 @@
 		9EBD66B017C93B04002F41F7 = {
 			isa = PBXGroup;
 			children = (
+				9E12309217D12E8000D96ABC /* Icon@2x.png */,
 				9EBD66C217C93B04002F41F7 /* Remembr */,
 				9EBD66BB17C93B04002F41F7 /* Frameworks */,
 				9EBD66BA17C93B04002F41F7 /* Products */,
@@ -154,12 +167,18 @@
 				9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */,
 				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
 				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
+				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
+				A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */,
+				A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */,
+				A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */,
+				A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */,
 				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
 				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
 				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
 				9E0C715717CDA08200098B17 /* AddItemViewController.xib */,
 				9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */,
 				9EBD66E617C93F6E002F41F7 /* AddCategoryViewController.xib */,
+				9E12309017D12E6700D96ABC /* Icon@2x.png */,
 				9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */,
 				9EBD66C317C93B04002F41F7 /* Supporting Files */,
 			);
@@ -208,6 +227,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Karan Thukral";
+				TargetAttributes = {
+					9EBD66B817C93B04002F41F7 = {
+						DevelopmentTeam = CK57PGK62G;
+					};
+				};
 			};
 			buildConfigurationList = 9EBD66B417C93B04002F41F7 /* Build configuration list for PBXProject "Remembr" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -240,8 +264,11 @@
 				9EFB4C7C17C9B0D4005D02A1 /* logo.jpg in Resources */,
 				9E0C715917CDA08200098B17 /* AddItemViewController.xib in Resources */,
 				9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */,
+				A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */,
 				9E15B7BE17CFBCBE0025AD8A /* ItemViewController.xib in Resources */,
 				9E15B7C317CFC1420025AD8A /* EditItemViewController.xib in Resources */,
+				9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */,
+				9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9EBD66C917C93B04002F41F7 /* main.m in Sources */,
+				A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */,
 				9EBD66CD17C93B04002F41F7 /* AppDelegate.m in Sources */,
 				9EBD66E017C93CE6002F41F7 /* Category.m in Sources */,
 				9EBD66E317C93E54002F41F7 /* CategoryStore.m in Sources */,
@@ -264,6 +292,7 @@
 				9E0C715417CD4D5700098B17 /* ItemListViewController.m in Sources */,
 				9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */,
 				9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */,
+				A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */,
 				9E15B7BD17CFBCBE0025AD8A /* ItemViewController.m in Sources */,
 				9E15B7C117CFC1200025AD8A /* EditItemViewController.m in Sources */,
 			);
@@ -342,10 +371,13 @@
 		9EBD66D717C93B04002F41F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Remembr/Remembr-Prefix.pch";
 				INFOPLIST_FILE = "Remembr/Remembr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -353,10 +385,13 @@
 		9EBD66D817C93B04002F41F7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Remembr/Remembr-Prefix.pch";
 				INFOPLIST_FILE = "Remembr/Remembr-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

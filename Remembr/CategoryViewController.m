@@ -14,6 +14,7 @@
 @property (strong, nonatomic) UICollectionViewFlowLayout *layout;
 @property (strong, nonatomic) AddCategoryViewController *addCategoryView;
 @property (strong, nonatomic) ItemListViewController *itemListView;
+@property (strong, nonatomic) EditCategoriesViewController *editView;
 
 @end
 
@@ -39,7 +40,12 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewCategory:)];
     [[self navigationItem]setRightBarButtonItem:addButton];
-    [[self navigationItem]setLeftBarButtonItem:[self editButtonItem]];
+    
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editCatagories:)];
+    
+    [[self navigationItem]setLeftBarButtonItem:edit];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //collection view
     CGRect mainScreen = [[UIScreen mainScreen]bounds];
@@ -61,7 +67,7 @@
     [self.view addSubview:self.collectionView];
 }
 
-- (void)viewDidAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
         [self.collectionView reloadData];
     //}completion:nil];
@@ -73,6 +79,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)editCatagories:(id)sender{
+    
+    self.editView = [[EditCategoriesViewController alloc]init];
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:self.editView];
+    [self presentModalViewController:nav animated:YES];
+}
 
 
 - (IBAction)addNewCategory:(id)sender{

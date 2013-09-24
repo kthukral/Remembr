@@ -17,6 +17,10 @@
     
     if (self) {
         
+        NSString *path = [self itemArchievePath];
+        
+        allCatagories = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        
         if (!allCatagories) {
             allCatagories = [[NSMutableArray alloc] init];
         }
@@ -74,5 +78,36 @@
     [allCatagories addObject:newCategory];
     return newCategory;
 }
+
+- (NSString *)itemArchievePath{
+    NSArray *documentDirectories =
+    NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                        NSUserDomainMask, YES);
+    
+    // Get one and only document directory from that list
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    
+    return [documentDirectory stringByAppendingPathComponent:@"categories.archive"];
+    
+}
+
+- (BOOL)saveChanges{
+    NSString *path = [self itemArchievePath];
+    
+    return [NSKeyedArchiver archiveRootObject:allCatagories
+                                       toFile:path];
+}
+
+- (void)updateCategoryArray:(NSMutableArray *)newArray{
+    allCatagories = [[NSMutableArray alloc]initWithArray:newArray];
+}
+
+- (void)updateCategoryAtIndex:(NSInteger)index withCategory:(Category *)category{
+    Category *oldOne = [allCatagories objectAtIndex:index];
+    category.itemArray = oldOne.itemArray;
+    [allCatagories removeObjectAtIndex:index];
+    [allCatagories insertObject:category atIndex:index];
+}
+
 
 @end

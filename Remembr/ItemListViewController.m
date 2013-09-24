@@ -36,6 +36,9 @@
     
     [[self navigationItem]setRightBarButtonItem:addButton];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
+    
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
@@ -43,17 +46,15 @@
     
 }
 
-- (void)viewDidAppear:(BOOL)animated{
-    [self.itemListView reloadData];
-    NSLog(@"%@",self.categorySelected.title);
-    for(int i = 0; i<[self.categorySelected.itemArray count];i++){
-        Item *item = [self.categorySelected.itemArray objectAtIndex:i];
-        NSLog(@"Item = %@",item.itemTitle);
-        ;    }
-}
-
 - (void)viewWillAppear:(BOOL)animated{
+    [self.itemListView reloadData];
     self.itemListView.rowHeight = 68;
+//    NSLog(@"%@",self.categorySelected.title);
+//    for(int i = 0; i<[self.categorySelected.itemArray count];i++){
+//        Item *item = [self.categorySelected.itemArray objectAtIndex:i];
+//        NSLog(@"Item = %@",item.itemTitle);
+//        ;    }
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,6 +109,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 68;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(editingStyle == UITableViewCellEditingStyleDelete){
+        [[ItemStore itemStore]deleteItemAtIndex:indexPath.row withCategory:self.categorySelected];
+        [self.itemListView reloadData];
+    }
+    
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Item : NSObject
+@interface Item : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *itemTitle;
 @property (strong, nonatomic) UIImage *itemImage;

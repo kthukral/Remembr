@@ -1,20 +1,18 @@
 //
-//  AddCategoryViewController.m
+//  EditExistingCategoryViewController.m
 //  Remembr
 //
-//  Created by Karan Thukral on 2013-08-24.
+//  Created by Karan Thukral on 2013-09-23.
 //  Copyright (c) 2013 Karan Thukral. All rights reserved.
 //
 
-#import "AddCategoryViewController.h"
+#import "EditExistingCategoryViewController.h"
 
-@interface AddCategoryViewController ()
-
-@property (strong, nonatomic) UIBarButtonItem *save;
+@interface EditExistingCategoryViewController ()
 
 @end
 
-@implementation AddCategoryViewController
+@implementation EditExistingCategoryViewController
 
 static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
 static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
@@ -24,7 +22,6 @@ static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
 
 CGFloat animatedDistance;
 
-@synthesize titleTextField = _titleTextField;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,23 +36,30 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    UINavigationItem *nav = [self navigationItem];
+    UINavigationItem *nav = [[UINavigationItem alloc]init];
     
-    nav.title = @"New Category";
+    nav.title = self.categoryToBeEditied.title;
     
-    self.save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveCategory:)];
+    UIBarButtonItem *save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveChangesToCatagory:)];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-
+    [[self navigationItem] setRightBarButtonItem:save];
     
-    [[self navigationItem]setRightBarButtonItem:self.save];
+    self.categoryTitleField.text = self.categoryToBeEditied.title;
     
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void) saveChangesToCatagory: (id)sender {
     
-    [_titleTextField setText:@""];
-    [self.save setEnabled:NO];
+    self.categoryToBeEditied.title = self.categoryTitleField.text;
+    
+//    Category *newCategory = [[CategoryStore categoryStore]createCategoryWithTitle:newTitle];
+//    
+//    [[CategoryStore categoryStore]updateCategoryAtIndex:self.index withCategory:newCategory];
+//    
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -64,54 +68,8 @@ CGFloat animatedDistance;
     // Dispose of any resources that can be recreated.
 }
 
-
-
--(void)viewDidDisappear:(BOOL)animated{   
-}
-
-- (void)catergoryAlreadyExists{
-    UIAlertView *existingCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Category Already Exists" message:@"This Category Already Exists. Please use a different title." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [existingCategoryAlert show];
-    
-}
-
-- (IBAction)saveCategory:(id)sender{
-
-    
-    [_titleTextField resignFirstResponder];
-    [self performSelector:@selector(createNewCategory)  withObject:nil afterDelay:0.5];
-    
-    //checking if valid string
-
-    
-}
-
-- (void)createNewCategory{
-    
-     NSInteger initialcount = [[[CategoryStore categoryStore]allCatagories] count];
-    
-    if(![_titleTextField.text isEqualToString:@""]){
-        
-        [[CategoryStore categoryStore]createCategoryWithTitle:_titleTextField.text withImage:[UIImage imageNamed:@"logo.jpeg"]];
-        NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
-        if(initialcount == newCount){
-            
-        }else{
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        
-    }else{
-        UIAlertView *invalidCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Category" message:@"The Category Must Have a Title" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [invalidCategoryAlert show];
-    }
-}
-
-- (IBAction)addImageButton:(id)sender {
-}
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     
-    [self.save setEnabled:YES];
     CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
@@ -168,5 +126,6 @@ CGFloat animatedDistance;
     return YES;
     
 }
+
 
 @end
