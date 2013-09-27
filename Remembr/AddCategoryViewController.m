@@ -66,7 +66,10 @@ CGFloat animatedDistance;
 
 
 
--(void)viewDidDisappear:(BOOL)animated{   
+-(void)viewDidDisappear:(BOOL)animated{
+    if([self.titleTextField isFirstResponder]){
+        [self.titleTextField resignFirstResponder];
+    }
 }
 
 - (void)catergoryAlreadyExists{

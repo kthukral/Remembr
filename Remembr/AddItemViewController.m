@@ -55,6 +55,14 @@ CGFloat animatedDistance;
     [self.description setScrollEnabled:YES];
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    if([self.titleTextField isFirstResponder]){
+        [self.titleTextField resignFirstResponder];
+    }else if([self.description isFirstResponder]){
+        [self.description resignFirstResponder];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     if([_titleTextField isFirstResponder]){
     [_titleTextField resignFirstResponder];
