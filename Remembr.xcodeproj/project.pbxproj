@@ -143,41 +143,10 @@
 			children = (
 				9EBD66CB17C93B04002F41F7 /* AppDelegate.h */,
 				9EBD66CC17C93B04002F41F7 /* AppDelegate.m */,
-				9EBD66DE17C93CE6002F41F7 /* Category.h */,
-				9EBD66DF17C93CE6002F41F7 /* Category.m */,
-				9E0C714C17CD4A8300098B17 /* Item.h */,
-				9E0C714D17CD4A8300098B17 /* Item.m */,
-				9EBD66E117C93E54002F41F7 /* CategoryStore.h */,
-				9EBD66E217C93E54002F41F7 /* CategoryStore.m */,
-				9E0C714F17CD4C0400098B17 /* ItemStore.h */,
-				9E0C715017CD4C0400098B17 /* ItemStore.m */,
-				9EFB4C7817C9A5A8005D02A1 /* CategoryViewController.h */,
-				9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */,
-				9E0C715217CD4D5700098B17 /* ItemListViewController.h */,
-				9E0C715317CD4D5700098B17 /* ItemListViewController.m */,
-				9EBD66E417C93F6E002F41F7 /* AddCategoryViewController.h */,
-				9EBD66E517C93F6E002F41F7 /* AddCategoryViewController.m */,
-				9E0C715517CDA08200098B17 /* AddItemViewController.h */,
-				9E0C715617CDA08200098B17 /* AddItemViewController.m */,
-				9EBD66E917C945AC002F41F7 /* CustomCollectionViewCell.h */,
-				9EBD66EA17C945AC002F41F7 /* CustomCollectionViewCell.m */,
-				9E15B7B517CFB3C90025AD8A /* CustomTableViewCell.h */,
-				9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */,
-				9E15B7BA17CFBCBD0025AD8A /* ItemViewController.h */,
-				9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */,
-				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
-				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
-				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
-				A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */,
-				A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */,
-				A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */,
-				A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */,
-				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
-				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
-				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
-				9E0C715717CDA08200098B17 /* AddItemViewController.xib */,
-				9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */,
-				9EBD66E617C93F6E002F41F7 /* AddCategoryViewController.xib */,
+				A4186FEC17F7ACB2009B0960 /* Stores */,
+				A4186FEA17F7AC66009B0960 /* Classes */,
+				A4186FEB17F7AC7C009B0960 /* Views */,
+				A4186FE917F7AC1C009B0960 /* View Controllers */,
 				9E12309017D12E6700D96ABC /* Icon@2x.png */,
 				9EFB4C7B17C9B0D4005D02A1 /* logo.jpg */,
 				9EBD66C317C93B04002F41F7 /* Supporting Files */,
@@ -197,6 +166,69 @@
 				9EBD66D217C93B04002F41F7 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A4186FE917F7AC1C009B0960 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9EFB4C7817C9A5A8005D02A1 /* CategoryViewController.h */,
+				9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */,
+				9E0C715217CD4D5700098B17 /* ItemListViewController.h */,
+				9E0C715317CD4D5700098B17 /* ItemListViewController.m */,
+				9EBD66E417C93F6E002F41F7 /* AddCategoryViewController.h */,
+				9EBD66E517C93F6E002F41F7 /* AddCategoryViewController.m */,
+				9E0C715517CDA08200098B17 /* AddItemViewController.h */,
+				9E0C715617CDA08200098B17 /* AddItemViewController.m */,
+				9E15B7BA17CFBCBD0025AD8A /* ItemViewController.h */,
+				9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */,
+				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
+				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
+				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
+				A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */,
+				A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */,
+				A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A4186FEA17F7AC66009B0960 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9EBD66DE17C93CE6002F41F7 /* Category.h */,
+				9EBD66DF17C93CE6002F41F7 /* Category.m */,
+				9E0C714C17CD4A8300098B17 /* Item.h */,
+				9E0C714D17CD4A8300098B17 /* Item.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		A4186FEB17F7AC7C009B0960 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EBD66E917C945AC002F41F7 /* CustomCollectionViewCell.h */,
+				9EBD66EA17C945AC002F41F7 /* CustomCollectionViewCell.m */,
+				9E15B7B517CFB3C90025AD8A /* CustomTableViewCell.h */,
+				9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */,
+				A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */,
+				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
+				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
+				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
+				9E0C715717CDA08200098B17 /* AddItemViewController.xib */,
+				9EBD66EC17C94B60002F41F7 /* CustomCollectionViewCell.xib */,
+				9EBD66E617C93F6E002F41F7 /* AddCategoryViewController.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		A4186FEC17F7ACB2009B0960 /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				9EBD66E117C93E54002F41F7 /* CategoryStore.h */,
+				9EBD66E217C93E54002F41F7 /* CategoryStore.m */,
+				9E0C714F17CD4C0400098B17 /* ItemStore.h */,
+				9E0C715017CD4C0400098B17 /* ItemStore.m */,
+			);
+			name = Stores;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

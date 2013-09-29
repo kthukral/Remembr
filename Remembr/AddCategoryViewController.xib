@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddCategoryViewController">
             <connections>
+                <outlet property="imageView" destination="FWs-mO-66e" id="Yts-pj-nBq"/>
                 <outlet property="titleTextField" destination="65" id="109"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -21,14 +22,19 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="250" id="98"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="250" id="pNB-hN-Qzd"/>
                     </constraints>
-                    <state key="normal" title="Button">
+                    <state key="normal">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="addImageButton:" destination="-1" eventType="touchUpInside" id="110"/>
                     </connections>
                 </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FWs-mO-66e">
+                    <rect key="frame" x="35" y="20" width="250" height="249"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="32">
                     <rect key="frame" x="135" y="277" width="50" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

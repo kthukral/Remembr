@@ -54,7 +54,6 @@ CGFloat animatedDistance;
 
 - (void)viewWillAppear:(BOOL)animated{
     
-    [_titleTextField setText:@""];
     [self.save setEnabled:NO];
 }
 
@@ -70,6 +69,8 @@ CGFloat animatedDistance;
     if([self.titleTextField isFirstResponder]){
         [self.titleTextField resignFirstResponder];
     }
+    self.imageView.image = nil;
+    [_titleTextField setText:@""];
 }
 
 - (void)catergoryAlreadyExists{
@@ -94,8 +95,11 @@ CGFloat animatedDistance;
      NSInteger initialcount = [[[CategoryStore categoryStore]allCatagories] count];
     
     if(![_titleTextField.text isEqualToString:@""]){
-        
+        if(self.imageView.image){
+        [[CategoryStore categoryStore]createCategoryWithTitle:_titleTextField.text withImage:self.imageView.image];
+        }else{
         [[CategoryStore categoryStore]createCategoryWithTitle:_titleTextField.text withImage:[UIImage imageNamed:@"logo.jpeg"]];
+        }
         NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
         if(initialcount == newCount){
             
@@ -110,6 +114,55 @@ CGFloat animatedDistance;
 }
 
 - (IBAction)addImageButton:(id)sender {
+    
+    UIActionSheet *photoActionSheet = [[UIActionSheet alloc]initWithTitle:@"Add Category Image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take a new photo", @"Choose from existing", nil];
+    [photoActionSheet showFromToolbar:self.navigationController.toolbar];
+    
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+            case 1:
+            [self choosePhotoFromGallery];
+            
+        default:
+            break;
+    }
+}
+
+- (void) takeNewPhotoFromCamera{
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
+        UIImagePickerController *cameraController = [[UIImagePickerController alloc]init];
+        cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
+        cameraController.allowsEditing = NO;
+        cameraController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
+        cameraController.delegate = self;
+//        [self presentModalViewController:cameraController animated:YES];
+        [self.navigationController presentModalViewController:cameraController animated:YES];
+    }else{
+        UIAlertView *noCameraAlert = [[UIAlertView alloc]initWithTitle:@"No Camera Available" message:@"A camera was not detected on the device" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [noCameraAlert show];
+    }
+}
+
+- (void) choosePhotoFromGallery{
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
+        UIImagePickerController *galleryController = [[UIImagePickerController alloc]init];
+        galleryController.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
+        galleryController.allowsEditing = YES;
+        galleryController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        galleryController.delegate = self;
+        [self presentModalViewController:galleryController animated:YES];
+    }else{
+        UIAlertView *noGalleryAlert = [[UIAlertView alloc]initWithTitle:@"No Access to Gallery" message:@"Remembr does not have access to your photos. Pleas enable access in Settings -> Privacy -> Photos" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
+        [noGalleryAlert show];
+    }
+    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -170,6 +223,16 @@ CGFloat animatedDistance;
     [textField resignFirstResponder];
     return YES;
     
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    self.categoryImage = [info valueForKey:UIImagePickerControllerOriginalImage];
+    [self dismissModalViewControllerAnimated:YES];
+    self.imageView.image = self.categoryImage;
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end
