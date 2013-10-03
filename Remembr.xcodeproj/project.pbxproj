@@ -40,6 +40,7 @@
 		A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */; };
 		A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */; };
 		A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */; };
+		A4C6B01A17FC6185002B9157 /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A4C6B01917FC6185002B9157 /* ImageStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,6 +95,8 @@
 		A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditExistingCategoryViewController.xib; sourceTree = "<group>"; };
 		A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCategoriesViewController.h; sourceTree = "<group>"; };
 		A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCategoriesViewController.m; sourceTree = "<group>"; };
+		A4C6B01817FC6185002B9157 /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
+		A4C6B01917FC6185002B9157 /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 		A4186FEC17F7ACB2009B0960 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
+				A4C6B01817FC6185002B9157 /* ImageStore.h */,
+				A4C6B01917FC6185002B9157 /* ImageStore.m */,
 				9EBD66E117C93E54002F41F7 /* CategoryStore.h */,
 				9EBD66E217C93E54002F41F7 /* CategoryStore.m */,
 				9E0C714F17CD4C0400098B17 /* ItemStore.h */,
@@ -314,6 +319,7 @@
 				9EBD66C917C93B04002F41F7 /* main.m in Sources */,
 				A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */,
 				9EBD66CD17C93B04002F41F7 /* AppDelegate.m in Sources */,
+				A4C6B01A17FC6185002B9157 /* ImageStore.m in Sources */,
 				9EBD66E017C93CE6002F41F7 /* Category.m in Sources */,
 				9EBD66E317C93E54002F41F7 /* CategoryStore.m in Sources */,
 				9EBD66E717C93F6E002F41F7 /* AddCategoryViewController.m in Sources */,

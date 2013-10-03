@@ -111,8 +111,13 @@
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
     [cell setController:self];
     [[cell categoryTitle]setText:categoryRequested.title];
-//    [[cell categoryImageView]setImage:categoryRequested.categoryImage];
-    cell.categoryImageView.image = categoryRequested.categoryImage; 
+    
+    NSString *key = categoryRequested.imageKey;
+    
+    UIImage *image = [[ImageStore imageStore]imageForKey:key];
+    
+    cell.categoryImageView.image = image;
+    
     
     
     return cell;

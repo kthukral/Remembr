@@ -90,7 +90,6 @@
     Category *current = [self.editCategories objectAtIndex:indexPath.row];
     
     [[cell itemTitle]setText:current.title];
-    [[cell itemImage]setImage:current.categoryImage];
     
     return cell;
 }
