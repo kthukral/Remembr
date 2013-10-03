@@ -142,7 +142,7 @@ CGFloat animatedDistance;
         cameraController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
         cameraController.delegate = self;
 //        [self presentModalViewController:cameraController animated:YES];
-        [self.navigationController presentModalViewController:cameraController animated:YES];
+        [self presentViewController:cameraController animated:YES completion:nil];
     }else{
         UIAlertView *noCameraAlert = [[UIAlertView alloc]initWithTitle:@"No Camera Available" message:@"A camera was not detected on the device" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [noCameraAlert show];
@@ -157,7 +157,7 @@ CGFloat animatedDistance;
         galleryController.allowsEditing = YES;
         galleryController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
         galleryController.delegate = self;
-        [self presentModalViewController:galleryController animated:YES];
+        [self presentViewController:galleryController animated:YES completion:nil];
     }else{
         UIAlertView *noGalleryAlert = [[UIAlertView alloc]initWithTitle:@"No Access to Gallery" message:@"Remembr does not have access to your photos. Pleas enable access in Settings -> Privacy -> Photos" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
         [noGalleryAlert show];
