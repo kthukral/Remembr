@@ -7,18 +7,9 @@
 //
 
 #import "Category.h"
+#import "ImageStore.h"
 
 @implementation Category
-
-- (id)initWithTitle:(NSString *)title withImage:(UIImage *)categoryImage{
-    self = [super init];
-    if(self){
-        [self setTitle:title];
-        [self setCategoryImage:categoryImage];
-        self.itemArray = [[NSMutableArray alloc]init];
-    }
-    return self;
-}
 
 - (id)initWithTitle:(NSString *)title{
     self = [super init];
@@ -32,9 +23,11 @@
 - (void)
 encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.title forKey:@"title"];
-    NSData *imageData = UIImagePNGRepresentation(self.categoryImage);
-    [aCoder encodeObject:imageData forKey:@"categoryImage"];
+    
+    [aCoder encodeObject:self.imageKey forKey:@"imageKey"];
+    
     [aCoder encodeObject:self.itemArray forKey:@"itemArray"];
+    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder{
@@ -44,9 +37,7 @@ encodeWithCoder:(NSCoder *)aCoder{
         
         [self setItemArray:[aDecoder decodeObjectForKey:@"itemArray"]];
         
-        NSData *imageData = [aDecoder decodeObjectForKey:@"categoryImage"];
-        UIImage *image = [[UIImage alloc]initWithData:imageData];
-        self.categoryImage = image;
+        [self setImageKey:[aDecoder decodeObjectForKey:@"imageKey"]];
     }
     
     return self;

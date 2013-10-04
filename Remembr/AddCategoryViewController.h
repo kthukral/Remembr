@@ -13,6 +13,7 @@
 
 @interface AddCategoryViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
+@property (strong, nonatomic) Category *categoryToBeCreated;
 - (IBAction)addImageButton:(id)sender;
 - (void)catergoryAlreadyExists;
 - (void)createNewCategory;

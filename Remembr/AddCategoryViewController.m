@@ -7,6 +7,7 @@
 //
 
 #import "AddCategoryViewController.h"
+#import "ImageStore.h"
 
 @interface AddCategoryViewController ()
 
@@ -39,6 +40,7 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    self.categoryToBeCreated = [[Category alloc]init];
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"New Category";
@@ -80,7 +82,6 @@ CGFloat animatedDistance;
 }
 
 - (IBAction)saveCategory:(id)sender{
-
     
     [_titleTextField resignFirstResponder];
     [self performSelector:@selector(createNewCategory)  withObject:nil afterDelay:0.5];
@@ -96,9 +97,27 @@ CGFloat animatedDistance;
     
     if(![_titleTextField.text isEqualToString:@""]){
         if(self.imageView.image){
-        [[CategoryStore categoryStore]createCategoryWithTitle:_titleTextField.text withImage:self.imageView.image];
+            
+            [self.categoryToBeCreated setTitle:self.titleTextField.text];
+            [[CategoryStore categoryStore]addNewCategory:self.categoryToBeCreated];
+            
         }else{
-        [[CategoryStore categoryStore]createCategoryWithTitle:_titleTextField.text withImage:[UIImage imageNamed:@"logo.jpeg"]];
+            
+            CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
+            CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
+            NSString *key = (__bridge NSString *)newUniqueIDString;
+            
+            [[ImageStore imageStore]setImage:self.categoryImage forKey:key];
+            
+            CFRelease(newUniqueIDString);
+            CFRelease(newUniqueID);
+            
+            Category *category = [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
+            
+            [category setImageKey:key];
+            
+            [[ImageStore imageStore]setImage:[UIImage imageNamed:@"logo.jpeg"] forKey:[category imageKey]];
+            
         }
         NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
         if(initialcount == newCount){
@@ -217,6 +236,8 @@ CGFloat animatedDistance;
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
+    
+    [self.categoryToBeCreated setTitle:textField.text];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -227,12 +248,35 @@ CGFloat animatedDistance;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     self.categoryImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [self dismissModalViewControllerAnimated:YES];
-    self.imageView.image = self.categoryImage;
+    
+    // Get picked image from info dictionary
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    
+    // Create a CFUUID object - it knows how to create unique identifier strings
+    CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
+    
+    // Create a string from unique identifier
+    CFStringRef newUniqueIDString =
+    CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
+    
+    // Use that unique ID to set our item's imageKey
+    NSString *key = (__bridge NSString *)newUniqueIDString;
+    
+    [self.categoryToBeCreated setImageKey:key];
+    
+    [[ImageStore imageStore]setImage:image forKey:[self.categoryToBeCreated imageKey]];
+    
+    CFRelease(newUniqueIDString);
+    CFRelease(newUniqueID);
+    
+    [self.imageView setImage:image];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
