@@ -88,12 +88,12 @@
     }
     
     Item *currentItem = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
-    Item *itemToAdd = [[Item alloc]initWithTitle:currentItem.itemTitle withImage:currentItem.itemImage withDescription:currentItem.itemDescription];
+    Item *itemToAdd = [[Item alloc]initWithTitle:currentItem.itemTitle withImageKey:currentItem.imageKey withDescription:currentItem.itemDescription];
     
     NSLog(@"Index Path Row = %i",indexPath.row);
     
     [[cell itemTitle]setText:itemToAdd.itemTitle];
-    [[cell itemImage]setImage:itemToAdd.itemImage];
+    [[cell itemImage]setImage:[[ImageStore imageStore]imageForKey:itemToAdd.imageKey]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }

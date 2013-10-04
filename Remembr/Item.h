@@ -11,9 +11,11 @@
 @interface Item : NSObject <NSCoding>
 
 @property (strong, nonatomic) NSString *itemTitle;
-@property (strong, nonatomic) UIImage *itemImage;
+@property (strong, nonatomic) NSString *imageKey;
 @property (strong, nonatomic) NSString *itemDescription;
 
-- (id)initWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description;
+- (id)initWithTitle:(NSString *)title withImageKey:(NSString *)key withDescription:(NSString *)description;
+
+- (id)initWithTitle:(NSString *)title withDescription:(NSString *)description;
 
 @end

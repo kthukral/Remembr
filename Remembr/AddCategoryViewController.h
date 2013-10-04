@@ -11,7 +11,7 @@
 #import "CategoryStore.h"
 #import "CategoryViewController.h"
 
-@interface AddCategoryViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface AddCategoryViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
 @property (strong, nonatomic) IBOutlet UITextField *titleTextField;
 @property (strong, nonatomic) Category *categoryToBeCreated;
 - (IBAction)addImageButton:(id)sender;

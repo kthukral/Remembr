@@ -60,7 +60,7 @@
     // Get one and only document directory from that list
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     
-    return [documentDirectory stringByAppendingPathComponent:@"categories.archive"];
+    return [documentDirectory stringByAppendingPathComponent:@"category.archive"];
     
 }
 
@@ -96,7 +96,6 @@
         Category *newCategory = [[Category alloc]init];
         
         [newCategory setTitle:title];
-        [newCategory setImageKey:key];
         
         //[allCatagories addObject:newCategory];
         [allCatagories insertObject:newCategory atIndex:0];

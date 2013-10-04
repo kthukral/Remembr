@@ -112,11 +112,7 @@
     [cell setController:self];
     [[cell categoryTitle]setText:categoryRequested.title];
     
-    NSString *key = categoryRequested.imageKey;
-    
-    UIImage *image = [[ImageStore imageStore]imageForKey:key];
-    
-    cell.categoryImageView.image = image;
+    cell.categoryImageView.image = [UIImage imageNamed:@"logo.jpg"];
     
     
     

@@ -37,7 +37,7 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.editImageView setImage:self.itemToEdit.itemImage];
+//    [self.editImageView setImage:self.itemToEdit.itemImage];
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
@@ -68,7 +68,7 @@ CGFloat animatedDistance;
         [self.editTitleTextField resignFirstResponder];
     }
     self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
+//    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     

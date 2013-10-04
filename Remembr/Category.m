@@ -7,7 +7,6 @@
 //
 
 #import "Category.h"
-#import "ImageStore.h"
 
 @implementation Category
 
@@ -24,8 +23,6 @@
 encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.title forKey:@"title"];
     
-    [aCoder encodeObject:self.imageKey forKey:@"imageKey"];
-    
     [aCoder encodeObject:self.itemArray forKey:@"itemArray"];
     
 }
@@ -36,8 +33,6 @@ encodeWithCoder:(NSCoder *)aCoder{
         [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
         
         [self setItemArray:[aDecoder decodeObjectForKey:@"itemArray"]];
-        
-        [self setImageKey:[aDecoder decodeObjectForKey:@"imageKey"]];
     }
     
     return self;

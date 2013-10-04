@@ -42,6 +42,9 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.itemBeingCreated = [[Item alloc]init];
+    
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"New Item";
@@ -53,6 +56,49 @@ CGFloat animatedDistance;
     
     [[self navigationItem]setRightBarButtonItem:self.save];
     [self.description setScrollEnabled:YES];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+        case 1:
+            [self choosePhotoFromGallery];
+            
+        default:
+            break;
+    }
+}
+
+- (void)takeNewPhotoFromCamera{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)choosePhotoFromGallery{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -91,13 +137,15 @@ CGFloat animatedDistance;
 - (IBAction)addNewItem:(id)sender{
     NSInteger initialCount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
     if(![_titleTextField.text isEqualToString:@""] && ![_description.text isEqualToString:@""]){
-        [[ItemStore itemStore]createItemWithTitle:_titleTextField.text withImage:[UIImage imageNamed:@"logo.jpg"] withDescription:_description.text withCategory:self.category];
+
+        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text withCategory:self.category];
+        
         NSInteger newcount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
         if(initialCount == newcount){
         
         }else{
-            //self.itemList = [[ItemListViewController alloc]init];
-            //self.itemList.categorySelected = self.category;
+            self.itemList = [[ItemListViewController alloc]init];
+            self.itemList.categorySelected = self.category;
             [self.navigationController popViewControllerAnimated:YES]; 
         }
     }else{
@@ -221,5 +269,51 @@ CGFloat animatedDistance;
     
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    // Create a CFUUID object - it knows how to create unique identifier strings
+    CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
+    
+    // Create a string from unique identifier
+    CFStringRef newUniqueIDString =
+    CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
+    
+    // Use that unique ID to set our item's imageKey
+    NSString *key = (__bridge NSString *)newUniqueIDString;
+    
+    [self.itemBeingCreated setImageKey:key];
+    
+    [[ImageStore imageStore]setImage:image forKey:[self.itemBeingCreated imageKey]];
+    
+    CFRelease(newUniqueIDString);
+    CFRelease(newUniqueID);
+    
+    [self.itemImageView setImage:image];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 
+}
+
+
+- (IBAction)selectImage:(id)sender {
+    
+    if([self.titleTextField isFirstResponder]){
+        [self.titleTextField resignFirstResponder];
+    }else if([self.description isFirstResponder]){
+        [self.description resignFirstResponder];
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+- (IBAction)backgroundTapped:(id)sender {
+    
+    [[self view]endEditing:YES];
+    
+
+}
 @end

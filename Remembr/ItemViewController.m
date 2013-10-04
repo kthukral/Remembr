@@ -33,7 +33,7 @@
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
 
     [self.itemTitleView setText:item.itemTitle];
-    [self.itemImageView setImage:item.itemImage];
+//    [self.itemImageView setImage:item.itemImage];
     [self.itemDescriptionView setText:item.itemDescription];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
@@ -50,7 +50,7 @@
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
     
     [self.itemTitleView setText:item.itemTitle];
-    [self.itemImageView setImage:item.itemImage];
+//    [self.itemImageView setImage:item.itemImage];
     [self.itemDescriptionView setText:item.itemDescription];
 }
 

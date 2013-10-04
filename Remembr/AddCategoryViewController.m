@@ -7,7 +7,6 @@
 //
 
 #import "AddCategoryViewController.h"
-#import "ImageStore.h"
 
 @interface AddCategoryViewController ()
 
@@ -96,30 +95,11 @@ CGFloat animatedDistance;
      NSInteger initialcount = [[[CategoryStore categoryStore]allCatagories] count];
     
     if(![_titleTextField.text isEqualToString:@""]){
-        if(self.imageView.image){
+        
+        
+        [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
             
-            [self.categoryToBeCreated setTitle:self.titleTextField.text];
-            [[CategoryStore categoryStore]addNewCategory:self.categoryToBeCreated];
-            
-        }else{
-            
-            CFUUIDRef newUniqueID = CFUUIDCreate(kCFAllocatorDefault);
-            CFStringRef newUniqueIDString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueID);
-            NSString *key = (__bridge NSString *)newUniqueIDString;
-            
-            [[ImageStore imageStore]setImage:self.categoryImage forKey:key];
-            
-            CFRelease(newUniqueIDString);
-            CFRelease(newUniqueID);
-            
-            Category *category = [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
-            
-            [category setImageKey:key];
-            
-            [[ImageStore imageStore]setImage:[UIImage imageNamed:@"logo.jpeg"] forKey:[category imageKey]];
-            
-        }
-        NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
+               NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
         if(initialcount == newCount){
             
         }else{
@@ -134,56 +114,7 @@ CGFloat animatedDistance;
 
 - (IBAction)addImageButton:(id)sender {
     
-    UIActionSheet *photoActionSheet = [[UIActionSheet alloc]initWithTitle:@"Add Category Image" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take a new photo", @"Choose from existing", nil];
-    [photoActionSheet showFromToolbar:self.navigationController.toolbar];
-    
 }
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    switch (buttonIndex) {
-        case 0:
-            [self takeNewPhotoFromCamera];
-            break;
-            case 1:
-            [self choosePhotoFromGallery];
-            
-        default:
-            break;
-    }
-}
-
-- (void) takeNewPhotoFromCamera{
-    
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){
-        UIImagePickerController *cameraController = [[UIImagePickerController alloc]init];
-        cameraController.sourceType = UIImagePickerControllerSourceTypeCamera;
-        cameraController.allowsEditing = NO;
-        cameraController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType: UIImagePickerControllerSourceTypeCamera];
-        cameraController.delegate = self;
-//        [self presentModalViewController:cameraController animated:YES];
-        [self presentViewController:cameraController animated:YES completion:nil];
-    }else{
-        UIAlertView *noCameraAlert = [[UIAlertView alloc]initWithTitle:@"No Camera Available" message:@"A camera was not detected on the device" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [noCameraAlert show];
-    }
-}
-
-- (void) choosePhotoFromGallery{
-    
-    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
-        UIImagePickerController *galleryController = [[UIImagePickerController alloc]init];
-        galleryController.sourceType =UIImagePickerControllerSourceTypePhotoLibrary;
-        galleryController.allowsEditing = YES;
-        galleryController.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        galleryController.delegate = self;
-        [self presentViewController:galleryController animated:YES completion:nil];
-    }else{
-        UIAlertView *noGalleryAlert = [[UIAlertView alloc]initWithTitle:@"No Access to Gallery" message:@"Remembr does not have access to your photos. Pleas enable access in Settings -> Privacy -> Photos" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles:nil];
-        [noGalleryAlert show];
-    }
-    
-}
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     
     [self.save setEnabled:YES];
@@ -244,39 +175,6 @@ CGFloat animatedDistance;
     [textField resignFirstResponder];
     return YES;
     
-}
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    self.categoryImage = [info valueForKey:UIImagePickerControllerOriginalImage];
-    
-    // Get picked image from info dictionary
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
-    // Create a CFUUID object - it knows how to create unique identifier strings
-    CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
-    
-    // Create a string from unique identifier
-    CFStringRef newUniqueIDString =
-    CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
-    
-    // Use that unique ID to set our item's imageKey
-    NSString *key = (__bridge NSString *)newUniqueIDString;
-    
-    [self.categoryToBeCreated setImageKey:key];
-    
-    [[ImageStore imageStore]setImage:image forKey:[self.categoryToBeCreated imageKey]];
-    
-    CFRelease(newUniqueIDString);
-    CFRelease(newUniqueID);
-    
-    [self.imageView setImage:image];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

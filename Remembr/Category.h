@@ -12,7 +12,6 @@
 
 @property (strong,nonatomic) NSString *title;
 @property (strong, nonatomic) NSMutableArray *itemArray;
-@property (strong, nonatomic) NSString *imageKey;
 
 - (id)initWithTitle:(NSString *)title;
 
