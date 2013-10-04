@@ -53,7 +53,9 @@
 }
 
 - (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent{
-    NSString *key = [parent.itemArray objectAtIndex:index];
+    
+    Item *item = [parent.itemArray objectAtIndex:index];
+    NSString *key = item.imageKey;
     
     [[ImageStore imageStore]deleteImageForKey:key];
     
