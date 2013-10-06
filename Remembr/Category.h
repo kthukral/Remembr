@@ -12,7 +12,10 @@
 
 @property (strong,nonatomic) NSString *title;
 @property (strong, nonatomic) NSMutableArray *itemArray;
+@property (strong, nonatomic) UIColor *categoryColor;
+@property (strong, nonatomic) NSString *imageName;
 
 - (id)initWithTitle:(NSString *)title;
+- (id)initWithTitle:(NSString *)title withColor:(UIColor *)color withImageName:(NSString *)iName;
 
 @end

@@ -11,18 +11,11 @@
 @interface AddCategoryViewController ()
 
 @property (strong, nonatomic) UIBarButtonItem *save;
+@property (strong, nonatomic) UICollectionViewFlowLayout *layout;
 
 @end
 
 @implementation AddCategoryViewController
-
-static const CGFloat KEYBOARD_ANIMATION_DURATION = 0.3;
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
-static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-static const CGFloat PORTRAIT_KEYBOARD_HEIGHT = 216;
-static const CGFloat LANDSCAPE_KEYBOARD_HEIGHT = 162;
-
-CGFloat animatedDistance;
 
 @synthesize titleTextField = _titleTextField;
 
@@ -39,7 +32,40 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.categoryToBeCreated = [[Category alloc]init];
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector (textFieldTextChanged:)
+                               name:UITextFieldTextDidChangeNotification
+                             object:self.titleTextField];
+    
+    UIColor *backgroundLabels = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
+    self.view.backgroundColor = backgroundLabels;
+    
+    [self.titleTextField setHidden:YES];
+    
+    self.tempCategory = [[Category alloc]init];
+    
+    self.iconCollectionView.delegate = self;
+    self.iconCollectionView.dataSource = self;
+    
+    self.backgroundCollectionView.delegate = self;
+    self.backgroundCollectionView.dataSource = self;
+    
+    self.iconCollectionView.backgroundColor = [UIColor whiteColor];
+    [self.iconCollectionView setShowsHorizontalScrollIndicator:NO];
+    
+    self.backgroundCollectionView.backgroundColor = [UIColor whiteColor];
+    [self.backgroundCollectionView setShowsHorizontalScrollIndicator:NO];
+    
+    [self.iconCollectionView registerClass:[collectionViewCellCustom class] forCellWithReuseIdentifier:@"cell"];
+    [self.backgroundCollectionView registerClass:[collectionViewCellCustom class] forCellWithReuseIdentifier:@"cell"];
+
+    
+    self.iconArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnIconPack]];
+    self.backgroundColorArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnColors]];
+    
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"New Category";
@@ -51,10 +77,19 @@ CGFloat animatedDistance;
     
     [[self navigationItem]setRightBarButtonItem:self.save];
     
+    [self.titleTextField becomeFirstResponder];
+    
+    
+}
+
+- (void)textFieldTextChanged:(id)sender{
+    self.navigationItem.title = self.titleTextField.text;
+    [self.tempCategory setTitle:self.titleTextField.text];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    
+    [self viewDidLoad];
     [self.save setEnabled:NO];
 }
 
@@ -67,10 +102,6 @@ CGFloat animatedDistance;
 
 
 -(void)viewDidDisappear:(BOOL)animated{
-    if([self.titleTextField isFirstResponder]){
-        [self.titleTextField resignFirstResponder];
-    }
-    self.imageView.image = nil;
     [_titleTextField setText:@""];
 }
 
@@ -82,7 +113,7 @@ CGFloat animatedDistance;
 
 - (IBAction)saveCategory:(id)sender{
     
-    [_titleTextField resignFirstResponder];
+//    [_titleTextField resignFirstResponder];
     [self performSelector:@selector(createNewCategory)  withObject:nil afterDelay:0.5];
     
     //checking if valid string
@@ -95,15 +126,24 @@ CGFloat animatedDistance;
      NSInteger initialcount = [[[CategoryStore categoryStore]allCatagories] count];
     
     if(![_titleTextField.text isEqualToString:@""]){
+
         
+        if(self.tempCategory.imageName && self.tempCategory.categoryColor){
+    
         
-        [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
+//        [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
+        
+        [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName];
             
                NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
         if(initialcount == newCount){
             
         }else{
             [self.navigationController popToRootViewControllerAnimated:YES];
+        }
+        }else{
+            UIAlertView *invalidCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Category" message:@"The Category Must Have an Icon and Background" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [invalidCategoryAlert show];
         }
         
     }else{
@@ -112,68 +152,51 @@ CGFloat animatedDistance;
     }
 }
 
-- (IBAction)addImageButton:(id)sender {
-    
-}
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    
     [self.save setEnabled:YES];
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
-    
-    CGFloat midline = textFieldRect.origin.y + 0.5* textFieldRect.size.height;
-    CGFloat numerator = midline - viewRect.origin.y
-    - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
-    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
-    
-    CGFloat heightFraction = numerator/denominator;
-    
-    if(heightFraction<0.0){
-        heightFraction = 0.0;
-    }
-    else if(heightFraction>1.0){
-        heightFraction = 1.0;
-    }
-    
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if(orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown){
-        animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
-    }
-    else {
-        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
-    }
-    
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
-    
-    [self.categoryToBeCreated setTitle:textField.text];
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if(collectionView == self.iconCollectionView){
+        return self.iconArray.count;
+    }else{
+        return self.backgroundColorArray.count;
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(collectionView == self.iconCollectionView){
+        collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        return Customcell;
+    }else{
+        collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        Customcell.backgroundColor = [self.backgroundColorArray objectAtIndex:indexPath.row];
+                return Customcell;
+        
+    }
+    
+    
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(collectionView == self.iconCollectionView){
+        
+        NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
+        NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
+        self.tempCategory.imageName = selectedImageName;
+        
+    }else if(collectionView == self.backgroundCollectionView){
+        
+        UIColor *colorSelected = [self.backgroundColorArray objectAtIndex:indexPath.row];
+        self.tempCategory.categoryColor = colorSelected;
+        
+    }
     
 }
 

@@ -111,8 +111,8 @@
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
     [cell setController:self];
     [[cell categoryTitle]setText:categoryRequested.title];
-    
-    cell.categoryImageView.image = [UIImage imageNamed:@"logo.jpg"];
+    cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    cell.backgroundColor = categoryRequested.categoryColor;
     
     
     

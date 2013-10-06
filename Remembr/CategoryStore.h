@@ -21,7 +21,7 @@
 - (NSArray *)allCatagories;
 - (Category *)createCategoryWithTitle:(NSString *)title;
 
-- (Category *)createCategoryWithTitle:(NSString *)title andKey:(NSString *)key;
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName;
 
 - (NSString *)itemArchievePath;
 - (BOOL)saveChanges;

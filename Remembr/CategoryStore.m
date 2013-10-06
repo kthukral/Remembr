@@ -75,7 +75,7 @@
     allCatagories = [[NSMutableArray alloc]initWithArray:newArray];
 }
 
-- (Category *)createCategoryWithTitle:(NSString *)title andKey:(NSString *)key{
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName{
     
     
     BOOL doesCategoryExist = NO;
@@ -93,12 +93,9 @@
         
         return nil;
     }else{
-        Category *newCategory = [[Category alloc]init];
-        
-        [newCategory setTitle:title];
-        
-        //[allCatagories addObject:newCategory];
+        Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName];
         [allCatagories insertObject:newCategory atIndex:0];
+        [[CategoryStore categoryStore] saveChanges];
         return newCategory;
     }
 
