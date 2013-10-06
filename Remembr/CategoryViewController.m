@@ -110,6 +110,8 @@
     Category *categoryRequested = [catagoriesPulled objectAtIndex:[indexPath row]];
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
     [cell setController:self];
+    cell.categoryTitle.numberOfLines = 1;
+    cell.categoryTitle.adjustsFontSizeToFitWidth = YES;
     [[cell categoryTitle]setText:categoryRequested.title];
     cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
     cell.backgroundColor = categoryRequested.categoryColor;

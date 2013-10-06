@@ -33,8 +33,12 @@
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
 
     [self.itemTitleView setText:item.itemTitle];
-//    [self.itemImageView setImage:item.itemImage];
+    self.itemImageView.image = [[ImageStore imageStore]imageForKey:item.imageKey];
     [self.itemDescriptionView setText:item.itemDescription];
+    
+    UIColor *backgroundLabels = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
+    self.view.backgroundColor = backgroundLabels;
+
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     

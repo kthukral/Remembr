@@ -93,6 +93,7 @@
     NSLog(@"Index Path Row = %i",indexPath.row);
     
     [[cell itemTitle]setText:itemToAdd.itemTitle];
+    cell.itemImage.contentMode = UIViewContentModeScaleAspectFill;
     [[cell itemImage]setImage:[[ImageStore imageStore]imageForKey:itemToAdd.imageKey]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;

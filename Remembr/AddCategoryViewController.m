@@ -172,6 +172,7 @@
     if(collectionView == self.iconCollectionView){
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        [Customcell setAlpha:1];
         return Customcell;
     }else{
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
@@ -186,18 +187,25 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     if(collectionView == self.iconCollectionView){
-        
         NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
         NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
         self.tempCategory.imageName = selectedImageName;
+        collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+        [cell setAlpha:0.5f];
         
     }else if(collectionView == self.backgroundCollectionView){
         
         UIColor *colorSelected = [self.backgroundColorArray objectAtIndex:indexPath.row];
         self.tempCategory.categoryColor = colorSelected;
-        
+        collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+        [cell setAlpha:0.5f];
     }
     
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setAlpha:1];
 }
 
 @end

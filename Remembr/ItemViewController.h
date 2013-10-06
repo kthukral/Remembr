@@ -13,6 +13,7 @@
 #import "EditItemViewController.h"
 #import "Category.h"
 #import "CategoryStore.h"
+#import "ImageStore.h"
 
 @interface ItemViewController : UIViewController
 

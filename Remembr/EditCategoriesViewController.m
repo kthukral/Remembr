@@ -88,8 +88,10 @@
         cell = [nib objectAtIndex:0];
     }
     Category *current = [self.editCategories objectAtIndex:indexPath.row];
-    
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     [[cell itemTitle]setText:current.title];
+    cell.backgroundColor = current.categoryColor;
+    cell.itemImage.image = [UIImage imageNamed:current.imageName];
     
     return cell;
 }
