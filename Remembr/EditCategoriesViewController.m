@@ -42,6 +42,7 @@
     [[self navigationItem] setLeftBarButtonItem:cancel];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.editCategoryTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.editCategoryTableView.delegate = self;
     self.editCategoryTableView.dataSource = self;
