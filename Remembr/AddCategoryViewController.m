@@ -133,7 +133,7 @@
         
 //        [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
         
-        [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName];
+        [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName withIndex:self.tempCategory.imageIndex];
             
                NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
         if(initialcount == newCount){
@@ -190,6 +190,7 @@
         NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
         NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
         self.tempCategory.imageName = selectedImageName;
+        self.tempCategory.imageIndex = indexPath.row;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
         [cell setAlpha:0.5f];
         

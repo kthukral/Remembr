@@ -13,6 +13,7 @@
 #import "CustomCollectionViewCell.h"
 #import "ItemListViewController.h"
 #import "EditCategoriesViewController.h"
+#import "collectionStore.h"
 
 @interface CategoryViewController : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate>
 

@@ -101,6 +101,32 @@
 
 }
 
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName withIndex:(int)index{
+    
+    
+    BOOL doesCategoryExist = NO;
+    for(int i=0;i<[allCatagories count];i++){
+        Category *checkCategory = [allCatagories objectAtIndex:i];
+        NSString *checkCategoryTitle = checkCategory.title;
+        if([title isEqualToString:checkCategoryTitle]){
+            doesCategoryExist = YES;
+        }
+        
+    }
+    if(doesCategoryExist){
+        UIAlertView *existingCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Category Already Exists" message:@"This Category Already Exists. Please use a different title." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [existingCategoryAlert show];
+        
+        return nil;
+    }else{
+        Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName withIndex:index];
+        [allCatagories insertObject:newCategory atIndex:0];
+        [[CategoryStore categoryStore] saveChanges];
+        return newCategory;
+    }
+    
+}
+
 - (void)addNewCategory:(Category *)category{
     [allCatagories insertObject:category atIndex:0];
 }

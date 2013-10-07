@@ -54,4 +54,16 @@ encodeWithCoder:(NSCoder *)aCoder{
     }
     return self;
 }
+
+- (id)initWithTitle:(NSString *)title withColor:(UIColor *)color withImageName:(NSString *)iName withIndex:(int)index{
+    self = [super init];
+    if(self){
+        [self setTitle:title];
+        self.itemArray = [[NSMutableArray alloc]init];
+        [self setCategoryColor:color];
+        [self setImageName:iName];
+        [self setImageIndex:index];
+    }
+    return self;
+}
 @end

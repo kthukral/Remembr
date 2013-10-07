@@ -30,6 +30,8 @@
 
 - (void)addNewCategory:(Category *)category;
 
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName withIndex:(int)index;
+
 
 
 @end

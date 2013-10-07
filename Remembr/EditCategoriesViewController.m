@@ -62,13 +62,13 @@
 - (void)saveEditChanges:(id)sender{
     
     [[CategoryStore categoryStore]updateCategoryArray:self.editCategories];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
 - (void)cancel:(id)sender{
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 

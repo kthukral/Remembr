@@ -74,7 +74,6 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [self.collectionView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,6 +118,7 @@
     cell.categoryTitle.adjustsFontSizeToFitWidth = YES;
     [[cell categoryTitle]setText:categoryRequested.title];
     cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    NSLog(@"%@,%@",categoryRequested.title, categoryRequested.imageName);
     cell.backgroundColor = categoryRequested.categoryColor;
     
     return cell;
