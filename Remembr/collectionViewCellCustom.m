@@ -21,7 +21,6 @@
 
 - (void)prepareForReuse{
     [super prepareForReuse];
-//    self.backgroundImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:nil]];
 }
 
 /*

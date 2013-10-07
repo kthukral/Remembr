@@ -24,6 +24,7 @@
 - (void)prepareForReuse{
     [super prepareForReuse];
     self.categoryTitle.text = @"";
+    self.backgroundColor = [UIColor blackColor];
     self.categoryImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:nil]];
 }
 

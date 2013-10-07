@@ -73,6 +73,10 @@
     //}completion:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [self.collectionView reloadData];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -84,7 +88,7 @@
     self.editView = [[EditCategoriesViewController alloc]init];
     
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:self.editView];
-    [self presentModalViewController:nav animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -110,13 +114,12 @@
     Category *categoryRequested = [catagoriesPulled objectAtIndex:[indexPath row]];
     CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
     [cell setController:self];
+    cell.categoryImageView.image = nil;
     cell.categoryTitle.numberOfLines = 1;
     cell.categoryTitle.adjustsFontSizeToFitWidth = YES;
     [[cell categoryTitle]setText:categoryRequested.title];
     cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
     cell.backgroundColor = categoryRequested.categoryColor;
-    
-    
     
     return cell;
 }
