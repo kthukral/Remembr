@@ -26,4 +26,7 @@
     // Configure the view for the selected state
 }
 
+- (void)setEditing:(BOOL)editing{
+    self.itemImage.alpha = 0.0f;
+}
 @end
