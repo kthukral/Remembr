@@ -10,16 +10,18 @@
 #import "ItemViewController.h"
 #import "Item.h"
 #import "Category.h"
+#import "ImageStore.h"
 
-@interface EditItemViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
+@interface EditItemViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *editImageView;
 @property (weak, nonatomic) IBOutlet UITextField *editTitleTextField;
 @property (weak, nonatomic) IBOutlet UITextView *editTextView;
-
+@property (strong, nonatomic) UIImage *changedImage;
 @property (strong, nonatomic) Item *itemToEdit;
 @property (strong, nonatomic) Category *parent;
 
 @property (assign, nonatomic) NSInteger index;
+- (IBAction)changeImage:(id)sender;
 
 @end

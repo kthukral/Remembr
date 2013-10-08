@@ -69,7 +69,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
-        [self.collectionView reloadData];
+    [self viewDidLoad];
     //}completion:nil];
 }
 
@@ -111,13 +111,19 @@
     
     NSArray *catagoriesPulled = [[CategoryStore categoryStore]allCatagories];
     Category *categoryRequested = [catagoriesPulled objectAtIndex:[indexPath row]];
-    CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
-    [cell setController:self];
-    cell.categoryImageView.image = nil;
+    CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
+//    [cell setController:self];
+    //cell.categoryImageView.image = nil;
     cell.categoryTitle.numberOfLines = 1;
     cell.categoryTitle.adjustsFontSizeToFitWidth = YES;
     [[cell categoryTitle]setText:categoryRequested.title];
-    cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    //cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    UIView *view = [[UIView alloc]initWithFrame:cell.bounds];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:view.bounds];
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    [view addSubview:imageView];
+    [cell setBackgroundView:view];
     NSLog(@"%@,%@",categoryRequested.title, categoryRequested.imageName);
     cell.backgroundColor = categoryRequested.categoryColor;
     

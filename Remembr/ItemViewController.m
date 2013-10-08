@@ -53,11 +53,14 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+}
+
+- (void)viewWillAppear:(BOOL)animated{
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
     
     [self.itemTitleView setText:item.itemTitle];
-//    [self.itemImageView setImage:item.itemImage];
     [self.itemDescriptionView setText:item.itemDescription];
+    [self.itemImageView setImage:[[ImageStore imageStore]imageForKey:item.imageKey]];
 }
 
 - (void)didReceiveMemoryWarning

@@ -41,6 +41,7 @@ CGFloat animatedDistance;
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
+    self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
     
     UINavigationItem *nav;
     nav.title = @"Remember";
@@ -67,7 +68,12 @@ CGFloat animatedDistance;
     }else if([self.editTitleTextField isFirstResponder]){
         [self.editTitleTextField resignFirstResponder];
     }
-    self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
+    if(self.changedImage){
+    [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+    [[ImageStore imageStore]setImage:self.changedImage forKey:self.itemToEdit.imageKey];
+    }
+    self.itemToEdit.itemTitle = self.editTitleTextField.text;
+    self.itemToEdit.itemDescription = self.editTextView.text;
 //    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
@@ -85,7 +91,7 @@ CGFloat animatedDistance;
 
 - (IBAction)cancelPressed:(id)sender{
     //[self.navigationController popViewControllerAnimated:YES];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -200,6 +206,72 @@ CGFloat animatedDistance;
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
+    
+}
+
+
+- (IBAction)changeImage:(id)sender {
+    if([self.editTitleTextField isFirstResponder]){
+        [self.editTitleTextField resignFirstResponder];
+    }else if([self.editTextView isFirstResponder]){
+        [self.editTextView resignFirstResponder];
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", nil];
+    [actionSheet showInView:self.view];
+
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+        case 1:
+            [self choosePhotoFromGallery];
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)takeNewPhotoFromCamera{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)choosePhotoFromGallery{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    self.changedImage = [[UIImage alloc]init];
+    self.changedImage = image;
+    [self.editImageView setImage:self.changedImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
