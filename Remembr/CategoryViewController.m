@@ -69,7 +69,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
-    [self viewDidLoad];
+    [self.collectionView reloadData];
     //}completion:nil];
 }
 
