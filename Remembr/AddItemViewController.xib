@@ -19,9 +19,9 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4">
-                    <rect key="frame" x="0.0" y="214" width="320" height="30"/>
+                    <rect key="frame" x="0.0" y="198" width="320" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="106"/>
@@ -38,21 +38,21 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="10">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="213"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="320" id="15"/>
-                        <constraint firstAttribute="height" constant="213" id="zi2-rc-cge"/>
+                        <constraint firstAttribute="height" constant="200" id="zi2-rc-cge"/>
                     </constraints>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32">
-                    <rect key="frame" x="10" y="244" width="301" height="158"/>
+                    <rect key="frame" x="10" y="243" width="301" height="158"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="158" id="116"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="105"/>
@@ -61,10 +61,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="4" firstAttribute="centerY" secondItem="10" secondAttribute="centerY" constant="122.5" id="18"/>
+                <constraint firstItem="4" firstAttribute="centerY" secondItem="10" secondAttribute="centerY" constant="120.5" id="18"/>
                 <constraint firstItem="4" firstAttribute="leading" secondItem="10" secondAttribute="trailing" constant="-320" id="22"/>
-                <constraint firstItem="4" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="1" id="6Ah-Fe-Iic"/>
-                <constraint firstItem="10" firstAttribute="bottom" secondItem="NKn-gl-L5Z" secondAttribute="bottom" id="AcS-mr-Ozu"/>
+                <constraint firstItem="4" firstAttribute="top" secondItem="10" secondAttribute="bottom" constant="-2" id="6Ah-Fe-Iic"/>
+                <constraint firstItem="10" firstAttribute="bottom" secondItem="NKn-gl-L5Z" secondAttribute="bottom" constant="-13" id="AcS-mr-Ozu"/>
                 <constraint firstItem="32" firstAttribute="top" secondItem="4" secondAttribute="bottom" id="BMI-Dc-qh2"/>
                 <constraint firstItem="10" firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="JsR-sg-TwB"/>
                 <constraint firstItem="32" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="10" id="Lla-lU-4aS"/>

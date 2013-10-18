@@ -10,8 +10,6 @@
 
 @interface EditItemViewController ()
 
-@property (strong, nonatomic)ItemViewController *itemView;
-
 @end
 
 @implementation EditItemViewController
@@ -37,7 +35,12 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    self.editTextView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    
+    self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:1.00f];
+    
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
@@ -46,6 +49,7 @@ CGFloat animatedDistance;
     self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
     } else {
         [self.editImageView setImage:nil];
+        self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
     }
     
     UINavigationItem *nav;
