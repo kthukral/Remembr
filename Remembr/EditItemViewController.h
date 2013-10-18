@@ -22,6 +22,9 @@
 @property (strong, nonatomic) Category *parent;
 
 @property (assign, nonatomic) NSInteger index;
+
+@property (assign, nonatomic) BOOL didAddImageToNoImageItem;
+
 - (IBAction)changeImage:(id)sender;
 
 @end

@@ -129,9 +129,6 @@
 
         
         if(self.tempCategory.imageName && self.tempCategory.categoryColor){
-    
-        
-//        [[CategoryStore categoryStore]createCategoryWithTitle:self.titleTextField.text];
         
         [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName withIndex:self.tempCategory.imageIndex];
             

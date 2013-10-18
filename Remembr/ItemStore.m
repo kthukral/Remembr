@@ -52,6 +52,13 @@
     return newItem;
 }
 
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description hasImage:(BOOL)hasImage withCategory:(Category *)category{
+    Item *newItem = [[Item alloc]initWithTitle:title withImageKey:imageKey withDescription:description hasImage:hasImage];
+    [category.itemArray insertObject:newItem atIndex:0];
+    NSLog(@"%@",[[category.itemArray objectAtIndex:0] itemTitle]);
+    return newItem;
+}
+
 - (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent{
     
     Item *item = [parent.itemArray objectAtIndex:index];

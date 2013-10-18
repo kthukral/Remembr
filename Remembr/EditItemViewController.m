@@ -37,11 +37,16 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-//    [self.editImageView setImage:self.itemToEdit.itemImage];
+
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
+    
+    if(self.itemToEdit.hasImage == YES){
     self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
+    } else {
+        [self.editImageView setImage:nil];
+    }
     
     UINavigationItem *nav;
     nav.title = @"Remember";
@@ -68,13 +73,19 @@ CGFloat animatedDistance;
     }else if([self.editTitleTextField isFirstResponder]){
         [self.editTitleTextField resignFirstResponder];
     }
-    if(self.changedImage){
+    
+    if(self.changedImage && self.itemToEdit.hasImage){
     [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
     [[ImageStore imageStore]setImage:self.changedImage forKey:self.itemToEdit.imageKey];
     }
+    
+    if(!self.itemToEdit.hasImage){
+        self.itemToEdit.hasImage = self.didAddImageToNoImageItem;
+    }
+    
     self.itemToEdit.itemTitle = self.editTitleTextField.text;
     self.itemToEdit.itemDescription = self.editTextView.text;
-//    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
+    
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     
@@ -267,11 +278,41 @@ CGFloat animatedDistance;
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
+    
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    if(!self.itemToEdit.hasImage){
+        
+        // Create a CFUUID object - it knows how to create unique identifier strings
+        CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
+        
+        // Create a string from unique identifier
+        CFStringRef newUniqueIDString =
+        CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
+        
+        // Use that unique ID to set our item's imageKey
+        NSString *key = (__bridge NSString *)newUniqueIDString;
+        
+        [self.itemToEdit setImageKey:key];
+        
+        [[ImageStore imageStore]setImage:image forKey:[self.itemToEdit imageKey]];
+        
+        CFRelease(newUniqueIDString);
+        CFRelease(newUniqueID);
+        
+        [self.editImageView setImage:image];
+        
+        self.didAddImageToNoImageItem = YES;
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
     self.changedImage = [[UIImage alloc]init];
     self.changedImage = image;
     [self.editImageView setImage:self.changedImage];
     [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
     
 }
 

@@ -21,6 +21,8 @@
 
 - (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category;
 
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description hasImage:(BOOL)hasImage withCategory:(Category *)category;
+
 - (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index;
 
 - (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent;

@@ -12,7 +12,6 @@
 
 @property (strong, nonatomic) UITableView *itemListView;
 @property (strong, nonatomic) AddItemViewController *addNewItemView;
-@property (strong, nonatomic) ItemViewController *itemView;
 @end
 
 @implementation ItemListViewController
@@ -63,11 +62,12 @@
     // Dispose of any resources that can be recreated.
 }
 
--(IBAction)addNewItem:(id)sender{
-    if(!self.addNewItemView){
-        self.addNewItemView = [[AddItemViewController alloc]initWithNibName:@"AddItemViewController" bundle:nil];
-    }
+-(void)addNewItem:(id)sender{
+    
+    self.addNewItemView = [[AddItemViewController alloc]initWithNibName:@"AddItemViewController" bundle:nil];
+    
     self.addNewItemView.category = self.categorySelected;
+    
     [self.navigationController pushViewController:self.addNewItemView animated:YES];
 }
 
@@ -100,11 +100,27 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-    self.itemView.itemToPopulate = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
-    self.itemView.parentCategory = self.categorySelected;
-    self.itemView.indexSelected = indexPath.row;
-    [self.navigationController pushViewController:self.itemView animated:YES];
+    
+    Item *itemSelected = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
+    
+    if(itemSelected.hasImage == YES){
+        ItemViewController *itemView;
+        itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
+        
+        itemView.parentCategory = self.categorySelected;
+        
+        itemView.indexSelected = indexPath.row;
+        
+        [self.navigationController pushViewController:itemView animated:YES];
+        
+    } else {
+        
+        NoImageItemViewController *noImageItemView;
+        noImageItemView = [[NoImageItemViewController alloc]initWithNibName:@"NoImageItemViewController" bundle:nil];
+        noImageItemView.parentCategory = self.categorySelected;
+        noImageItemView.indexSelected = indexPath.row;
+        [self.navigationController pushViewController:noImageItemView animated:YES];
+    }
     
 }
 

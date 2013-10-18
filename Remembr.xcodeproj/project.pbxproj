@@ -12,7 +12,6 @@
 		9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0C715617CDA08200098B17 /* AddItemViewController.m */; };
 		9E0C715917CDA08200098B17 /* AddItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E0C715717CDA08200098B17 /* AddItemViewController.xib */; };
 		9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309017D12E6700D96ABC /* Icon@2x.png */; };
-		9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E12309217D12E8000D96ABC /* Icon@2x.png */; };
 		9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7B617CFB3C90025AD8A /* CustomTableViewCell.m */; };
 		9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */; };
 		9E15B7BD17CFBCBE0025AD8A /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */; };
@@ -37,6 +36,8 @@
 		9EFB4C7A17C9A5A8005D02A1 /* CategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFB4C7917C9A5A8005D02A1 /* CategoryViewController.m */; };
 		A424901318031D2000B6EC76 /* png in Resources */ = {isa = PBXBuildFile; fileRef = A424901218031D2000B6EC76 /* png */; };
 		A4566CFC17FF36DD00E44309 /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A4566CFB17FF36DD00E44309 /* ImageStore.m */; };
+		A46214D618101F46005699CF /* NoImageItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A46214D418101F46005699CF /* NoImageItemViewController.m */; };
+		A46214D718101F46005699CF /* NoImageItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46214D518101F46005699CF /* NoImageItemViewController.xib */; };
 		A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */; };
 		A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */; };
 		A4B128B817EFBEE800251312 /* EditCategoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4B128B717EFBEE800251312 /* EditCategoriesViewController.m */; };
@@ -94,6 +95,9 @@
 		A424901218031D2000B6EC76 /* png */ = {isa = PBXFileReference; lastKnownFileType = folder; path = png; sourceTree = "<group>"; };
 		A4566CFA17FF36DD00E44309 /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageStore.h; sourceTree = "<group>"; };
 		A4566CFB17FF36DD00E44309 /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageStore.m; sourceTree = "<group>"; };
+		A46214D318101F46005699CF /* NoImageItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoImageItemViewController.h; sourceTree = "<group>"; };
+		A46214D418101F46005699CF /* NoImageItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoImageItemViewController.m; sourceTree = "<group>"; };
+		A46214D518101F46005699CF /* NoImageItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoImageItemViewController.xib; sourceTree = "<group>"; };
 		A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExistingCategoryViewController.h; sourceTree = "<group>"; };
 		A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExistingCategoryViewController.m; sourceTree = "<group>"; };
 		A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditExistingCategoryViewController.xib; sourceTree = "<group>"; };
@@ -194,6 +198,8 @@
 				9E0C715617CDA08200098B17 /* AddItemViewController.m */,
 				9E15B7BA17CFBCBD0025AD8A /* ItemViewController.h */,
 				9E15B7BB17CFBCBD0025AD8A /* ItemViewController.m */,
+				A46214D318101F46005699CF /* NoImageItemViewController.h */,
+				A46214D418101F46005699CF /* NoImageItemViewController.m */,
 				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
 				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
 				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
@@ -227,6 +233,7 @@
 				A4F6FF6B1800C217006D906B /* collectionViewCellCustom.xib */,
 				A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */,
 				9E15B7BC17CFBCBD0025AD8A /* ItemViewController.xib */,
+				A46214D518101F46005699CF /* NoImageItemViewController.xib */,
 				9E15B7C217CFC1420025AD8A /* EditItemViewController.xib */,
 				9E15B7B817CFB3FE0025AD8A /* CustomTableViewCell.xib */,
 				9E0C715717CDA08200098B17 /* AddItemViewController.xib */,
@@ -318,10 +325,10 @@
 				9E15B7B917CFB3FE0025AD8A /* CustomTableViewCell.xib in Resources */,
 				A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */,
 				9E15B7BE17CFBCBE0025AD8A /* ItemViewController.xib in Resources */,
+				A46214D718101F46005699CF /* NoImageItemViewController.xib in Resources */,
 				A4F6FF6C1800C217006D906B /* collectionViewCellCustom.xib in Resources */,
 				9E15B7C317CFC1420025AD8A /* EditItemViewController.xib in Resources */,
 				9E12309117D12E6700D96ABC /* Icon@2x.png in Resources */,
-				9E12309317D12E8000D96ABC /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +351,7 @@
 				9EBD66EB17C945AC002F41F7 /* CustomCollectionViewCell.m in Sources */,
 				9EFB4C7A17C9A5A8005D02A1 /* CategoryViewController.m in Sources */,
 				9E0C714E17CD4A8300098B17 /* Item.m in Sources */,
+				A46214D618101F46005699CF /* NoImageItemViewController.m in Sources */,
 				9E0C715417CD4D5700098B17 /* ItemListViewController.m in Sources */,
 				9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */,
 				9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */,

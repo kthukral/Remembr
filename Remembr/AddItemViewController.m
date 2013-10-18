@@ -125,7 +125,7 @@ CGFloat animatedDistance;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)saveItem:(id)sender{
+- (void)saveItem:(id)sender{
     if([_titleTextField isFirstResponder]){
         [_titleTextField resignFirstResponder];
     }else if([_description isFirstResponder]){
@@ -134,11 +134,11 @@ CGFloat animatedDistance;
     [self performSelector:@selector(addNewItem:) withObject:nil afterDelay:0.5];
 }
 
-- (IBAction)addNewItem:(id)sender{
+- (void)addNewItem:(id)sender{
     NSInteger initialCount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
     if(![_titleTextField.text isEqualToString:@""] && ![_description.text isEqualToString:@""]){
 
-        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text withCategory:self.category];
+        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text hasImage:self.itemBeingCreated.hasImage withCategory:self.category];
         
         NSInteger newcount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
         if(initialCount == newcount){
@@ -146,7 +146,7 @@ CGFloat animatedDistance;
         }else{
             self.itemList = [[ItemListViewController alloc]init];
             self.itemList.categorySelected = self.category;
-            [self.navigationController popViewControllerAnimated:YES]; 
+            [self.navigationController popViewControllerAnimated:YES];¡
         }
     }else{
         UIAlertView *invalidItemAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Item" message:@"The Item Must Have a Title and Description" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -291,6 +291,8 @@ CGFloat animatedDistance;
     CFRelease(newUniqueID);
     
     [self.itemImageView setImage:image];
+    
+    self.itemBeingCreated.hasImage = YES;
     
     [self dismissViewControllerAnimated:YES completion:nil];
 

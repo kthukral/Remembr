@@ -14,7 +14,7 @@
 #import "CustomTableViewCell.h"
 #import "ItemViewController.h"
 #import "ImageStore.h"
-
+#import "NoImageItemViewController.h"
 @interface ItemListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) Category *categorySelected;

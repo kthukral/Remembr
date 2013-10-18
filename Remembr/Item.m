@@ -22,6 +22,20 @@
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title withImageKey:(NSString *)key withDescription:(NSString *)description hasImage:(BOOL)hasImage{
+    self = [super init];
+    
+    if(self){
+        [self setItemTitle:title];
+        [self setImageKey:key];
+        [self setItemDescription:description];
+        [self setHasImage:hasImage];
+    }
+    
+    return self;
+
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if(self){
@@ -30,6 +44,7 @@
         
         self.itemDescription = [aDecoder decodeObjectForKey:@"itemDescription"];
         self.itemTitle = [aDecoder decodeObjectForKey:@"itemTitle"];
+        self.hasImage = [aDecoder decodeBoolForKey:@"hasImage"];
     }
     return self;
 }
@@ -39,6 +54,7 @@
     [aCoder encodeObject:self.imageKey forKey:@"imageKey"];
     [aCoder encodeObject:self.itemDescription forKey:@"itemDescription"];
     [aCoder encodeObject:self.itemTitle forKey:@"itemTitle"];
+    [aCoder encodeBool:self.hasImage forKey:@"hasImage"];
 }
 
 - (id)initWithTitle:(NSString *)title withDescription:(NSString *)description{
