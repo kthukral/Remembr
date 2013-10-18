@@ -146,7 +146,7 @@ CGFloat animatedDistance;
         }else{
             self.itemList = [[ItemListViewController alloc]init];
             self.itemList.categorySelected = self.category;
-            [self.navigationController popViewControllerAnimated:YES];¡
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }else{
         UIAlertView *invalidItemAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Item" message:@"The Item Must Have a Title and Description" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
