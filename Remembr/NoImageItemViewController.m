@@ -38,7 +38,7 @@
     UIColor *backgroundLabels = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];;
     self.view.backgroundColor = backgroundLabels;
     self.descriptionTextView.backgroundColor = backgroundLabels;
-    self.titleLabel.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:1.00f];
+    self.titleLabel.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     

@@ -36,10 +36,13 @@ CGFloat animatedDistance;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.editImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.editImageView.clipsToBounds = YES;
+    
     self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     self.editTextView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     
-    self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:1.00f];
+    self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
@@ -106,6 +109,10 @@ CGFloat animatedDistance;
 
 - (IBAction)cancelPressed:(id)sender{
     //[self.navigationController popViewControllerAnimated:YES];
+    if(!self.itemToEdit.hasImage && self.itemToEdit.imageKey){
+        [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+        self.itemToEdit.imageKey = nil;
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

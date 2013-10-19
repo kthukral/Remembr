@@ -37,7 +37,7 @@
                         <action selector="selectImage:" destination="-1" eventType="touchUpInside" id="Y7e-4f-3wB"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="10">
+                <imageView userInteractionEnabled="NO" contentMode="redraw" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="200" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>

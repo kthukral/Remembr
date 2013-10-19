@@ -31,7 +31,10 @@
     // Do any additional setup after loading the view from its nib.
     
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
-
+    
+    self.itemImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.itemImageView.clipsToBounds = YES;
+    
     [self.itemTitleView setText:item.itemTitle];
     self.itemImageView.image = [[ImageStore imageStore]imageForKey:item.imageKey];
     [self.itemDescriptionView setText:item.itemDescription];
@@ -39,7 +42,7 @@
     UIColor *backgroundLabels = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];;
     self.view.backgroundColor = backgroundLabels;
     
-    self.itemTitleView.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:1.00f];
+    self.itemTitleView.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     
     self.itemDescriptionView.backgroundColor = backgroundLabels;
 
