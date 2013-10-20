@@ -36,16 +36,16 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
     
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+//    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
     
-    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
     
-    [[self navigationItem]setRightBarButtonItems:buttonArray];
+    [[self navigationItem]setRightBarButtonItem:saveButton];
 //    
 //    [[self navigationItem]setRightBarButtonItem:saveButton];
-    [[self navigationItem] setLeftBarButtonItem:cancel];
+    [[self navigationItem] setLeftBarButtonItem:edit];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -53,6 +53,7 @@
     
     self.editCategoryTableView.delegate = self;
     self.editCategoryTableView.dataSource = self;
+    self.editCategoryTableView.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.editCategoryTableView];
 }
 
@@ -76,12 +77,14 @@
 - (void)editMode:(id)sender{
     self.editCategoryTableView.editing = YES;
     UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+//
+//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+//    
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,done, nil];
+//    
+//    [[self navigationItem]setRightBarButtonItems:buttonArray animated:YES];
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
-    
-    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,done, nil];
-    
-    [[self navigationItem]setRightBarButtonItems:buttonArray animated:YES];
+    [self.navigationItem setLeftBarButtonItem:done];
 
 }
 
@@ -89,13 +92,17 @@
     
     self.editCategoryTableView.editing = NO;
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+    
+//    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
+    
+//    [[self navigationItem]setRightBarButtonItems:buttonArray];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
     
-    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
-    
-    [[self navigationItem]setRightBarButtonItems:buttonArray];
+    [self.navigationItem setLeftBarButtonItem:edit];
 
     
 }

@@ -32,8 +32,9 @@
     nav.title = @"Remembr";
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
-    
-    [[self navigationItem]setRightBarButtonItem:addButton];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
+    [[self navigationItem]setRightBarButtonItems:buttons];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
 
@@ -41,6 +42,7 @@
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
+    self.itemListView.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.itemListView];
     
 }
@@ -48,12 +50,12 @@
 - (void)viewWillAppear:(BOOL)animated{
     [self.itemListView reloadData];
     self.itemListView.rowHeight = 68;
-//    NSLog(@"%@",self.categorySelected.title);
-//    for(int i = 0; i<[self.categorySelected.itemArray count];i++){
-//        Item *item = [self.categorySelected.itemArray objectAtIndex:i];
-//        NSLog(@"Item = %@",item.itemTitle);
-//        ;    }
+}
 
+- (void)viewDidDisappear:(BOOL)animated{
+    if (self.itemListView.editing){
+        self.itemListView.editing = NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,7 +64,30 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)editMode:(id)sender{
+    self.itemListView.editing = YES;
+    UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    NSArray *buttons = [NSArray arrayWithObjects:addButton,done, nil];
+    [self.navigationItem setRightBarButtonItems:buttons];
+    
+}
+
+- (void)done:(id)sender{
+    self.itemListView.editing = NO;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
+    [[self navigationItem]setRightBarButtonItems:buttons];
+    
+    
+}
+
 -(void)addNewItem:(id)sender{
+    
+    if (self.itemListView.editing){
+        self.itemListView.editing = NO;
+    }
     
     self.addNewItemView = [[AddItemViewController alloc]initWithNibName:@"AddItemViewController" bundle:nil];
     
@@ -136,9 +161,45 @@
     
     if(editingStyle == UITableViewCellEditingStyleDelete){
         [[ItemStore itemStore]deleteItemAtIndex:indexPath.row withCategory:self.categorySelected];
-        [self.itemListView reloadData];
+        [self.itemListView beginUpdates];
+        NSArray *indexArray = [NSArray arrayWithObjects:indexPath, nil];
+        [self.itemListView deleteRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationLeft];
+        [self.itemListView endUpdates];
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    
+    Item *item = [self.categorySelected.itemArray objectAtIndex:sourceIndexPath.row];
+    [self.categorySelected.itemArray removeObjectAtIndex:sourceIndexPath.row];
+    [self.categorySelected.itemArray insertObject:item atIndex:destinationIndexPath.row];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.itemListView.editing){
+        return UITableViewCellEditingStyleNone;
+    } else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (BOOL)tableView:(UITableView *)tableview canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.itemImage.alpha = 0.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.itemImage.alpha = 1.0f;
 }
 
 @end
