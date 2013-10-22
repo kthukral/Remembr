@@ -74,9 +74,19 @@ CGFloat animatedDistance;
             break;
         case 1:
             [self choosePhotoFromGallery];
-            
+        case 2:
+            [self deletePhoto];
         default:
             break;
+    }
+}
+
+- (void)deletePhoto{
+    if(self.itemBeingCreated.hasImage){
+        self.itemBeingCreated.hasImage = NO;
+        [[ImageStore imageStore]deleteImageForKey:self.itemBeingCreated.imageKey];
+        self.itemBeingCreated.imageKey = nil;
+        self.itemImageView.image = nil;
     }
 }
 
@@ -316,7 +326,7 @@ CGFloat animatedDistance;
         [self.description resignFirstResponder];
     }
     
-    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", @"Delete",nil];
     [actionSheet showInView:self.view];
     
 }
