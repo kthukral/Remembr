@@ -264,7 +264,7 @@ CGFloat animatedDistance;
         self.itemToEdit.hasImage = NO;
         [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
         self.itemToEdit.imageKey = nil;
-        self.editImageView.image = nil;`````
+        self.editImageView.image = nil;
     }
 }
 
