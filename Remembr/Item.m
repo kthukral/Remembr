@@ -10,37 +10,62 @@
 
 @implementation Item
 
-- (id)initWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description{
+- (id)initWithTitle:(NSString *)title withImageKey:(NSString *)key withDescription:(NSString *)description{
     self = [super init];
     
     if(self){
         [self setItemTitle:title];
-        [self setItemImage:image];
+        [self setImageKey:key];
         [self setItemDescription:description];
     }
     
     return self;
 }
 
+- (id)initWithTitle:(NSString *)title withImageKey:(NSString *)key withDescription:(NSString *)description hasImage:(BOOL)hasImage{
+    self = [super init];
+    
+    if(self){
+        [self setItemTitle:title];
+        [self setImageKey:key];
+        [self setItemDescription:description];
+        [self setHasImage:hasImage];
+    }
+    
+    return self;
+
+}
+
 - (id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if(self){
         
-        NSData *imageData = [aDecoder decodeObjectForKey:@"imageData"];
-        UIImage *decodedImage = [[UIImage alloc]initWithData:imageData];
-        self.itemImage = decodedImage;
+        self.imageKey = [aDecoder decodeObjectForKey:@"imageKey"];
         
         self.itemDescription = [aDecoder decodeObjectForKey:@"itemDescription"];
         self.itemTitle = [aDecoder decodeObjectForKey:@"itemTitle"];
+        self.hasImage = [aDecoder decodeBoolForKey:@"hasImage"];
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)aCoder{
-    NSData *imageData = UIImagePNGRepresentation(self.itemImage);
-    [aCoder encodeObject:imageData forKey:@"imageData"];
+    
+    [aCoder encodeObject:self.imageKey forKey:@"imageKey"];
     [aCoder encodeObject:self.itemDescription forKey:@"itemDescription"];
     [aCoder encodeObject:self.itemTitle forKey:@"itemTitle"];
+    [aCoder encodeBool:self.hasImage forKey:@"hasImage"];
+}
+
+- (id)initWithTitle:(NSString *)title withDescription:(NSString *)description{
+    self = [super init];
+    
+    if(self){
+        [self setItemTitle:title];
+        [self setItemDescription:description];
+    }
+    
+    return self;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  ImageStore.m
 //  Remembr
 //
-//  Created by Karan Thukral on 2013-10-02.
+//  Created by Karan Thukral on 2013-10-04.
 //  Copyright (c) 2013 Karan Thukral. All rights reserved.
 //
 
@@ -10,13 +10,12 @@
 
 @implementation ImageStore
 
-+ (id)allocWithZone:(struct _NSZone *)zone{
-    
++ (id)allocWithZone:(NSZone *)zone{
     return [self imageStore];
-    
 }
 
 + (ImageStore *)imageStore{
+    
     static ImageStore *imageStore = nil;
     
     if(!imageStore){
@@ -24,63 +23,78 @@
     }
     
     return imageStore;
-    
 }
 
 - (id)init{
+    
     self = [super init];
     
     if(self){
         dictionary = [[NSMutableDictionary alloc]init];
     }
+    
     return self;
 }
 
-- (void)setImage:(UIImage *)recievedImage forKey:(NSString *)recievedKey{
+- (void)setImage:(UIImage *)image forKey:(NSString *)key{
     
-    [dictionary setObject:recievedImage forKey:recievedKey];
+    [dictionary setObject:image forKey:key];
     
-    NSString *imagePath = [self imagePathForKey:recievedKey];
+    //Create full path for image
+    NSString *imagePath = [self imagePathForKey:key];
     
-    NSData *compressedImageData = UIImageJPEGRepresentation(recievedImage, 0.5);
+    // Turn image into JPEG data,
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
     
-    [compressedImageData writeToFile:imagePath atomically:YES];
+    // Write it to full path
+    [data writeToFile:imagePath atomically:YES];
+    
 }
 
-- (UIImage *)imageForKey:(NSString *)recievedKey{
+- (UIImage *)imageForKey:(NSString *)key{
     
-    UIImage *resultImage = [dictionary objectForKey:recievedKey];
+    // If possible, get it from the dictionary
+    UIImage *result = [dictionary objectForKey:key];
     
-    if(!resultImage){
-        NSString *path = [self imagePathForKey:recievedKey];
-        resultImage = [UIImage imageWithContentsOfFile:path];
-
-        if(resultImage){
-            [dictionary setObject:resultImage forKey:recievedKey];
-        }else{
-            NSLog(@"ERROR: Unable to find image");
-        }
+    if (!result) {
+        // Create UIImage object from file
+        result = [UIImage imageWithContentsOfFile:[self imagePathForKey:key]];
+        
+        // If we found an image on the file system, place it into the cache
+        if (result)
+            [dictionary setObject:result forKey:key];
+        else
+            NSLog(@"Error: unable to find %@", [self imagePathForKey:key]);
     }
-    return resultImage;
+    return result;
+
+    
 }
 
-- (void)deleteImageForKey:(NSString *)recievedKey{
-    if(!recievedKey){
+- (void)deleteImageForKey:(NSString *)key{
+    
+    if(!key)
         return;
-    }
-    [dictionary removeObjectForKey:recievedKey];
     
-    NSString *path = [self imagePathForKey:recievedKey];
+    [dictionary removeObjectForKey:key];
     
-    [[NSFileManager defaultManager]removeItemAtPath:path error:NULL];
+    NSString *path = [self imagePathForKey:key];
+    
+    [[NSFileManager defaultManager] removeItemAtPath:path
+                                               error:NULL];
+    
 }
 
-- (NSString *)imagePathForKey:(NSString *)recievedKey{
+- (NSString *)imagePathForKey:(NSString *)key
+{
+    NSArray *documentDirectories =
+    NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                        NSUserDomainMask,
+                                        YES);
     
-    NSArray *documentsDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    NSString *documentDirectory = [documentsDirectories objectAtIndex:0];
-    return [documentDirectory stringByAppendingPathComponent:recievedKey];
+    NSString *documentDirectory = [documentDirectories objectAtIndex:0];
+    
+    return [documentDirectory stringByAppendingPathComponent:key];
 }
-
 
 @end

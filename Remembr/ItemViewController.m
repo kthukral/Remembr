@@ -31,10 +31,23 @@
     // Do any additional setup after loading the view from its nib.
     
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
-
+    
+    self.itemImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.itemImageView.clipsToBounds = YES;
+    
     [self.itemTitleView setText:item.itemTitle];
-    [self.itemImageView setImage:item.itemImage];
+    self.itemImageView.image = [[ImageStore imageStore]imageForKey:item.imageKey];
     [self.itemDescriptionView setText:item.itemDescription];
+    self.itemDescriptionView.editable = NO;
+    self.itemDescriptionView.dataDetectorTypes = UIDataDetectorTypeAll;
+    
+    UIColor *backgroundLabels = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];;
+    self.view.backgroundColor = backgroundLabels;
+    
+    self.itemTitleView.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    
+    self.itemDescriptionView.backgroundColor = backgroundLabels;
+
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
@@ -47,11 +60,14 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+}
+
+- (void)viewWillAppear:(BOOL)animated{
     Item *item = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
     
     [self.itemTitleView setText:item.itemTitle];
-    [self.itemImageView setImage:item.itemImage];
     [self.itemDescriptionView setText:item.itemDescription];
+    [self.itemImageView setImage:[[ImageStore imageStore]imageForKey:item.imageKey]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,15 +76,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)editItem:(id)sender{
-    self.editItemView = [[EditItemViewController alloc]initWithNibName:@"EditItemViewController" bundle:nil];
-    self.editItemView.itemToEdit = self.itemToPopulate;
-    self.editItemView.parent = self.parentCategory;
-    self.editItemView.index = self.indexSelected;
+- (void)editItem:(id)sender{
     
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:self.editItemView];
-    //[self.navigationController pushViewController:self.editItemView animated:YES];
-    [self presentModalViewController:nav animated:YES];
+    EditItemViewController *editItemView;
+    editItemView = [[EditItemViewController alloc]initWithNibName:@"EditItemViewController" bundle:nil];
+    
+    editItemView.itemToEdit = [self.parentCategory.itemArray objectAtIndex:self.indexSelected];
+    editItemView.parent = self.parentCategory;
+    editItemView.index = self.indexSelected;
+    
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:editItemView];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 

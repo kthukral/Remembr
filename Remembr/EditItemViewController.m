@@ -10,8 +10,6 @@
 
 @interface EditItemViewController ()
 
-@property (strong, nonatomic)ItemViewController *itemView;
-
 @end
 
 @implementation EditItemViewController
@@ -37,10 +35,25 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self.editImageView setImage:self.itemToEdit.itemImage];
+    
+    self.editImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.editImageView.clipsToBounds = YES;
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    self.editTextView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    
+    self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
+    
+    if(self.itemToEdit.hasImage == YES){
+    self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
+    } else {
+        [self.editImageView setImage:nil];
+        self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
+    }
     
     UINavigationItem *nav;
     nav.title = @"Remember";
@@ -67,8 +80,19 @@ CGFloat animatedDistance;
     }else if([self.editTitleTextField isFirstResponder]){
         [self.editTitleTextField resignFirstResponder];
     }
-    self.itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-    [[ItemStore itemStore]createItemWithTitle:self.editTitleTextField.text withImage:self.editImageView.image withDescription:self.editTextView.text withCategory:self.parent replaceItemAtIndex:self.index];
+    
+    if(self.changedImage && self.itemToEdit.hasImage){
+    [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+    [[ImageStore imageStore]setImage:self.changedImage forKey:self.itemToEdit.imageKey];
+    }
+    
+    if(!self.itemToEdit.hasImage){
+        self.itemToEdit.hasImage = self.didAddImageToNoImageItem;
+    }
+    
+    self.itemToEdit.itemTitle = self.editTitleTextField.text;
+    self.itemToEdit.itemDescription = self.editTextView.text;
+    
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     
@@ -85,7 +109,11 @@ CGFloat animatedDistance;
 
 - (IBAction)cancelPressed:(id)sender{
     //[self.navigationController popViewControllerAnimated:YES];
-    [self dismissModalViewControllerAnimated:YES];
+    if(!self.itemToEdit.hasImage && self.itemToEdit.imageKey){
+        [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+        self.itemToEdit.imageKey = nil;
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -200,6 +228,112 @@ CGFloat animatedDistance;
     [self.view setFrame:viewFrame];
     
     [UIView commitAnimations];
+    
+}
+
+
+- (IBAction)changeImage:(id)sender {
+    if([self.editTitleTextField isFirstResponder]){
+        [self.editTitleTextField resignFirstResponder];
+    }else if([self.editTextView isFirstResponder]){
+        [self.editTextView resignFirstResponder];
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", @"Delete", nil];
+    [actionSheet showInView:self.view];
+
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+        case 1:
+            [self choosePhotoFromGallery];
+        case 2:
+            [self deletePhoto];
+        default:
+            break;
+    }
+}
+
+- (void)deletePhoto{
+    if (self.itemToEdit.hasImage){
+        self.itemToEdit.hasImage = NO;
+        [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+        self.itemToEdit.imageKey = nil;
+        self.editImageView.image = nil;
+    }
+}
+
+
+- (void)takeNewPhotoFromCamera{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)choosePhotoFromGallery{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    if(!self.itemToEdit.hasImage){
+        
+        // Create a CFUUID object - it knows how to create unique identifier strings
+        CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
+        
+        // Create a string from unique identifier
+        CFStringRef newUniqueIDString =
+        CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
+        
+        // Use that unique ID to set our item's imageKey
+        NSString *key = (__bridge NSString *)newUniqueIDString;
+        
+        [self.itemToEdit setImageKey:key];
+        
+        [[ImageStore imageStore]setImage:image forKey:[self.itemToEdit imageKey]];
+        
+        CFRelease(newUniqueIDString);
+        CFRelease(newUniqueID);
+        
+        [self.editImageView setImage:image];
+        
+        self.didAddImageToNoImageItem = YES;
+        
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    } else {
+    self.changedImage = [[UIImage alloc]init];
+    self.changedImage = image;
+    [self.editImageView setImage:self.changedImage];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
     
 }
 

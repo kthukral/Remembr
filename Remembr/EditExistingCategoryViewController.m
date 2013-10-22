@@ -36,6 +36,43 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    
+    [notificationCenter addObserver:self
+                           selector:@selector (textFieldTextChanged:)
+                               name:UITextFieldTextDidChangeNotification
+                             object:self.categoryTitleField];
+    
+    UIColor *backgroundLabels = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
+    self.view.backgroundColor = backgroundLabels;
+
+    
+    self.iconArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnIconPack]];
+    self.backgroundColorArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnColors]];
+    
+    self.iconCollectionView.delegate = self;
+    self.iconCollectionView.dataSource = self;
+    
+    self.backgroundCollectionView.delegate = self;
+    self.backgroundCollectionView.dataSource = self;
+    
+    self.iconCollectionView.backgroundColor = [UIColor whiteColor];
+    [self.iconCollectionView setShowsHorizontalScrollIndicator:NO];
+    
+    self.backgroundCollectionView.backgroundColor = [UIColor whiteColor];
+    [self.backgroundCollectionView setShowsHorizontalScrollIndicator:NO];
+    
+    [self.iconCollectionView registerClass:[collectionViewCellCustom class] forCellWithReuseIdentifier:@"cell"];
+    [self.backgroundCollectionView registerClass:[collectionViewCellCustom class] forCellWithReuseIdentifier:@"cell"];
+    
+    
+    self.iconArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnIconPack]];
+    self.backgroundColorArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnColors]];
+
+    
     UINavigationItem *nav = [[UINavigationItem alloc]init];
     
     nav.title = self.categoryToBeEditied.title;
@@ -45,21 +82,29 @@ CGFloat animatedDistance;
     [[self navigationItem] setRightBarButtonItem:save];
     
     self.categoryTitleField.text = self.categoryToBeEditied.title;
+    [self.categoryTitleField setHidden:YES];
+    [self.categoryTitleField becomeFirstResponder];
     
 }
 
 - (void) saveChangesToCatagory: (id)sender {
     
     self.categoryToBeEditied.title = self.categoryTitleField.text;
+    if(self.editedImageName){
+        self.categoryToBeEditied.imageName = self.editedImageName;
+    }
     
-//    Category *newCategory = [[CategoryStore categoryStore]createCategoryWithTitle:newTitle];
-//    
-//    [[CategoryStore categoryStore]updateCategoryAtIndex:self.index withCategory:newCategory];
-//    
+    if(self.editedColor){
+        self.categoryToBeEditied.categoryColor = self.editedColor;
+    }
     
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     
+}
+
+- (void)textFieldTextChanged:(id)sender{
+    self.navigationItem.title = self.categoryTitleField.text;
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,64 +113,57 @@ CGFloat animatedDistance;
     // Dispose of any resources that can be recreated.
 }
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if(collectionView == self.iconCollectionView){
+        return self.iconArray.count;
+    }else{
+        return self.backgroundColorArray.count;
+    }
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(collectionView == self.iconCollectionView){
+        collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        return Customcell;
+    }else{
+        collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
+        Customcell.backgroundColor = [self.backgroundColorArray objectAtIndex:indexPath.row];
+        return Customcell;
+        
+    }
+    
+
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(collectionView == self.iconCollectionView){
+        
+        NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
+        NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
+        self.editedImageName = selectedImageName;
+        
+    }else if(collectionView == self.backgroundCollectionView){
+        
+        UIColor *colorSelected = [self.backgroundColorArray objectAtIndex:indexPath.row];
+        self.editedColor = colorSelected;
+        
+    }
+    
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
-    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
-    
-    CGFloat midline = textFieldRect.origin.y + 0.5* textFieldRect.size.height;
-    CGFloat numerator = midline - viewRect.origin.y
-    - MINIMUM_SCROLL_FRACTION * viewRect.size.height;
-    CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * viewRect.size.height;
-    
-    CGFloat heightFraction = numerator/denominator;
-    
-    if(heightFraction<0.0){
-        heightFraction = 0.0;
-    }
-    else if(heightFraction>1.0){
-        heightFraction = 1.0;
-    }
-    
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if(orientation == UIInterfaceOrientationPortrait || orientation == UIInterfaceOrientationPortraitUpsideDown){
-        animatedDistance = floor(PORTRAIT_KEYBOARD_HEIGHT * heightFraction);
-    }
-    else {
-        animatedDistance = floor(LANDSCAPE_KEYBOARD_HEIGHT * heightFraction);
-    }
-    
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y -= animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
+    self.navigationItem.title = self.categoryToBeEditied.title;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    CGRect viewFrame = self.view.frame;
-    viewFrame.origin.y += animatedDistance;
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:KEYBOARD_ANIMATION_DURATION];
-    
-    [self.view setFrame:viewFrame];
-    
-    [UIView commitAnimations];
-}
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-    
-}
+
 
 
 @end

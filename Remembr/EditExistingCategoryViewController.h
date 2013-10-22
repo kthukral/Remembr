@@ -10,15 +10,23 @@
 #import "Category.h"
 #import "CategoryStore.h"
 #import "EditCategoriesViewController.h"
+#import "collectionStore.h"
+#import "collectionViewCellCustom.h"
 
-@interface EditExistingCategoryViewController : UIViewController <UITextFieldDelegate>
+@interface EditExistingCategoryViewController : UIViewController <UITextFieldDelegate , UICollectionViewDataSource, UICollectionViewDelegate>
 
 
 @property (strong, nonatomic) Category *categoryToBeEditied;
 
 @property (weak, nonatomic) IBOutlet UITextField *categoryTitleField;
-@property (weak, nonatomic) IBOutlet UIButton *imageViewButton;
+
+@property (weak, nonatomic) IBOutlet UICollectionView *iconCollectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *backgroundCollectionView;
 
 @property (assign, nonatomic) NSInteger index;
+@property (strong, nonatomic) NSString *editedImageName;
+@property (strong, nonatomic) UIColor *editedColor;
+@property (strong, nonatomic) NSArray *iconArray;
+@property (strong, nonatomic) NSArray *backgroundColorArray;
 
 @end

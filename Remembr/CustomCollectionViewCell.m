@@ -17,6 +17,7 @@
         // Initialization code
         NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"CustomCollectionViewCell" owner:self options:nil];
         self = [nib objectAtIndex:0];
+        [self setNeedsDisplay];
     }
     return self;
 }
@@ -24,7 +25,8 @@
 - (void)prepareForReuse{
     [super prepareForReuse];
     self.categoryTitle.text = @"";
-    self.categoryImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:nil]];
+    self.backgroundColor = [UIColor blackColor];
+    self.categoryImageView = nil;
 }
 
 /*

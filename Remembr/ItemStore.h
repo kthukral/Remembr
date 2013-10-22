@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "Item.h"
 #import "Category.h"
+#import "ImageStore.h"
 
 @interface ItemStore : NSObject
 
@@ -16,10 +17,16 @@
 
 - (NSArray *)passItemListForCategory:(Category *)category;
 
-- (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category;
+- (Item *)createItemWithTitle:(NSString *)title withDescription:(NSString *)description withCategory:(Category *)category;
 
-- (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index;
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category;
+
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description hasImage:(BOOL)hasImage withCategory:(Category *)category;
+
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index;
 
 - (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent;
+
+- (void)addItem:(Item *)item ToCategory:(Category *)parent;
 
 @end

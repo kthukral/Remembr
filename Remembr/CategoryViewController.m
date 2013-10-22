@@ -69,8 +69,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
-        [self.collectionView reloadData];
+    [self.collectionView reloadData];
     //}completion:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,7 +87,7 @@
     self.editView = [[EditCategoriesViewController alloc]init];
     
     UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:self.editView];
-    [self presentModalViewController:nav animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 
@@ -108,17 +111,21 @@
     
     NSArray *catagoriesPulled = [[CategoryStore categoryStore]allCatagories];
     Category *categoryRequested = [catagoriesPulled objectAtIndex:[indexPath row]];
-    CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
-    [cell setController:self];
+    CustomCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CustomCollectionViewCell" forIndexPath:indexPath];
+//    [cell setController:self];
+    //cell.categoryImageView.image = nil;
+    cell.categoryTitle.numberOfLines = 1;
+    cell.categoryTitle.adjustsFontSizeToFitWidth = YES;
     [[cell categoryTitle]setText:categoryRequested.title];
-    
-    NSString *key = categoryRequested.imageKey;
-    
-    UIImage *image = [[ImageStore imageStore]imageForKey:key];
-    
-    cell.categoryImageView.image = image;
-    
-    
+    //cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    UIView *view = [[UIView alloc]initWithFrame:cell.bounds];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:view.bounds];
+    imageView.contentMode = UIViewContentModeCenter;
+    imageView.image = [UIImage imageNamed:categoryRequested.imageName];
+    [view addSubview:imageView];
+    [cell setBackgroundView:view];
+    NSLog(@"%@,%@",categoryRequested.title, categoryRequested.imageName);
+    cell.backgroundColor = categoryRequested.categoryColor;
     
     return cell;
 }

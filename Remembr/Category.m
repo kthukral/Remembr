@@ -7,7 +7,6 @@
 //
 
 #import "Category.h"
-#import "ImageStore.h"
 
 @implementation Category
 
@@ -23,9 +22,8 @@
 - (void)
 encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.title forKey:@"title"];
-    
-    [aCoder encodeObject:self.imageKey forKey:@"imageKey"];
-    
+    [aCoder encodeObject:self.categoryColor forKey:@"color"];
+    [aCoder encodeObject:self.imageName forKey:@"imageName"];
     [aCoder encodeObject:self.itemArray forKey:@"itemArray"];
     
 }
@@ -34,10 +32,9 @@ encodeWithCoder:(NSCoder *)aCoder{
     self = [super init];
     if(self){
         [self setTitle:[aDecoder decodeObjectForKey:@"title"]];
-        
+        [self setImageName:[aDecoder decodeObjectForKey:@"imageName"]];
+        [self setCategoryColor:[aDecoder decodeObjectForKey:@"color"]];
         [self setItemArray:[aDecoder decodeObjectForKey:@"itemArray"]];
-        
-        [self setImageKey:[aDecoder decodeObjectForKey:@"imageKey"]];
     }
     
     return self;
@@ -45,5 +42,28 @@ encodeWithCoder:(NSCoder *)aCoder{
 
 - (Class)classForCoder{
     return [self class];
+}
+
+- (id)initWithTitle:(NSString *)title withColor:(UIColor *)color withImageName:(NSString *)iName{
+    self = [super init];
+    if(self){
+        [self setTitle:title];
+        self.itemArray = [[NSMutableArray alloc]init];
+        [self setCategoryColor:color];
+        [self setImageName:iName];
+    }
+    return self;
+}
+
+- (id)initWithTitle:(NSString *)title withColor:(UIColor *)color withImageName:(NSString *)iName withIndex:(int)index{
+    self = [super init];
+    if(self){
+        [self setTitle:title];
+        self.itemArray = [[NSMutableArray alloc]init];
+        [self setCategoryColor:color];
+        [self setImageName:iName];
+        [self setImageIndex:index];
+    }
+    return self;
 }
 @end

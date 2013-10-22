@@ -32,9 +32,9 @@
     
 }
 
-- (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category{
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category{
     
-    Item *newItem = [[Item alloc]initWithTitle:title withImage:image withDescription:description];
+    Item *newItem = [[Item alloc]initWithTitle:title withImageKey:imageKey withDescription:description];
     [category.itemArray insertObject:newItem atIndex:0];
     NSLog(@"%@",[[category.itemArray objectAtIndex:0] itemTitle]);
     return newItem;
@@ -44,16 +44,43 @@
     return category.itemArray;
 }
 
-- (Item *)createItemWithTitle:(NSString *)title withImage:(UIImage *)image withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index{
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description withCategory:(Category *)category replaceItemAtIndex:(NSInteger)index{
     Item *newItem;
-    newItem = [[Item alloc]initWithTitle:title withImage:image withDescription:description];
+    newItem = [[Item alloc]initWithTitle:title withImageKey:imageKey withDescription:description];
     [category.itemArray removeObjectAtIndex:index];
     [category.itemArray insertObject:newItem atIndex:index];
     return newItem;
 }
 
+- (Item *)createItemWithTitle:(NSString *)title withImageKey:(NSString *)imageKey withDescription:(NSString *)description hasImage:(BOOL)hasImage withCategory:(Category *)category{
+    Item *newItem = [[Item alloc]initWithTitle:title withImageKey:imageKey withDescription:description hasImage:hasImage];
+    [category.itemArray insertObject:newItem atIndex:0];
+    NSLog(@"%@",[[category.itemArray objectAtIndex:0] itemTitle]);
+    return newItem;
+}
+
 - (void)deleteItemAtIndex:(NSInteger)index withCategory:(Category *)parent{
+    
+    Item *item = [parent.itemArray objectAtIndex:index];
+    NSString *key = item.imageKey;
+    
+    [[ImageStore imageStore]deleteImageForKey:key];
+    
     [parent.itemArray removeObjectAtIndex:index];
+}
+
+- (Item *)createItemWithTitle:(NSString *)title withDescription:(NSString *)description withCategory:(Category *)category{
+    
+    Item *newItem = [[Item alloc]initWithTitle:title withDescription:description];
+    [category.itemArray insertObject:newItem atIndex:0];
+    NSLog(@"%@",[[category.itemArray objectAtIndex:0] itemTitle]);
+    return newItem;
+
+    
+}
+
+- (void)addItem:(Item *)item ToCategory:(Category *)parent{
+    [parent.itemArray insertObject:item atIndex:0];
 }
 
 

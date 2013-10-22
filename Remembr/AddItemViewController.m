@@ -42,6 +42,16 @@ CGFloat animatedDistance;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.itemBeingCreated = [[Item alloc]init];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    self.description.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    
+    self.titleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    
+    self.itemImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
+    
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"New Item";
@@ -53,6 +63,59 @@ CGFloat animatedDistance;
     
     [[self navigationItem]setRightBarButtonItem:self.save];
     [self.description setScrollEnabled:YES];
+}
+
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    switch (buttonIndex) {
+        case 0:
+            [self takeNewPhotoFromCamera];
+            break;
+        case 1:
+            [self choosePhotoFromGallery];
+        case 2:
+            [self deletePhoto];
+        default:
+            break;
+    }
+}
+
+- (void)deletePhoto{
+    if(self.itemBeingCreated.hasImage){
+        self.itemBeingCreated.hasImage = NO;
+        [[ImageStore imageStore]deleteImageForKey:self.itemBeingCreated.imageKey];
+        self.itemBeingCreated.imageKey = nil;
+        self.itemImageView.image = nil;
+    }
+}
+
+- (void)takeNewPhotoFromCamera{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
+}
+
+- (void)choosePhotoFromGallery{
+    
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc]init];
+    
+    [imagePicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    [imagePicker setDelegate:self];
+    
+    imagePicker.allowsEditing = YES;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -79,7 +142,7 @@ CGFloat animatedDistance;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)saveItem:(id)sender{
+- (void)saveItem:(id)sender{
     if([_titleTextField isFirstResponder]){
         [_titleTextField resignFirstResponder];
     }else if([_description isFirstResponder]){
@@ -88,17 +151,19 @@ CGFloat animatedDistance;
     [self performSelector:@selector(addNewItem:) withObject:nil afterDelay:0.5];
 }
 
-- (IBAction)addNewItem:(id)sender{
+- (void)addNewItem:(id)sender{
     NSInteger initialCount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
     if(![_titleTextField.text isEqualToString:@""] && ![_description.text isEqualToString:@""]){
-        [[ItemStore itemStore]createItemWithTitle:_titleTextField.text withImage:[UIImage imageNamed:@"logo.jpg"] withDescription:_description.text withCategory:self.category];
+
+        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text hasImage:self.itemBeingCreated.hasImage withCategory:self.category];
+        
         NSInteger newcount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
         if(initialCount == newcount){
         
         }else{
-            //self.itemList = [[ItemListViewController alloc]init];
-            //self.itemList.categorySelected = self.category;
-            [self.navigationController popViewControllerAnimated:YES]; 
+            self.itemList = [[ItemListViewController alloc]init];
+            self.itemList.categorySelected = self.category;
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }else{
         UIAlertView *invalidItemAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Item" message:@"The Item Must Have a Title and Description" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -221,5 +286,55 @@ CGFloat animatedDistance;
     
 }
 
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+    
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    // Create a CFUUID object - it knows how to create unique identifier strings
+    CFUUIDRef newUniqueID = CFUUIDCreate (kCFAllocatorDefault);
+    
+    // Create a string from unique identifier
+    CFStringRef newUniqueIDString =
+    CFUUIDCreateString (kCFAllocatorDefault, newUniqueID);
+    
+    // Use that unique ID to set our item's imageKey
+    NSString *key = (__bridge NSString *)newUniqueIDString;
+    
+    [self.itemBeingCreated setImageKey:key];
+    
+    [[ImageStore imageStore]setImage:image forKey:[self.itemBeingCreated imageKey]];
+    
+    CFRelease(newUniqueIDString);
+    CFRelease(newUniqueID);
+    
+    self.itemImageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.itemImageView.clipsToBounds = YES;
+    [self.itemImageView setImage:image];
+    
+    self.itemBeingCreated.hasImage = YES;
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 
+}
+
+
+- (IBAction)selectImage:(id)sender {
+    
+    if([self.titleTextField isFirstResponder]){
+        [self.titleTextField resignFirstResponder];
+    }else if([self.description isFirstResponder]){
+        [self.description resignFirstResponder];
+    }
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", @"Delete",nil];
+    [actionSheet showInView:self.view];
+    
+}
+
+- (IBAction)backgroundTapped:(id)sender {
+    
+    [[self view]endEditing:YES];
+    
+
+}
 @end

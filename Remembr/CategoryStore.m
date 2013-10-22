@@ -60,7 +60,7 @@
     // Get one and only document directory from that list
     NSString *documentDirectory = [documentDirectories objectAtIndex:0];
     
-    return [documentDirectory stringByAppendingPathComponent:@"categories.archive"];
+    return [documentDirectory stringByAppendingPathComponent:@"category.archive"];
     
 }
 
@@ -75,7 +75,7 @@
     allCatagories = [[NSMutableArray alloc]initWithArray:newArray];
 }
 
-- (Category *)createCategoryWithTitle:(NSString *)title andKey:(NSString *)key{
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName{
     
     
     BOOL doesCategoryExist = NO;
@@ -93,16 +93,38 @@
         
         return nil;
     }else{
-        Category *newCategory = [[Category alloc]init];
-        
-        [newCategory setTitle:title];
-        [newCategory setImageKey:key];
-        
-        //[allCatagories addObject:newCategory];
+        Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName];
         [allCatagories insertObject:newCategory atIndex:0];
+        [[CategoryStore categoryStore] saveChanges];
         return newCategory;
     }
 
+}
+
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName withIndex:(int)index{
+    
+    
+    BOOL doesCategoryExist = NO;
+    for(int i=0;i<[allCatagories count];i++){
+        Category *checkCategory = [allCatagories objectAtIndex:i];
+        NSString *checkCategoryTitle = checkCategory.title;
+        if([title isEqualToString:checkCategoryTitle]){
+            doesCategoryExist = YES;
+        }
+        
+    }
+    if(doesCategoryExist){
+        UIAlertView *existingCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Category Already Exists" message:@"This Category Already Exists. Please use a different title." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [existingCategoryAlert show];
+        
+        return nil;
+    }else{
+        Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName withIndex:index];
+        [allCatagories insertObject:newCategory atIndex:0];
+        [[CategoryStore categoryStore] saveChanges];
+        return newCategory;
+    }
+    
 }
 
 - (void)addNewCategory:(Category *)category{

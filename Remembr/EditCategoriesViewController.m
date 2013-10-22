@@ -36,15 +36,24 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
     
-    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+//    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
+    
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
     
     [[self navigationItem]setRightBarButtonItem:saveButton];
-    [[self navigationItem] setLeftBarButtonItem:cancel];
+//    
+//    [[self navigationItem]setRightBarButtonItem:saveButton];
+    [[self navigationItem] setLeftBarButtonItem:edit];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.editCategoryTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    
     self.editCategoryTableView.delegate = self;
     self.editCategoryTableView.dataSource = self;
+    self.editCategoryTableView.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.editCategoryTableView];
 }
 
@@ -61,13 +70,52 @@
 - (void)saveEditChanges:(id)sender{
     
     [[CategoryStore categoryStore]updateCategoryArray:self.editCategories];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)editMode:(id)sender{
+    self.editCategoryTableView.editing = YES;
+    UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+//
+//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+//    
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,done, nil];
+//    
+//    [[self navigationItem]setRightBarButtonItems:buttonArray animated:YES];
+    
+    [self.navigationItem setLeftBarButtonItem:done];
+
+}
+
+- (void)done:(id)sender{
+    
+    self.editCategoryTableView.editing = NO;
+    
+//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
+    
+//    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    
+//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
+    
+//    [[self navigationItem]setRightBarButtonItems:buttonArray];
+    
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    
+    [self.navigationItem setLeftBarButtonItem:edit];
+
     
 }
 
 - (void)cancel:(id)sender{
     
-    [self dismissModalViewControllerAnimated:YES];
+    if(!self.editCategoryTableView.editing){
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }else{
+        [self done:sender];
+    }
     
 }
 
@@ -88,20 +136,47 @@
         cell = [nib objectAtIndex:0];
     }
     Category *current = [self.editCategories objectAtIndex:indexPath.row];
-    
+    cell.showsReorderControl = YES;
     [[cell itemTitle]setText:current.title];
+    cell.backgroundColor = current.categoryColor;
+    cell.itemImage.image = [UIImage imageNamed:current.imageName];
     
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
+    Category *category = [self.editCategories objectAtIndex:sourceIndexPath.row];
+    [self.editCategories removeObjectAtIndex:sourceIndexPath.row];
+    [self.editCategories insertObject:category atIndex:destinationIndexPath.row];
+}
 - (BOOL) tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.editCategoryTableView.editing){
+        return UITableViewCellEditingStyleNone;
+    }else{
+    return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableview shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+
+- (BOOL)tableView:(UITableView *)tableview canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(editingStyle == UITableViewCellEditingStyleDelete){
         [self.editCategories removeObjectAtIndex:indexPath.row];
-        [self.editCategoryTableView reloadData];
+        [self.editCategoryTableView beginUpdates];
+        NSArray *indexArray = [[NSArray alloc]initWithObjects:indexPath, nil];
+        [self.editCategoryTableView deleteRowsAtIndexPaths:indexArray withRowAnimation:UITableViewRowAnimationLeft];
+        [self.editCategoryTableView endUpdates];
     }
 }
 
@@ -115,6 +190,16 @@
     editView.index = indexPath.row;
     [self.navigationController pushViewController:editView animated:YES];
     
+}
+
+- (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.itemImage.alpha = 0;
+}
+
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
+    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.itemImage.alpha = 1;
 }
 
 @end

@@ -21,7 +21,7 @@
 - (NSArray *)allCatagories;
 - (Category *)createCategoryWithTitle:(NSString *)title;
 
-- (Category *)createCategoryWithTitle:(NSString *)title andKey:(NSString *)key;
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName;
 
 - (NSString *)itemArchievePath;
 - (BOOL)saveChanges;
@@ -29,6 +29,8 @@
 - (void)updateCategoryArray:(NSMutableArray *)newArray;
 
 - (void)addNewCategory:(Category *)category;
+
+- (Category *)createCategoryWithTitle:(NSString *)title withColor:(UIColor *)color andImageName:(NSString *)iName withIndex:(int)index;
 
 
 
