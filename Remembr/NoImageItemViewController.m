@@ -39,6 +39,8 @@
     self.view.backgroundColor = backgroundLabels;
     self.descriptionTextView.backgroundColor = backgroundLabels;
     self.titleLabel.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    self.descriptionTextView.editable = NO;
+    self.descriptionTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     

@@ -36,7 +36,7 @@
 - (NSArray *)returnIconPack{
     NSMutableArray *iconParse = [[NSMutableArray alloc]init];
     
-    for(int i = 0; i < 80;i++){
+    for(int i = 0; i < 79;i++){
         
         NSString *imageNumber = [NSString stringWithFormat:@"%d",i];
         NSString *imageName = [imageNumber stringByAppendingString:@".png"];
