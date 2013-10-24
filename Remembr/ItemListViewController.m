@@ -128,24 +128,31 @@
     
     Item *itemSelected = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
     
-    if(itemSelected.hasImage == YES){
-        ItemViewController *itemView;
-        itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-        
-        itemView.parentCategory = self.categorySelected;
-        
-        itemView.indexSelected = indexPath.row;
-        
-        [self.navigationController pushViewController:itemView animated:YES];
-        
-    } else {
-        
-        NoImageItemViewController *noImageItemView;
-        noImageItemView = [[NoImageItemViewController alloc]initWithNibName:@"NoImageItemViewController" bundle:nil];
-        noImageItemView.parentCategory = self.categorySelected;
-        noImageItemView.indexSelected = indexPath.row;
-        [self.navigationController pushViewController:noImageItemView animated:YES];
-    }
+//    if(itemSelected.hasImage == YES){
+//        ItemViewController *itemView;
+//        itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
+//        
+//        itemView.parentCategory = self.categorySelected;
+//        
+//        itemView.indexSelected = indexPath.row;
+//        
+//        [self.navigationController pushViewController:itemView animated:YES];
+//        
+//    } else {
+//        
+//        NoImageItemViewController *noImageItemView;
+//        noImageItemView = [[NoImageItemViewController alloc]initWithNibName:@"NoImageItemViewController" bundle:nil];
+//        noImageItemView.parentCategory = self.categorySelected;
+//        noImageItemView.indexSelected = indexPath.row;
+//        [self.navigationController pushViewController:noImageItemView animated:YES];
+//    }
+    
+    NewItemViewController *newItemController = [[NewItemViewController alloc]init];
+    
+    newItemController.categorySelected = self.categorySelected;
+    newItemController.itemIndex = indexPath.row;
+    
+    [self.navigationController pushViewController:newItemController animated:YES];
     
 }
 
