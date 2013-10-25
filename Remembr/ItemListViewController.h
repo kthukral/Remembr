@@ -12,9 +12,7 @@
 #import "AddItemViewController.h"
 #import "Category.h"
 #import "CustomTableViewCell.h"
-#import "ItemViewController.h"
 #import "ImageStore.h"
-#import "NoImageItemViewController.h"
 #import "NewItemViewController.h"
 
 @interface ItemListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>

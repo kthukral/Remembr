@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ItemViewController.h"
 #import "Item.h"
 #import "Category.h"
 #import "ImageStore.h"
