@@ -71,8 +71,6 @@
     nav.title = @"New Category";
     
     self.save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveCategory:)];
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     
     [[self navigationItem]setRightBarButtonItem:self.save];

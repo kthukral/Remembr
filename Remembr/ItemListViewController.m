@@ -36,9 +36,6 @@
     NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
     [[self navigationItem]setRightBarButtonItems:buttons];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-
-    
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;

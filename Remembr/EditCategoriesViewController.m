@@ -36,18 +36,11 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
     
-//    UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
     
-//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
-    
     [[self navigationItem]setRightBarButtonItem:saveButton];
-//    
-//    [[self navigationItem]setRightBarButtonItem:saveButton];
+
     [[self navigationItem] setLeftBarButtonItem:edit];
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     self.editCategoryTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
@@ -77,12 +70,6 @@
 - (void)editMode:(id)sender{
     self.editCategoryTableView.editing = YES;
     UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
-//
-//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
-//    
-//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,done, nil];
-//    
-//    [[self navigationItem]setRightBarButtonItems:buttonArray animated:YES];
     
     [self.navigationItem setLeftBarButtonItem:done];
 
@@ -91,14 +78,6 @@
 - (void)done:(id)sender{
     
     self.editCategoryTableView.editing = NO;
-    
-//    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
-    
-//    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
-    
-//    NSArray *buttonArray = [[NSArray alloc]initWithObjects:saveButton,edit, nil];
-    
-//    [[self navigationItem]setRightBarButtonItems:buttonArray];
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
     

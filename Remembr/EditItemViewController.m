@@ -60,8 +60,6 @@ CGFloat animatedDistance;
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveChanges:)];
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc]initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancel:)];
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;
 
     [[self navigationItem]setRightBarButtonItem:save];
     [[self navigationItem]setLeftBarButtonItem:cancel];
