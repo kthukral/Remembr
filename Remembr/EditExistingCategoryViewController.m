@@ -146,12 +146,15 @@ CGFloat animatedDistance;
         NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
         NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
         self.editedImageName = selectedImageName;
+        collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+        [cell setAlpha:0.5f];
         
     }else if(collectionView == self.backgroundCollectionView){
         
         UIColor *colorSelected = [self.backgroundColorArray objectAtIndex:indexPath.row];
         self.editedColor = colorSelected;
-        
+        collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+        [cell setAlpha:0.5f];
     }
     
 }
@@ -159,6 +162,12 @@ CGFloat animatedDistance;
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     self.navigationItem.title = self.categoryToBeEditied.title;
 }
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setAlpha:1];
+}
+
 
 
 

@@ -171,6 +171,8 @@
     
 }
 
+
+
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.itemImage.alpha = 0;
