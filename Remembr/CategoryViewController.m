@@ -45,11 +45,11 @@
     
     [[self navigationItem]setLeftBarButtonItem:edit];
     
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+    //self.edgesForExtendedLayout = UIRectEdgeNone;
     
     //collection view
     CGRect mainScreen = [[UIScreen mainScreen]bounds];
-    CGFloat requiredHeight = mainScreen.size.height - 64;
+    CGFloat requiredHeight = mainScreen.size.height;
     CGRect collectionViewFrame = CGRectMake(0, 0, mainScreen.size.width, requiredHeight);
     
     self.layout = [[UICollectionViewFlowLayout alloc]init];
