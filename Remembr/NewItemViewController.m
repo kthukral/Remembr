@@ -32,6 +32,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    [self layoutSubviews];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+
+    
+}
+
+- (void)preferredContentSizeChanged:(id)sender{
+    [self viewDidLoad];
+}
+
+- (void)layoutSubviews{
+    
     Item *itemToDisplay = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
     
     if(itemToDisplay.hasImage){
@@ -47,11 +60,21 @@
         
     }
     
-    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.imageView.frame.origin.y + self.imageView.frame.size.height, 320, 45)];
+    self.titleLabel = [UILabel new];
+    
+    [self.titleLabel setFrame:CGRectMake(0, self.imageView.frame.origin.y + self.imageView.frame.size.height, 320, 45)];
+    
+    self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    self.titleLabel.text = itemToDisplay.itemTitle;
+  
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
     self.descriptionTextView = [[UITextView alloc]initWithFrame:CGRectMake(5, self.titleLabel.frame.origin.y + 50, 310, self.view.frame.size.height - 5 - self.imageView.frame.size.height - 45)];
     
-    [self.titleLabel setText:itemToDisplay.itemTitle];
-    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.descriptionTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    
+    self.descriptionTextView.scrollEnabled = YES;
+    
     [self.descriptionTextView setText:itemToDisplay.itemDescription];
     
     UIColor *background = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];;
@@ -60,6 +83,7 @@
     self.titleLabel.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     
     self.descriptionTextView.backgroundColor = background;
+    self.descriptionTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     
@@ -67,8 +91,7 @@
     
     
     [[self navigationItem]setRightBarButtonItem:edit];
-    [self.descriptionTextView setScrollEnabled:YES];
-
+    
     [self.view addSubview:self.imageView];
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.descriptionTextView];
@@ -76,6 +99,9 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [self.imageView removeFromSuperview];
+    [self.titleLabel removeFromSuperview];
+    [self.descriptionTextView removeFromSuperview];
     [self viewDidLoad];
 }
 

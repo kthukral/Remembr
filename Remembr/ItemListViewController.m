@@ -29,7 +29,7 @@
     
     //navigation bar
     UINavigationItem *nav = [self navigationItem];
-    nav.title = @"Remembr";
+    nav.title = self.categorySelected.title;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
@@ -45,11 +45,16 @@
     self.itemListView.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.itemListView];
     
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+    
+}
+
+- (void)preferredContentSizeChanged:(id)sender{
+    [self.itemListView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [self.itemListView reloadData];
-    self.itemListView.rowHeight = 68;
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -117,35 +122,18 @@
     
     NSLog(@"Index Path Row = %i",indexPath.row);
     
+    cell.itemTitle.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    cell.itemTitle.numberOfLines = 0;
+    
     [[cell itemTitle]setText:itemToAdd.itemTitle];
-    cell.itemImage.contentMode = UIViewContentModeScaleAspectFill;
+    cell.itemImage.contentMode = UIViewContentModeScaleAspectFit;
+    cell.itemImage.clipsToBounds = YES;
     [[cell itemImage]setImage:[[ImageStore imageStore]imageForKey:itemToAdd.imageKey]];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    Item *itemSelected = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
-    
-//    if(itemSelected.hasImage == YES){
-//        ItemViewController *itemView;
-//        itemView = [[ItemViewController alloc]initWithNibName:@"ItemViewController" bundle:nil];
-//        
-//        itemView.parentCategory = self.categorySelected;
-//        
-//        itemView.indexSelected = indexPath.row;
-//        
-//        [self.navigationController pushViewController:itemView animated:YES];
-//        
-//    } else {
-//        
-//        NoImageItemViewController *noImageItemView;
-//        noImageItemView = [[NoImageItemViewController alloc]initWithNibName:@"NoImageItemViewController" bundle:nil];
-//        noImageItemView.parentCategory = self.categorySelected;
-//        noImageItemView.indexSelected = indexPath.row;
-//        [self.navigationController pushViewController:noImageItemView animated:YES];
-//    }
     
     NewItemViewController *newItemController = [[NewItemViewController alloc]init];
     
@@ -157,7 +145,20 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 68;
+    //return 68;
+    
+    Item *item = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
+    
+    UIFont *titleLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    
+    CGRect titleLabelFontSize = [item.itemTitle boundingRectWithSize:CGSizeMake(193, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:[NSDictionary dictionaryWithObject:titleLabelFont forKey:NSFontAttributeName] context:nil];
+    
+    CGFloat PADDING_OUTER = 15;
+    
+    CGFloat totalHeight = PADDING_OUTER + titleLabelFontSize.size.height + 15 + PADDING_OUTER;
+    
+    return totalHeight;
+
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
