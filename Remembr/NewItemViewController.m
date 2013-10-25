@@ -47,6 +47,8 @@
     
     Item *itemToDisplay = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
     
+    self.navigationItem.title = itemToDisplay.itemTitle;
+    
     if(itemToDisplay.hasImage){
         
         self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 200)];
@@ -72,8 +74,9 @@
     self.descriptionTextView = [[UITextView alloc]initWithFrame:CGRectMake(5, self.titleLabel.frame.origin.y + 50, 310, self.view.frame.size.height - 5 - self.imageView.frame.size.height - 45)];
     
     self.descriptionTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    
+    self.descriptionTextView.editable = NO;
     self.descriptionTextView.scrollEnabled = YES;
+    self.descriptionTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     [self.descriptionTextView setText:itemToDisplay.itemDescription];
     
@@ -83,7 +86,6 @@
     self.titleLabel.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     
     self.descriptionTextView.backgroundColor = background;
-    self.descriptionTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
     

@@ -65,6 +65,8 @@
     [self.collectionView registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"CustomCollectionViewCell"];
     [self.collectionView removeFromSuperview];
     [self.view addSubview:self.collectionView];
+    
+    self.collectionView.backgroundColor = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

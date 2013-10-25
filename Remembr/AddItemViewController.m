@@ -157,6 +157,8 @@ CGFloat animatedDistance;
 
         [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text hasImage:self.itemBeingCreated.hasImage withCategory:self.category];
         
+        [[CategoryStore categoryStore]saveChanges];
+        
         NSInteger newcount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
         if(initialCount == newcount){
         

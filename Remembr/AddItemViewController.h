@@ -12,6 +12,7 @@
 #import "Category.h"
 #import "ItemListViewController.h"
 #import "ImageStore.h"
+#import "CategoryStore.h"
 
 @interface AddItemViewController : UIViewController <UITextFieldDelegate,UITextViewDelegate, UIAlertViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
