@@ -134,6 +134,7 @@
         if(initialcount == newCount){
             
         }else{
+            [self.iconCollectionView deselectItemAtIndexPath:self.currentIconSelected animated:YES];
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         }else{
@@ -188,6 +189,7 @@
         self.tempCategory.imageIndex = indexPath.row;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
         [cell setAlpha:0.5f];
+        self.currentIconSelected = indexPath;
         
     }else if(collectionView == self.backgroundCollectionView){
         
@@ -195,6 +197,7 @@
         self.tempCategory.categoryColor = colorSelected;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
         [cell setAlpha:0.5f];
+        self.currentBackgroundSelected = indexPath;
     }
     
 }

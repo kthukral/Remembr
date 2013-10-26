@@ -43,6 +43,7 @@ CGFloat animatedDistance;
     self.editTextView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     
     self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    self.editTitleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
     
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
@@ -262,6 +263,7 @@ CGFloat animatedDistance;
         self.itemToEdit.hasImage = NO;
         [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
         self.itemToEdit.imageKey = nil;
+        self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
         self.editImageView.image = nil;
     }
 }
@@ -332,7 +334,7 @@ CGFloat animatedDistance;
     [self dismissViewControllerAnimated:YES completion:nil];
     }
     
-    
+    self.editImageView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
 }
 
 

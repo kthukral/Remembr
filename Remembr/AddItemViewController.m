@@ -49,6 +49,7 @@ CGFloat animatedDistance;
     self.description.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     
     self.titleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
+    self.titleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
     
     self.itemImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
     
@@ -86,6 +87,7 @@ CGFloat animatedDistance;
         [[ImageStore imageStore]deleteImageForKey:self.itemBeingCreated.imageKey];
         self.itemBeingCreated.imageKey = nil;
         self.itemImageView.image = nil;
+        self.itemImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
     }
 }
 
@@ -310,6 +312,7 @@ CGFloat animatedDistance;
     
     self.itemImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.itemImageView.clipsToBounds = YES;
+    self.itemImageView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     [self.itemImageView setImage:image];
     
     self.itemBeingCreated.hasImage = YES;

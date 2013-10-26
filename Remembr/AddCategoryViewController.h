@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *backgroundLabel;
 
 @property (strong, nonatomic) Category *tempCategory;
+@property (strong, nonatomic) NSIndexPath *currentIconSelected;
+@property (strong, nonatomic) NSIndexPath *currentBackgroundSelected;
 
 - (void)catergoryAlreadyExists;
 - (void)createNewCategory;

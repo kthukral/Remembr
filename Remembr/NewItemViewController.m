@@ -68,6 +68,7 @@
     
     self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
     self.titleLabel.text = itemToDisplay.itemTitle;
+    self.titleLabel.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
   
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     
