@@ -120,6 +120,7 @@
 		A4F6FEC61800BA23006D906B /* collectionStore.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6FEC51800BA23006D906B /* collectionStore.m */; };
 		A4F6FF6A1800C1F9006D906B /* collectionViewCellCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F6FF691800C1F9006D906B /* collectionViewCellCustom.m */; };
 		A4F6FF6C1800C217006D906B /* collectionViewCellCustom.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F6FF6B1800C217006D906B /* collectionViewCellCustom.xib */; };
+		A4FBD148181C17BD0033AF17 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4FBD147181C17BD0033AF17 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -259,6 +260,7 @@
 		A4F6FF681800C1F9006D906B /* collectionViewCellCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = collectionViewCellCustom.h; sourceTree = "<group>"; };
 		A4F6FF691800C1F9006D906B /* collectionViewCellCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = collectionViewCellCustom.m; sourceTree = "<group>"; };
 		A4F6FF6B1800C217006D906B /* collectionViewCellCustom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = collectionViewCellCustom.xib; path = ../collectionViewCellCustom.xib; sourceTree = "<group>"; };
+		A4FBD147181C17BD0033AF17 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +268,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4FBD148181C17BD0033AF17 /* QuartzCore.framework in Frameworks */,
 				9EBD66BD17C93B04002F41F7 /* UIKit.framework in Frameworks */,
 				9EBD66BF17C93B04002F41F7 /* Foundation.framework in Frameworks */,
 				9EBD66C117C93B04002F41F7 /* CoreGraphics.framework in Frameworks */,
@@ -296,6 +299,7 @@
 		9EBD66BB17C93B04002F41F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4FBD147181C17BD0033AF17 /* QuartzCore.framework */,
 				9EBD66BC17C93B04002F41F7 /* UIKit.framework */,
 				9EBD66BE17C93B04002F41F7 /* Foundation.framework */,
 				9EBD66C017C93B04002F41F7 /* CoreGraphics.framework */,

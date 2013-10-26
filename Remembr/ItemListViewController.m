@@ -31,11 +31,11 @@
     UINavigationItem *nav = [self navigationItem];
     nav.title = self.categorySelected.title;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
-    NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
-    [[self navigationItem]setRightBarButtonItems:buttons];
-    
+    if (self.categorySelected.itemArray.count) {
+        [self setUpNavButtons:self];
+    } else {
+        [self noEditButton:self];
+    }
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
@@ -46,11 +46,30 @@
     
 }
 
+- (void)setUpNavButtons:(id)sender{
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
+    [[self navigationItem]setRightBarButtonItems:buttons];
+
+}
+
+- (void)noEditButton:(id)sender{
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
+    [[self navigationItem]setRightBarButtonItem:addButton];
+}
+
 - (void)preferredContentSizeChanged:(id)sender{
     [self.itemListView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    if (self.categorySelected.itemArray.count) {
+        [self setUpNavButtons:self];
+    } else {
+        [self noEditButton:self];
+    }
     [self.itemListView reloadData];
 }
 

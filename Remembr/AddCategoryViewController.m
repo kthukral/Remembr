@@ -7,6 +7,7 @@
 //
 
 #import "AddCategoryViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AddCategoryViewController ()
 
@@ -134,7 +135,12 @@
         if(initialcount == newCount){
             
         }else{
-            [self.iconCollectionView deselectItemAtIndexPath:self.currentIconSelected animated:YES];
+            
+            CustomCollectionViewCell *iconSelectedCell = (CustomCollectionViewCell *)[self.iconCollectionView cellForItemAtIndexPath:self.currentIconSelected];
+            iconSelectedCell.alpha = 1.0f;
+            CustomCollectionViewCell *backgroundSelectedCell = (CustomCollectionViewCell *)[self.backgroundCollectionView cellForItemAtIndexPath:self.currentBackgroundSelected];
+            backgroundSelectedCell.alpha = 1.0f;
+
             [self.navigationController popToRootViewControllerAnimated:YES];
         }
         }else{
@@ -188,7 +194,9 @@
         self.tempCategory.imageName = selectedImageName;
         self.tempCategory.imageIndex = indexPath.row;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
-        [cell setAlpha:0.5f];
+        [cell setAlpha:0.2f];
+        [cell.layer setBorderColor:(__bridge CGColorRef)([UIColor blueColor])];
+        cell.layer.borderWidth = 3.0f;
         self.currentIconSelected = indexPath;
         
     }else if(collectionView == self.backgroundCollectionView){
@@ -196,7 +204,7 @@
         UIColor *colorSelected = [self.backgroundColorArray objectAtIndex:indexPath.row];
         self.tempCategory.categoryColor = colorSelected;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
-        [cell setAlpha:0.5f];
+        [cell setAlpha:0.2f];
         self.currentBackgroundSelected = indexPath;
     }
     
