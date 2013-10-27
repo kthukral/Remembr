@@ -50,9 +50,9 @@ CGFloat animatedDistance;
     
     self.titleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     self.titleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
-    
+    self.titleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     self.itemImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
-    
+    self.description.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     UINavigationItem *nav = [self navigationItem];
     
     nav.title = @"New Item";

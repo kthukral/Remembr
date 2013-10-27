@@ -44,11 +44,11 @@ CGFloat animatedDistance;
     
     self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     self.editTitleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
-    
+    self.editTitleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [self.editTextView setText:self.itemToEdit.itemDescription];
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
-    
+    self.editTextView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     if(self.itemToEdit.hasImage == YES){
     self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
     } else {

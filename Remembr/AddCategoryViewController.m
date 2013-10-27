@@ -45,6 +45,7 @@
     self.view.backgroundColor = backgroundLabels;
     
     [self.titleTextField setHidden:YES];
+    self.titleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     
     self.tempCategory = [[Category alloc]init];
     
