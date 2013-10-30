@@ -39,7 +39,7 @@
     self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
-    self.itemListView.separatorInset = UIEdgeInsetsZero;
+    self.itemListView.separatorInset = UIEdgeInsetsZero;  
     [self.view addSubview:self.itemListView];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];

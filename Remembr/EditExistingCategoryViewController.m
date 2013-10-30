@@ -147,6 +147,7 @@ CGFloat animatedDistance;
         NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
         self.editedImageName = selectedImageName;
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
+        cell.backgroundImage.clipsToBounds = YES;
         [cell setAlpha:0.5f];
         
     }else if(collectionView == self.backgroundCollectionView){

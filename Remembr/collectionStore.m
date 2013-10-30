@@ -36,15 +36,15 @@
 - (NSArray *)returnIconPack{
     NSMutableArray *iconParse = [[NSMutableArray alloc]init];
     
-    for(int i = 0; i < 163;i++){
-        
+    for(int i = 0; i < 153;i++){
+            
         NSString *imageNumber = [NSString stringWithFormat:@"%d",i];
         NSString *imageName = [imageNumber stringByAppendingString:@".png"];
         
         UIImage *image = [UIImage imageNamed:imageName];
         
         [iconParse insertObject:image atIndex:i];
-        
+
     }
     
     NSArray *imageArray = [[NSArray alloc]initWithArray:iconParse];

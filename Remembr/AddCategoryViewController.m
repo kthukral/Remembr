@@ -175,6 +175,7 @@
     if(collectionView == self.iconCollectionView){
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        Customcell.backgroundImage.clipsToBounds = YES;
         [Customcell setAlpha:1];
         return Customcell;
     }else{
