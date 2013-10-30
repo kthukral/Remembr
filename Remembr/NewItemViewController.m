@@ -7,6 +7,7 @@
 //
 
 #import "NewItemViewController.h"
+#import <MWPhotoBrowser.h>
 
 @interface NewItemViewController ()
 
@@ -32,6 +33,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    self.photoArray = [NSMutableArray new];
+    
     [self layoutSubviews];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
@@ -52,9 +55,15 @@
     if(itemToDisplay.hasImage){
         
         self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 200)];
+        UIButton *imageButton = [[UIButton alloc]initWithFrame:self.imageView.frame];
+        [imageButton addTarget:self action:@selector(openFullImage:) forControlEvents:UIControlEventTouchUpInside];
+        imageButton.alpha = 1.0f;
+        [self.view addSubview:imageButton];
         self.imageView.image = [[ImageStore imageStore]imageForKey:itemToDisplay.imageKey];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.clipsToBounds = YES;
+//        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullImage:)];
+//        [self.imageView addGestureRecognizer:imageTap];
         
     } else {
         
@@ -108,6 +117,25 @@
     [self viewDidLoad];
 }
 
+- (void)openFullImage:(id)sender{
+    
+    Item *item = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
+    
+    UIImage *itemImage = [[ImageStore imageStore]imageForKey:item.imageKey];
+    
+    MWPhoto *photo = [[MWPhoto alloc]initWithImage:itemImage];
+    
+    [self.photoArray addObject:photo];
+    
+    MWPhotoBrowser *photoBrowser = [[MWPhotoBrowser alloc]initWithDelegate:self];
+    
+    photoBrowser.displayActionButton = YES;
+    photoBrowser.displayNavArrows = NO;
+    photoBrowser.zoomPhotosToFill = YES;
+    [photoBrowser setCurrentPhotoIndex:1];
+    photoBrowser.wantsFullScreenLayout = YES;
+    [self.navigationController pushViewController:photoBrowser animated:YES];
+}
 - (void)editItem:(id)sender{
     
     EditItemViewController *editItemView;
@@ -127,6 +155,16 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
+    return self.photoArray.count;
+}
+
+- (MWPhoto *)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index {
+    if (index < self.photoArray.count)
+        return [self.photoArray objectAtIndex:index];
+    return nil;
 }
 
 @end

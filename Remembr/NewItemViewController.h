@@ -12,11 +12,14 @@
 #import "CategoryStore.h"
 #import "ImageStore.h"
 #import "EditItemViewController.h"
+#import <MWPhotoBrowser.h>
 
-@interface NewItemViewController : UIViewController
+@interface NewItemViewController : UIViewController <MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) Category *categorySelected;
 
 @property (nonatomic, assign) NSInteger itemIndex;
+
+@property (nonatomic, strong) NSMutableArray *photoArray;
 
 @end
