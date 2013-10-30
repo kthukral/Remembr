@@ -96,6 +96,8 @@ CGFloat animatedDistance;
         self.categoryToBeEditied.categoryColor = self.editedColor;
     }
     
+    [[CategoryStore categoryStore]saveChanges];
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
     
     

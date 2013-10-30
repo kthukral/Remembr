@@ -63,6 +63,7 @@
 - (void)saveEditChanges:(id)sender{
     
     [[CategoryStore categoryStore]updateCategoryArray:self.editCategories];
+    [[CategoryStore categoryStore]saveChanges];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }

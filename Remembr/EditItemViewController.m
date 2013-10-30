@@ -7,6 +7,7 @@
 //
 
 #import "EditItemViewController.h"
+#import "CategoryStore.h"
 
 @interface EditItemViewController ()
 
@@ -92,7 +93,7 @@ CGFloat animatedDistance;
     self.itemToEdit.itemTitle = self.editTitleTextField.text;
     self.itemToEdit.itemDescription = self.editTextView.text;
     
-    
+    [[CategoryStore categoryStore]saveChanges];
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     
 }
