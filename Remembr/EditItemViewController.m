@@ -38,7 +38,7 @@ CGFloat animatedDistance;
     
     self.editImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.editImageView.clipsToBounds = YES;
-    
+    self.navigationItem.title = self.itemToEdit.itemTitle;
     self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     self.editTextView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     

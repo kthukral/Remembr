@@ -22,4 +22,5 @@
 
 @property (nonatomic, strong) NSMutableArray *photoArray;
 
+@property (nonatomic, strong) UIButton *button;
 @end

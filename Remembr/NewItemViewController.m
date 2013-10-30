@@ -55,15 +55,12 @@
     if(itemToDisplay.hasImage){
         
         self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 320, 200)];
-        UIButton *imageButton = [[UIButton alloc]initWithFrame:self.imageView.frame];
-        [imageButton addTarget:self action:@selector(openFullImage:) forControlEvents:UIControlEventTouchUpInside];
-        imageButton.alpha = 1.0f;
-        [self.view addSubview:imageButton];
+        self.button = [[UIButton alloc]initWithFrame:self.imageView.frame];
+        [self.button addTarget:self action:@selector(openFullImage:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:self.button];
         self.imageView.image = [[ImageStore imageStore]imageForKey:itemToDisplay.imageKey];
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.imageView.clipsToBounds = YES;
-//        UITapGestureRecognizer *imageTap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(openFullImage:)];
-//        [self.imageView addGestureRecognizer:imageTap];
         
     } else {
         
@@ -114,6 +111,7 @@
     [self.imageView removeFromSuperview];
     [self.titleLabel removeFromSuperview];
     [self.descriptionTextView removeFromSuperview];
+    [self.button removeFromSuperview];
     [self viewDidLoad];
 }
 
@@ -133,8 +131,10 @@
     photoBrowser.displayNavArrows = NO;
     photoBrowser.zoomPhotosToFill = YES;
     [photoBrowser setCurrentPhotoIndex:1];
-    photoBrowser.wantsFullScreenLayout = YES;
-    [self.navigationController pushViewController:photoBrowser animated:YES];
+    //photoBrowser.wantsFullScreenLayout = YES;
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:photoBrowser];
+    //[self.navigationController pushViewController:photoBrowser animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 - (void)editItem:(id)sender{
     
