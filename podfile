@@ -1,0 +1,4 @@
+
+platform :ios, '7.0'
+pod 'MWPhotoBrowser',    '~>1.1.3'
+
