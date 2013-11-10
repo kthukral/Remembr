@@ -36,7 +36,7 @@
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveEditChanges:)];
     
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Group copy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(editMode:)];
     
     [[self navigationItem]setRightBarButtonItem:saveButton];
 
@@ -80,7 +80,7 @@
     
     self.editCategoryTableView.editing = NO;
     
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Group copy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(editMode:)];
     
     [self.navigationItem setLeftBarButtonItem:edit];
 

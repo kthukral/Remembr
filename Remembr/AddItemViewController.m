@@ -47,6 +47,9 @@ CGFloat animatedDistance;
     
     self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     self.description.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
+    self.description.textColor = [UIColor lightGrayColor];
+    self.description.text = @"Description";
+    self.description.delegate = self;
     
     self.titleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     self.titleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
@@ -62,6 +65,8 @@ CGFloat animatedDistance;
     
     [[self navigationItem]setRightBarButtonItem:self.save];
     [self.description setScrollEnabled:YES];
+    
+    self.cameraButtonPlaceholder.hidden = NO;
     
 }
 
@@ -88,6 +93,7 @@ CGFloat animatedDistance;
         self.itemBeingCreated.imageKey = nil;
         self.itemImageView.image = nil;
         self.itemImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
+        self.cameraButtonPlaceholder.hidden = NO;
     }
 }
 
@@ -133,8 +139,6 @@ CGFloat animatedDistance;
     }else if([_description isFirstResponder]){
     [_description resignFirstResponder];
     }
-    [_titleTextField setText:@""];
-    [_description setText:@""];
 }
 
 - (void)didReceiveMemoryWarning
@@ -153,23 +157,30 @@ CGFloat animatedDistance;
 }
 
 - (void)addNewItem:(id)sender{
+    NSString *descriptionStr = [NSString new];
     NSInteger initialCount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
-    if(![_titleTextField.text isEqualToString:@""] && ![_description.text isEqualToString:@""]){
-
-        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:self.description.text hasImage:self.itemBeingCreated.hasImage withCategory:self.category];
+    if(![_titleTextField.text isEqualToString:@""]){
+        
+        if ([_description.text isEqualToString:@"Description"] || [_description.text isEqualToString:@""]) {
+            descriptionStr = @"";
+        } else {
+            descriptionStr = self.description.text;
+        }
+        
+        [[ItemStore itemStore]createItemWithTitle:self.titleTextField.text withImageKey:self.itemBeingCreated.imageKey withDescription:descriptionStr hasImage:self.itemBeingCreated.hasImage withCategory:self.category];
         
         [[CategoryStore categoryStore]saveChanges];
         
         NSInteger newcount = [[[ItemStore itemStore]passItemListForCategory:self.category]count];
-        if(initialCount == newcount){
+        if(initialCount == newcount) {
         
-        }else{
+        } else {
             self.itemList = [[ItemListViewController alloc]init];
             self.itemList.categorySelected = self.category;
             [self.navigationController popViewControllerAnimated:YES];
         }
     }else{
-        UIAlertView *invalidItemAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Item" message:@"The Item Must Have a Title and Description" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *invalidItemAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Item" message:@"The Item Must Have a Title" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [invalidItemAlert show];
     }
 }
@@ -287,8 +298,24 @@ CGFloat animatedDistance;
     
     [UIView commitAnimations];
     
+    if (self.description.text.length == 0) {
+        self.description.textColor = [UIColor lightGrayColor];
+        self.description.text = @"Description";
+    }
+
+    
 }
 
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    if ([self.description.text isEqualToString:@"Description"]) {
+        self.description.text = @"";
+    }
+    self.description.textColor = [UIColor blackColor];
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+}
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -318,6 +345,8 @@ CGFloat animatedDistance;
     self.itemBeingCreated.hasImage = YES;
     
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    self.cameraButtonPlaceholder.hidden = YES;
 
 }
 

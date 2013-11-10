@@ -47,14 +47,23 @@ CGFloat animatedDistance;
     self.editTitleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
     self.editTitleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [self.editTextView setText:self.itemToEdit.itemDescription];
+    
+    if (self.editTextView.text.length == 0) {
+        self.editTextView.textColor = [UIColor lightGrayColor];
+        self.editTextView.text = @"Description";
+    }
+    
     [self.editTitleTextField setText:self.itemToEdit.itemTitle];
     [self.editTextView setScrollEnabled:YES];
     self.editTextView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+    
     if(self.itemToEdit.hasImage == YES){
-    self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
+        self.editImageView.image = [[ImageStore imageStore]imageForKey:self.itemToEdit.imageKey];
+        self.cameraButtonPlaceholder.hidden = YES;
     } else {
         [self.editImageView setImage:nil];
         self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
+        self.cameraButtonPlaceholder.hidden = NO;
     }
     
     UINavigationItem *nav;
@@ -91,7 +100,11 @@ CGFloat animatedDistance;
     }
     
     self.itemToEdit.itemTitle = self.editTitleTextField.text;
-    self.itemToEdit.itemDescription = self.editTextView.text;
+    if ([self.editTextView.text isEqualToString:@"Description"]) {
+        self.itemToEdit.itemDescription = @"";
+    } else {
+        self.itemToEdit.itemDescription = self.editTextView.text;
+    }
     
     [[CategoryStore categoryStore]saveChanges];
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
@@ -229,6 +242,12 @@ CGFloat animatedDistance;
     
     [UIView commitAnimations];
     
+    if (self.editTextView.text.length == 0) {
+        self.editTextView.textColor = [UIColor lightGrayColor];
+        self.editTextView.text = @"Description";
+    }
+
+    
 }
 
 
@@ -242,6 +261,17 @@ CGFloat animatedDistance;
     UIActionSheet *actionSheet = [[UIActionSheet alloc]initWithTitle:@"Choose Source" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Library", @"Delete", nil];
     [actionSheet showInView:self.view];
 
+}
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    if ([self.editTextView.text isEqualToString:@"Description"]) {
+        self.editTextView.text = @"";
+    }
+    self.editTextView.textColor = [UIColor blackColor];
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -260,12 +290,13 @@ CGFloat animatedDistance;
 }
 
 - (void)deletePhoto{
-    if (self.itemToEdit.hasImage){
+    if (self.itemToEdit.hasImage||self.didAddImageToNoImageItem){
         self.itemToEdit.hasImage = NO;
         [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
         self.itemToEdit.imageKey = nil;
         self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
         self.editImageView.image = nil;
+        self.cameraButtonPlaceholder.hidden = NO;
     }
 }
 
@@ -327,12 +358,13 @@ CGFloat animatedDistance;
         self.didAddImageToNoImageItem = YES;
         
         [self dismissViewControllerAnimated:YES completion:nil];
+        self.cameraButtonPlaceholder.hidden = YES;
         
     } else {
-    self.changedImage = [[UIImage alloc]init];
-    self.changedImage = image;
-    [self.editImageView setImage:self.changedImage];
-    [self dismissViewControllerAnimated:YES completion:nil];
+        self.changedImage = [[UIImage alloc]init];
+        self.changedImage = image;
+        [self.editImageView setImage:self.changedImage];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
     
     self.editImageView.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];

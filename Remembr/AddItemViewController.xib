@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddItemViewController">
             <connections>
+                <outlet property="cameraButtonPlaceholder" destination="Dhs-V3-N2b" id="rJ0-3G-5LO"/>
                 <outlet property="description" destination="32" id="48"/>
                 <outlet property="itemImageView" destination="10" id="49"/>
                 <outlet property="titleTextField" destination="4" id="50"/>
@@ -58,6 +59,10 @@
                         <outlet property="delegate" destination="-1" id="105"/>
                     </connections>
                 </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CameraGlyph.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dhs-V3-N2b">
+                    <rect key="frame" x="128" y="132" width="64" height="64"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -83,4 +88,7 @@
             </connections>
         </view>
     </objects>
+    <resources>
+        <image name="CameraGlyph.png" width="64" height="64"/>
+    </resources>
 </document>

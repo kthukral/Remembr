@@ -24,5 +24,6 @@
 @property (strong, nonatomic) Item *itemBeingCreated;
 - (IBAction)selectImage:(id)sender;
 - (IBAction)backgroundTapped:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraButtonPlaceholder;
 
 @end

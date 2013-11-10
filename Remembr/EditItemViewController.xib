@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditItemViewController">
             <connections>
+                <outlet property="cameraButtonPlaceholder" destination="d3A-PY-Vku" id="cnK-GL-3CK"/>
                 <outlet property="editImageView" destination="4" id="36"/>
                 <outlet property="editTextView" destination="27" id="38"/>
                 <outlet property="editTitleTextField" destination="14" id="37"/>
@@ -62,6 +63,10 @@
                         <outlet property="delegate" destination="-1" id="68"/>
                     </connections>
                 </textView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="CameraGlyph.png" translatesAutoresizingMaskIntoConstraints="NO" id="d3A-PY-Vku">
+                    <rect key="frame" x="128" y="132" width="64" height="64"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -83,4 +88,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="CameraGlyph.png" width="64" height="64"/>
+    </resources>
 </document>

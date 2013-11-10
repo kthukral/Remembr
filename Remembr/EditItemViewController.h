@@ -25,5 +25,6 @@
 @property (assign, nonatomic) BOOL didAddImageToNoImageItem;
 
 - (IBAction)changeImage:(id)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *cameraButtonPlaceholder;
 
 @end
