@@ -74,6 +74,19 @@ CGFloat animatedDistance;
 
     [[self navigationItem]setRightBarButtonItem:save];
     [[self navigationItem]setLeftBarButtonItem:cancel];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+
+}
+
+- (void)preferredContentSizeChanged:(id)sender{
+    self.editTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.editTitleTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    if([self.editTextView isFirstResponder]){
+        [self.editTextView resignFirstResponder];
+    }else if([self.editTitleTextField isFirstResponder]){
+        [self.editTitleTextField resignFirstResponder];
+    }
 }
 
 - (void)didReceiveMemoryWarning

@@ -67,10 +67,19 @@ CGFloat animatedDistance;
     [self.description setScrollEnabled:YES];
     
     self.cameraButtonPlaceholder.hidden = NO;
-    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
 }
 
+- (void)preferredContentSizeChanged:(id)sender{
+    self.description.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.titleTextField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    if([self.titleTextField isFirstResponder]){
+        [self.titleTextField resignFirstResponder];
+    }else if([self.description isFirstResponder]){
+        [self.description resignFirstResponder];
+    }
 
+}
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     switch (buttonIndex) {
