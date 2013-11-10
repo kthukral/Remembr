@@ -106,7 +106,6 @@ CGFloat animatedDistance;
         self.itemToEdit.itemDescription = self.editTextView.text;
     }
     
-    [[CategoryStore categoryStore]saveChanges];
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
     
 }
@@ -126,6 +125,7 @@ CGFloat animatedDistance;
         [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
         self.itemToEdit.imageKey = nil;
     }
+    [[CategoryStore categoryStore]saveChanges];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

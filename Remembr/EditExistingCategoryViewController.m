@@ -172,7 +172,22 @@ CGFloat animatedDistance;
 }
 
 
-
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    self.categoryToBeEditied.title = self.categoryTitleField.text;
+    if(self.editedImageName){
+        self.categoryToBeEditied.imageName = self.editedImageName;
+    }
+    
+    if(self.editedColor){
+        self.categoryToBeEditied.categoryColor = self.editedColor;
+    }
+    
+    [[CategoryStore categoryStore]saveChanges];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    
+    return NO;
+}
 
 
 

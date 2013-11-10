@@ -217,4 +217,9 @@
     [cell setAlpha:1];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self performSelector:@selector(createNewCategory)  withObject:nil afterDelay:0.5];
+    return NO;
+}
+
 @end
