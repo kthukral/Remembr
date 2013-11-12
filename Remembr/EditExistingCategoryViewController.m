@@ -57,6 +57,14 @@ CGFloat animatedDistance;
     self.backgroundCollectionView.delegate = self;
     self.backgroundCollectionView.dataSource = self;
     
+    UIImage *image = [UIImage imageNamed:self.categoryToBeEditied.imageName];
+    int iIndex = [self.iconArray indexOfObject:image];
+    [self.iconCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:iIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    
+    int colourIndex = [self.backgroundColorArray indexOfObject:self.categoryToBeEditied.categoryColor];
+    
+    [self.backgroundCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:colourIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+
     self.iconCollectionView.backgroundColor = [UIColor whiteColor];
     [self.iconCollectionView setShowsHorizontalScrollIndicator:NO];
     
@@ -83,6 +91,12 @@ CGFloat animatedDistance;
     [self.categoryTitleField setHidden:YES];
     [self.categoryTitleField becomeFirstResponder];
     
+    CustomCollectionViewCell *cell = (CustomCollectionViewCell *)[self.iconCollectionView cellForItemAtIndexPath:[[self.iconCollectionView indexPathsForSelectedItems] objectAtIndex:0]];
+    cell.alpha = 0;
+    cell = (CustomCollectionViewCell *)[self.backgroundCollectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:colourIndex inSection:0]];
+    cell.alpha = 0.5f;
+    [self.iconCollectionView reloadItemsAtIndexPaths:[self.iconCollectionView indexPathsForSelectedItems]];
+    [self.backgroundCollectionView reloadItemsAtIndexPaths:[self.backgroundCollectionView indexPathsForSelectedItems]];
 }
 
 - (void) saveChangesToCatagory: (id)sender {
@@ -130,10 +144,20 @@ CGFloat animatedDistance;
     if(collectionView == self.iconCollectionView){
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        if (Customcell.selected) {
+            Customcell.alpha = 0.5f;
+        } else {
+            Customcell.alpha = 1.0f;
+        }
         return Customcell;
     }else{
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         Customcell.backgroundColor = [self.backgroundColorArray objectAtIndex:indexPath.row];
+        if (Customcell.selected) {
+            Customcell.alpha = 0.5f;
+        } else {
+            Customcell.alpha = 1.0f;
+        }
         return Customcell;
         
     }
@@ -188,7 +212,5 @@ CGFloat animatedDistance;
     
     return NO;
 }
-
-
 
 @end
