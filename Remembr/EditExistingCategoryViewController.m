@@ -70,6 +70,8 @@ CGFloat animatedDistance;
     self.iconArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnIconPack]];
     self.backgroundColorArray = [[NSArray alloc]initWithArray:[[collectionStore collectionStore]returnColors]];
 
+    self.backgroundCollectionView.allowsMultipleSelection = NO;
+    self.iconCollectionView.allowsMultipleSelection = NO;
     
     UINavigationItem *nav = [[UINavigationItem alloc]init];
     
@@ -93,8 +95,6 @@ CGFloat animatedDistance;
     
     [self.backgroundCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:colourIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
 
-    [self.iconCollectionView reloadItemsAtIndexPaths:[self.iconCollectionView indexPathsForSelectedItems]];
-    [self.backgroundCollectionView reloadItemsAtIndexPaths:[self.backgroundCollectionView indexPathsForSelectedItems]];
 }
 
 - (void) saveChangesToCatagory: (id)sender {
@@ -153,6 +153,7 @@ CGFloat animatedDistance;
         Customcell.backgroundColor = [self.backgroundColorArray objectAtIndex:indexPath.row];
         if (Customcell.selected) {
             Customcell.alpha = 0.2f;
+            Customcell.selected = YES;
         } else {
             Customcell.alpha = 1.0f;
         }
@@ -170,9 +171,10 @@ CGFloat animatedDistance;
         NSString *imageIndex = [NSString stringWithFormat:@"%d",indexPath.row];
         NSString *selectedImageName = [imageIndex stringByAppendingString:@".png"];
         self.editedImageName = selectedImageName;
+        [self.iconCollectionView deselectItemAtIndexPath:[self.iconCollectionView indexPathsForSelectedItems][0] animated:NO];
         collectionViewCellCustom *cell = (collectionViewCellCustom *)[collectionView cellForItemAtIndexPath:indexPath];
         cell.backgroundImage.clipsToBounds = YES;
-        [cell setAlpha:0.5f];
+        [cell setAlpha:0.2f];
         
     }else if(collectionView == self.backgroundCollectionView){
         
