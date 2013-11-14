@@ -89,11 +89,11 @@ CGFloat animatedDistance;
     //Select category assets
     UIImage *image = [UIImage imageNamed:self.categoryToBeEditied.imageName];
     int iIndex = [self.iconArray indexOfObject:image];
-    [self.iconCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:iIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    [self.iconCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:iIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
     
     int colourIndex = [self.backgroundColorArray indexOfObject:self.categoryToBeEditied.categoryColor];
     
-    [self.backgroundCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:colourIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionCenteredHorizontally];
+    [self.backgroundCollectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:colourIndex inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionLeft];
 
 }
 

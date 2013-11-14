@@ -67,6 +67,14 @@
     [self.view addSubview:self.collectionView];
     
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
+    
+    //self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.47f green:0.80f blue:0.42f alpha:0.8f];
+    
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
+    [[UINavigationBar appearance]setTitleTextAttributes:textTitleOptions];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
