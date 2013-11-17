@@ -1,0 +1,129 @@
+body 
+{ 
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+
+.container
+{
+	min-width: 100%;
+	padding: 0;
+}
+
+.row
+{
+	max-width: 900px;
+	margin: 0 auto;
+}
+@media only screen and (max-device-width: 480px) {
+	.row
+	{
+		width: 100%;
+	}
+}
+
+/*************
+	Banner
+*************/
+.banner
+{
+	text-align: center;
+}
+.banner img
+{
+	width: 100%;
+}
+
+/*************
+	Screenshot
+*************/
+.screenshot
+{
+	text-align: center;
+	background: #293E51;
+}
+.screenshot img
+{
+	max-width: 50%;
+}
+.screenshot .appstore
+{
+	padding: 10% 0;
+}
+.screenshot .device
+{
+	padding-bottom: 10%;
+}
+
+/*************
+	Description
+*************/
+.description
+{
+	background: #4BA887;
+	padding: 5%;
+	color: #E6E6E6;
+	font-size: 1.2em;
+}
+.description .heading
+{
+	text-align: center;
+}
+.description .about
+{
+	text-align: justify;
+	padding-top: 5%;
+}
+
+/*************
+	Social
+*************/
+.social {
+	background-color: #9E41AE;
+}
+
+.social p{
+	padding-top: 10%;
+	padding-bottom: 5%;
+	text-align: center;
+	color: #FFFFFF;
+}
+
+.twitter {
+	background-color: #2F92D7;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+.feedback {
+	background-color: #BF372A;
+	padding-top: 1%;
+	padding-bottom: 1%
+}
+
+.facebook {
+	background-color: #39579A;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+.mail {
+	background-color: #9E41AE;
+	padding-top: 1%;
+	padding-bottom: 1%;
+}
+
+/*************
+	Footer
+*************/
+.created
+{
+	padding: 5% 0;
+}
+.created img
+{
+	margin: 0 auto;
+}
+
+

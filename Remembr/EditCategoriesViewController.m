@@ -44,6 +44,10 @@
     
     self.editCategoryTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
+    
     self.editCategoryTableView.delegate = self;
     self.editCategoryTableView.dataSource = self;
     self.editCategoryTableView.separatorInset = UIEdgeInsetsZero;

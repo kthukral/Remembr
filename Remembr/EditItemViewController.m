@@ -75,6 +75,10 @@ CGFloat animatedDistance;
     [[self navigationItem]setRightBarButtonItem:save];
     [[self navigationItem]setLeftBarButtonItem:cancel];
     
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+
+    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
 
 }
@@ -117,6 +121,15 @@ CGFloat animatedDistance;
         self.itemToEdit.itemDescription = @"";
     } else {
         self.itemToEdit.itemDescription = self.editTextView.text;
+    }
+    
+    if (self.didDeleteImage){
+        if (self.itemToEdit.hasImage||self.didAddImageToNoImageItem){
+            self.itemToEdit.hasImage = NO;
+            [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
+            self.itemToEdit.imageKey = nil;
+
+        }
     }
     
     [self performSelector:@selector(cancelPressed:) withObject:nil afterDelay:0.5];
@@ -303,14 +316,9 @@ CGFloat animatedDistance;
 }
 
 - (void)deletePhoto{
-    if (self.itemToEdit.hasImage||self.didAddImageToNoImageItem){
-        self.itemToEdit.hasImage = NO;
-        [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
-        self.itemToEdit.imageKey = nil;
         self.editImageView.backgroundColor = [UIColor colorWithRed:0.70f green:0.29f blue:0.23f alpha:1.00f];
         self.editImageView.image = nil;
         self.cameraButtonPlaceholder.hidden = NO;
-    }
 }
 
 

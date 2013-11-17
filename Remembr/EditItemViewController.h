@@ -26,5 +26,6 @@
 
 - (IBAction)changeImage:(id)sender;
 @property (weak, nonatomic) IBOutlet UIImageView *cameraButtonPlaceholder;
+@property (assign, nonatomic) BOOL didDeleteImage;
 
 @end
