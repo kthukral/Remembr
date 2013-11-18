@@ -11,6 +11,7 @@
 #import "CategoryViewController.h"
 #import "CustomTableViewCell.h"
 #import "EditExistingCategoryViewController.h"
+#import "editCategoryTableViewCell.h"
 
 @interface EditCategoriesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 

@@ -142,6 +142,7 @@ CGFloat animatedDistance;
     if(collectionView == self.iconCollectionView){
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
+        Customcell.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
         if (Customcell.selected) {
             Customcell.alpha = 0.2f;
         } else {

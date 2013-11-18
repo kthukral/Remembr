@@ -130,7 +130,8 @@
     //cell.categoryImageView.image = [UIImage imageNamed:categoryRequested.imageName];
     UIView *view = [[UIView alloc]initWithFrame:cell.bounds];
     UIImageView *imageView = [[UIImageView alloc]initWithFrame:view.bounds];
-    imageView.contentMode = UIViewContentModeCenter;
+    [imageView setFrame:CGRectMake(64, 64, 32, 32)];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
     imageView.image = [UIImage imageNamed:categoryRequested.imageName];
     [view addSubview:imageView];
     [cell setBackgroundView:view];

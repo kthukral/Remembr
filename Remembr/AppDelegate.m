@@ -17,12 +17,12 @@
     // Override point for customization after application launch.
     if (![[NSUserDefaults standardUserDefaults] boolForKey:@"hasLaunchedOnce"]) {
         //First Launch category creation
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"Places" withColor:[UIColor colorWithRed:0.10f green:0.74f blue:0.61f alpha:1.00f] andImageName:@"94.png"];
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"People" withColor:[UIColor colorWithRed:0.38f green:0.80f blue:0.44f alpha:1.00f] andImageName:@"60.png"];
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"To Do" withColor:[UIColor colorWithRed:0.21f green:0.60f blue:0.86f alpha:1.00f] andImageName:@"95.png"];
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"School" withColor:[UIColor colorWithRed:0.68f green:0.48f blue:0.77f alpha:1.00f] andImageName:@"10.png"];
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"Music" withColor:[UIColor colorWithRed:0.20f green:0.29f blue:0.37f alpha:1.00f] andImageName:@"64.png"];
-        [[CategoryStore categoryStore]createCategoryWithTitle:@"Movies" withColor:[UIColor colorWithRed:0.28f green:0.63f blue:0.53f alpha:1.00f] andImageName:@"73.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"Places" withColor:[UIColor colorWithRed:0.95f green:0.77f blue:0.19f alpha:1.00f] andImageName:@"95.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"People" withColor:[UIColor colorWithRed:0.92f green:0.59f blue:0.31f alpha:1.00f] andImageName:@"62.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"To Do" withColor:[UIColor colorWithRed:0.91f green:0.30f blue:0.24f alpha:1.00f] andImageName:@"96.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"School" withColor:[UIColor colorWithRed:0.18f green:0.24f blue:0.31f alpha:1.00f] andImageName:@"11.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"Music" withColor:[UIColor colorWithRed:0.21f green:0.60f blue:0.86f alpha:1.00f] andImageName:@"66.png"];
+        [[CategoryStore categoryStore]createCategoryWithTitle:@"Movies" withColor:[UIColor colorWithRed:0.10f green:0.74f blue:0.61f alpha:1.00f] andImageName:@"105.png"];
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"hasLaunchedOnce"];
         [[NSUserDefaults standardUserDefaults]synchronize];
         

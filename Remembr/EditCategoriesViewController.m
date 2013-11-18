@@ -52,6 +52,14 @@
     self.editCategoryTableView.dataSource = self;
     self.editCategoryTableView.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.editCategoryTableView];
+    [self.editCategoryTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+
+}
+
+- (void)preferredContentSizeChanged:(id)sender{
+    [self.editCategoryTableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -114,16 +122,20 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     NSLog(@"Index = %d",indexPath.row);
-    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+    editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
-        NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
+        NSArray *nib = [[NSBundle mainBundle]loadNibNamed:@"editCategoryTableViewCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+    if (!self.editCategoryTableView.editing) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
     Category *current = [self.editCategories objectAtIndex:indexPath.row];
+    cell.image.contentMode = UIViewContentModeScaleAspectFit;
     cell.showsReorderControl = YES;
-    [[cell itemTitle]setText:current.title];
+    [[cell title]setText:current.title];
     cell.backgroundColor = current.categoryColor;
-    cell.itemImage.image = [UIImage imageNamed:current.imageName];
+    cell.image.image = [UIImage imageNamed:current.imageName];
     
     return cell;
 }
@@ -141,7 +153,7 @@
     if(self.editCategoryTableView.editing){
         return UITableViewCellEditingStyleNone;
     }else{
-    return UITableViewCellEditingStyleDelete;
+        return UITableViewCellEditingStyleDelete;
     }
 }
 
@@ -165,7 +177,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 68;
+    Category *category = [self.editCategories objectAtIndex:indexPath.row];
+    
+    UIFont *titleLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    
+    CGRect titleLabelFontSize = [category.title boundingRectWithSize:CGSizeMake(193, CGFLOAT_MAX) options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading) attributes:[NSDictionary dictionaryWithObject:titleLabelFont forKey:NSFontAttributeName] context:nil];
+    
+    CGFloat PADDING_OUTER = 15;
+    
+    CGFloat totalHeight = PADDING_OUTER + titleLabelFontSize.size.height + 15 + PADDING_OUTER;
+    
+    return totalHeight;
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -179,13 +202,14 @@
 
 
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.itemImage.alpha = 0;
+    editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.image.alpha = 0;
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
-    CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
-    cell.itemImage.alpha = 1;
+    editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    cell.image.alpha = 1;
 }
+
 
 @end
