@@ -33,7 +33,7 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    self.categories = (NSMutableArray *)[[CategoryStore categoryStore]allCatagories];
     //navigation
     UINavigationItem *nav = [self navigationItem];
     nav.title = @"Remembr";
@@ -53,6 +53,8 @@
     CGRect collectionViewFrame = CGRectMake(0, 0, mainScreen.size.width, requiredHeight);
     
     self.layout = [[UICollectionViewFlowLayout alloc]init];
+    
+    self.layout = [[LXReorderableCollectionViewFlowLayout alloc]init];
     
     self.collectionView = [[UICollectionView alloc]initWithFrame:collectionViewFrame collectionViewLayout:self.layout];
     self.collectionView.delegate = self;
@@ -80,6 +82,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     //[self.collectionView performBatchUpdates:^{ //looking into this with the book
     [self.collectionView reloadData];
+    self.categories = (NSMutableArray *)[[CategoryStore categoryStore]allCatagories];
     //}completion:nil];
 }
 
@@ -154,6 +157,29 @@
     [self.navigationController pushViewController:self.itemListView animated:YES];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    Category *category = [[CategoryStore categoryStore]allCatagories][fromIndexPath.row];
+    [((NSMutableArray *)[[CategoryStore categoryStore]allCatagories]) removeObjectAtIndex:fromIndexPath.row];
+    [((NSMutableArray *)[[CategoryStore categoryStore]allCatagories]) insertObject:category atIndex:toIndexPath.row];
+    
+    [[CategoryStore categoryStore]saveChanges];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"will begin drag");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"did begin drag");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"will end drag");
+}
+
+- (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"did end drag");
+}
 
 
 @end

@@ -14,10 +14,12 @@
 #import "ItemListViewController.h"
 #import "EditCategoriesViewController.h"
 #import "collectionStore.h"
+#import <LXReorderableCollectionViewFlowLayout.h>
 
-@interface CategoryViewController : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate>
+@interface CategoryViewController : UIViewController <UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate, LXReorderableCollectionViewDatasource, LXReorderableCollectionViewDelegate>
 
 
 - (IBAction)addNewCategory:(id)sender;
+@property (strong, nonatomic) NSMutableArray *categories;
 
 @end
