@@ -1,5 +1,7 @@
 PODS:
+  - BVReorderTableView (1.0.0)
   - DACircularProgress (2.1.0)
+  - LXReorderableCollectionViewFlowLayout (0.1.0.beta1)
   - MBProgressHUD (0.8)
   - MWPhotoBrowser (1.1.3):
     - DACircularProgress
@@ -15,12 +17,16 @@ PODS:
   - SDWebImage/Core (3.4)
 
 DEPENDENCIES:
+  - BVReorderTableView (~> 1.0.0)
+  - LXReorderableCollectionViewFlowLayout (~> 0.1.0.beta1)
   - MWPhotoBrowser (~> 1.1.3)
 
 SPEC CHECKSUMS:
+  BVReorderTableView: 8d36c634a64558d5c5e952173ec9bd62c37b7fbb
   DACircularProgress: 8c8f20c8dffdd647fbf570ddecbc2b1b59da5888
+  LXReorderableCollectionViewFlowLayout: b4696ccd964061262bb314b88272a7b1110ec00b
   MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   MWPhotoBrowser: fb848dd98faf03cde1c16573408303deb51388f8
   SDWebImage: 366188f04c019bfd712d45e3b36aa52070f4abd8
 
-COCOAPODS: 0.26.1
+COCOAPODS: 0.27.1

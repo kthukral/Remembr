@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31AA464FB44F49D6B970297C"
-               BuildableName = "libPods-DACircularProgress.a"
-               BlueprintName = "Pods-DACircularProgress"
+               BlueprintIdentifier = "8D5E222819E74330AE0D6105"
+               BuildableName = "libPods-BVReorderTableView.a"
+               BlueprintName = "Pods-BVReorderTableView"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

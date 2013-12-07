@@ -6,11 +6,24 @@
 // project.
 
 
+// BVReorderTableView
+#define COCOAPODS_POD_AVAILABLE_BVReorderTableView
+#define COCOAPODS_VERSION_MAJOR_BVReorderTableView 1
+#define COCOAPODS_VERSION_MINOR_BVReorderTableView 0
+#define COCOAPODS_VERSION_PATCH_BVReorderTableView 0
+
 // DACircularProgress
 #define COCOAPODS_POD_AVAILABLE_DACircularProgress
 #define COCOAPODS_VERSION_MAJOR_DACircularProgress 2
 #define COCOAPODS_VERSION_MINOR_DACircularProgress 1
 #define COCOAPODS_VERSION_PATCH_DACircularProgress 0
+
+// LXReorderableCollectionViewFlowLayout
+#define COCOAPODS_POD_AVAILABLE_LXReorderableCollectionViewFlowLayout
+// This library does not follow semantic-versioning,
+// so we were not able to define version macros.
+// Please contact the author.
+// Version: 0.1.0.beta1.
 
 // MBProgressHUD
 #define COCOAPODS_POD_AVAILABLE_MBProgressHUD

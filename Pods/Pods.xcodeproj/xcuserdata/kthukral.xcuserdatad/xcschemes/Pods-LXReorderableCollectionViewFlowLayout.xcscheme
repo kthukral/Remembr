@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "31AA464FB44F49D6B970297C"
-               BuildableName = "libPods-DACircularProgress.a"
-               BlueprintName = "Pods-DACircularProgress"
+               BlueprintIdentifier = "560B168F9AD44459816D9CA8"
+               BuildableName = "libPods-LXReorderableCollectionViewFlowLayout.a"
+               BlueprintName = "Pods-LXReorderableCollectionViewFlowLayout"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
