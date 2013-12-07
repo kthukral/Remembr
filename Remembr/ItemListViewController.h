@@ -14,8 +14,9 @@
 #import "CustomTableViewCell.h"
 #import "ImageStore.h"
 #import "NewItemViewController.h"
+#import <BVReorderTableView.h>
 
-@interface ItemListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface ItemListViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ReorderTableViewDelegate>
 
 @property (strong, nonatomic) Category *categorySelected;
 

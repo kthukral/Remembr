@@ -7,10 +7,11 @@
 //
 
 #import "ItemListViewController.h"
+#import <BVReorderTableView.h>
 
 @interface ItemListViewController ()
 
-@property (strong, nonatomic) UITableView *itemListView;
+@property (strong, nonatomic) BVReorderTableView *itemListView;
 @property (strong, nonatomic) AddItemViewController *addNewItemView;
 @end
 
@@ -36,7 +37,7 @@
     } else {
         [self noEditButton:self];
     }
-    self.itemListView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.itemListView = [[BVReorderTableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.itemListView.delegate = self;
     self.itemListView.dataSource = self;
     self.itemListView.separatorInset = UIEdgeInsetsZero;  
@@ -45,6 +46,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
     
 }
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    ((BVReorderTableView *)self.itemListView).canReorder = editing;
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 68;
@@ -134,6 +141,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if ([self.categorySelected.itemArray[indexPath.row] isKindOfClass:[NSString class]] && [self.categorySelected.itemArray[indexPath.row] isEqualToString:@"EMPTYROW"]) {
+        UITableViewCell *emptyCell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!emptyCell) {
+            emptyCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eCell"];
+        }
+        emptyCell.textLabel.text = @"";
+        emptyCell.contentView.backgroundColor = [UIColor clearColor];
+        emptyCell.accessoryType = UITableViewCellAccessoryNone;
+        return emptyCell;
+    }
+    
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
@@ -169,6 +187,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //return 68;
+    
+    if ([self.categorySelected.itemArray[indexPath.row] isKindOfClass:[NSString class]] && [self.categorySelected.itemArray[indexPath.row] isEqualToString:@"EMPTYROW"]) {
+        return 70;
+    }
     
     Item *item = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
     
@@ -232,5 +254,26 @@
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.itemImage.alpha = 1.0f;
 }
+
+- (id)saveObjectAndInsertBlankRowAtIndexPath:(NSIndexPath *)indexPath {
+    Item *itemBeingMoved = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
+    [self.categorySelected.itemArray replaceObjectAtIndex:indexPath.row withObject:@"EMPTYROW"];
+    
+    return itemBeingMoved;
+}
+
+- (void)moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    Item *item = self.categorySelected.itemArray[fromIndexPath.row];
+    
+    [self.categorySelected.itemArray removeObjectAtIndex:fromIndexPath.row];
+    [self.categorySelected.itemArray insertObject:item atIndex:toIndexPath.row];
+}
+
+- (void)finishReorderingWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath{
+    [self.categorySelected.itemArray replaceObjectAtIndex:indexPath.row withObject:object];
+    [[CategoryStore categoryStore]saveChanges];
+}
+
+
 
 @end
