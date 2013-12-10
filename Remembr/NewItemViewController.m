@@ -33,6 +33,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    UIMenuItem *strikethrough = [[UIMenuItem alloc]initWithTitle:@"Strikethrough" action:@selector(strikeTheSelection:)];
+    
+    [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:strikethrough, nil]];
+    
     self.photoArray = [NSMutableArray new];
     
     [self layoutSubviews];
@@ -44,6 +48,13 @@
 
 - (void)preferredContentSizeChanged:(id)sender{
     [self viewDidLoad];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    Item *itemToDisplay = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
+    itemToDisplay.attrDescription = self.descriptionTextView.attributedText;
+    
+    [[CategoryStore categoryStore]saveChanges];
 }
 
 - (void)layoutSubviews{
@@ -85,7 +96,10 @@
     self.descriptionTextView.scrollEnabled = YES;
     self.descriptionTextView.dataDetectorTypes = UIDataDetectorTypeAll;
     
-    [self.descriptionTextView setText:itemToDisplay.itemDescription];
+    //NSAttributedString *attr = [[NSAttributedString alloc]initWithString:itemToDisplay.itemDescription attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody]}];
+    //[self.descriptionTextView setText:itemToDisplay.itemDescription];
+    //[self.descriptionTextView setAttributedText:attr];
+    [self.descriptionTextView setAttributedText:itemToDisplay.attrDescription];
     
     UIColor *background = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];;
     self.view.backgroundColor = background;
@@ -165,6 +179,37 @@
     if (index < self.photoArray.count)
         return [self.photoArray objectAtIndex:index];
     return nil;
+}
+
+- (void)strikeTheSelection:(id)sender {
+    //NSString *textViewText = self.descriptionTextView.text;
+    
+    //NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:textViewText];
+    
+    NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
+    
+    attrStr = (NSMutableAttributedString *)self.descriptionTextView.attributedText;
+    
+    NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
+    
+    [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.descriptionTextView.selectedRange];
+    
+    strikeThroughAttributes = @{NSStrikethroughStyleAttributeName : @1,NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSStrikethroughColorAttributeName:[UIColor redColor]};
+    
+    [attrStr setAttributes:strikeThroughAttributes range:self.descriptionTextView.selectedRange];
+    
+    self.descriptionTextView.text = @"";
+    self.descriptionTextView.attributedText = attrStr;
+    
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(strikeTheSelection:)) {
+        if (self.descriptionTextView.selectedRange.length > 0) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

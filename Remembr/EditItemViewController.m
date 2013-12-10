@@ -46,7 +46,8 @@ CGFloat animatedDistance;
     self.editTitleTextField.backgroundColor = [UIColor colorWithRed:0.38f green:0.37f blue:0.38f alpha:0.8f];
     self.editTitleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
     self.editTitleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
-    [self.editTextView setText:self.itemToEdit.itemDescription];
+    [self.editTextView setAttributedText:self.itemToEdit.attrDescription];
+    //[self.editTextView setText:self.itemToEdit.itemDescription];
     
     if (self.editTextView.text.length == 0) {
         self.editTextView.textColor = [UIColor lightGrayColor];
@@ -120,7 +121,8 @@ CGFloat animatedDistance;
     if ([self.editTextView.text isEqualToString:@"Description"]) {
         self.itemToEdit.itemDescription = @"";
     } else {
-        self.itemToEdit.itemDescription = self.editTextView.text;
+        self.itemToEdit.itemDescription = self.editTextView.attributedText.string;
+        self.itemToEdit.attrDescription = self.editTextView.attributedText;
     }
     
     if (self.didDeleteImage){
