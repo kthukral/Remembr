@@ -33,7 +33,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIMenuItem *strikethrough = [[UIMenuItem alloc]initWithTitle:@"Strikethrough" action:@selector(strikeTheSelection:)];
+    UIMenuItem *strikethrough = [[UIMenuItem alloc]initWithTitle:@"Strike" action:@selector(strikeTheSelection:)];
+    
+    //UIMenuItem *unStrike = [[UIMenuItem alloc]initWithTitle:@"Un-Strike" action:@selector(unstrikeSelection:)];
     
     [[UIMenuController sharedMenuController] setMenuItems:[NSArray arrayWithObjects:strikethrough, nil]];
     
@@ -182,9 +184,34 @@
 }
 
 - (void)strikeTheSelection:(id)sender {
-    //NSString *textViewText = self.descriptionTextView.text;
     
-    //NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:textViewText];
+    Item *item = self.categorySelected.itemArray[self.itemIndex];
+    
+    for (int i = 0; i<item.rangesForStrike.count; i++) {
+        NSRange range = [[item.rangesForStrike objectAtIndex:i] rangeValue];
+        if (NSEqualRanges(range, self.descriptionTextView.selectedRange)) {
+            [item.rangesForStrike removeObjectAtIndex:i];
+            NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
+            
+            attrStr = (NSMutableAttributedString *)self.descriptionTextView.attributedText;
+            
+            NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
+            
+            [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.descriptionTextView.selectedRange];
+            
+            strikeThroughAttributes = @{NSStrikethroughStyleAttributeName : @0,NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSStrikethroughColorAttributeName:[UIColor redColor]};
+            
+            [attrStr setAttributes:strikeThroughAttributes range:self.descriptionTextView.selectedRange];
+            
+            self.descriptionTextView.text = @"";
+            self.descriptionTextView.attributedText = attrStr;
+            
+            return;
+
+        }
+    }
+    
+    [item.rangesForStrike addObject:[NSValue valueWithRange:self.descriptionTextView.selectedRange]];
     
     NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
     
@@ -201,6 +228,24 @@
     self.descriptionTextView.text = @"";
     self.descriptionTextView.attributedText = attrStr;
     
+}
+
+- (void)unstrikeSelection:(id)sender {
+    NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
+    
+    attrStr = (NSMutableAttributedString *)self.descriptionTextView.attributedText;
+    
+    NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
+    
+    [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.descriptionTextView.selectedRange];
+    
+    strikeThroughAttributes = @{NSStrikethroughStyleAttributeName : @0,NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSStrikethroughColorAttributeName:[UIColor redColor]};
+    
+    [attrStr setAttributes:strikeThroughAttributes range:self.descriptionTextView.selectedRange];
+    
+    self.descriptionTextView.text = @"";
+    self.descriptionTextView.attributedText = attrStr;
+
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {

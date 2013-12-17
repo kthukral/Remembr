@@ -31,7 +31,9 @@
         [self setImageKey:key];
         [self setItemDescription:description];
         [self setHasImage:hasImage];
-        [self setAttrDescription:[[NSAttributedString alloc] initWithString:description]];
+        NSAttributedString *attrStr = [[NSAttributedString alloc]initWithString:description attributes:@{NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody]}];
+        [self setAttrDescription:attrStr];
+        self.rangesForStrike = [NSMutableArray new];
     }
     
     return self;
@@ -48,6 +50,7 @@
         self.itemTitle = [aDecoder decodeObjectForKey:@"itemTitle"];
         self.hasImage = [aDecoder decodeBoolForKey:@"hasImage"];
         self.attrDescription = [aDecoder decodeObjectForKey:@"attrDescription"];
+        self.rangesForStrike = [aDecoder decodeObjectForKey:@"rangeArray"];
     }
     return self;
 }
@@ -59,6 +62,7 @@
     [aCoder encodeObject:self.itemTitle forKey:@"itemTitle"];
     [aCoder encodeBool:self.hasImage forKey:@"hasImage"];
     [aCoder encodeObject:self.attrDescription forKey:@"attrDescription"];
+    [aCoder encodeObject:self.rangesForStrike forKey:@"rangeArray"];
 }
 
 - (id)initWithTitle:(NSString *)title withDescription:(NSString *)description{
