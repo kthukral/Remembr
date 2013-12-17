@@ -230,23 +230,25 @@
     
 }
 
-- (void)unstrikeSelection:(id)sender {
-    NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
-    
-    attrStr = (NSMutableAttributedString *)self.descriptionTextView.attributedText;
-    
-    NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
-    
-    [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.descriptionTextView.selectedRange];
-    
-    strikeThroughAttributes = @{NSStrikethroughStyleAttributeName : @0,NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSStrikethroughColorAttributeName:[UIColor redColor]};
-    
-    [attrStr setAttributes:strikeThroughAttributes range:self.descriptionTextView.selectedRange];
-    
-    self.descriptionTextView.text = @"";
-    self.descriptionTextView.attributedText = attrStr;
+// in TESTING
 
-}
+//- (void)unstrikeSelection:(id)sender {
+//    NSMutableAttributedString *attrStr = [NSMutableAttributedString new];
+//    
+//    attrStr = (NSMutableAttributedString *)self.descriptionTextView.attributedText;
+//    
+//    NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
+//    
+//    [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.descriptionTextView.selectedRange];
+//    
+//    strikeThroughAttributes = @{NSStrikethroughStyleAttributeName : @0,NSFontAttributeName: [UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSStrikethroughColorAttributeName:[UIColor redColor]};
+//    
+//    [attrStr setAttributes:strikeThroughAttributes range:self.descriptionTextView.selectedRange];
+//    
+//    self.descriptionTextView.text = @"";
+//    self.descriptionTextView.attributedText = attrStr;
+//
+//}
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(strikeTheSelection:)) {
