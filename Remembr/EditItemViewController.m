@@ -51,7 +51,6 @@ CGFloat animatedDistance;
     self.editTitleTextField.textColor = [UIColor colorWithRed:0.97f green:0.97f blue:0.97f alpha:1.00f];
     self.editTitleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
     [self.editTextView setAttributedText:self.itemToEdit.attrDescription];
-    //[self.editTextView setText:self.itemToEdit.itemDescription];
     
     if (self.editTextView.text.length == 0) {
         self.editTextView.textColor = [UIColor lightGrayColor];
@@ -152,7 +151,6 @@ CGFloat animatedDistance;
 }
 
 - (IBAction)cancelPressed:(id)sender{
-    //[self.navigationController popViewControllerAnimated:YES];
     if(!self.itemToEdit.hasImage && self.itemToEdit.imageKey){
         [[ImageStore imageStore]deleteImageForKey:self.itemToEdit.imageKey];
         self.itemToEdit.imageKey = nil;
@@ -407,7 +405,7 @@ CGFloat animatedDistance;
             
             attrStr = (NSMutableAttributedString *)self.editTextView.attributedText;
             
-            NSDictionary* strikeThroughAttributes = [NSDictionary new]; //FIGURE OUT HOW TO REMOVE ATTR
+            NSDictionary* strikeThroughAttributes = [NSDictionary new];
             
             [attrStr removeAttribute:NSStrikethroughStyleAttributeName range:self.editTextView.selectedRange];
             

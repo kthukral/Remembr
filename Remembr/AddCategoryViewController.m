@@ -34,6 +34,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //The name text view will always remain first responder and keyboard always up
+    
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     
     [notificationCenter addObserver:self
@@ -112,13 +114,7 @@
 }
 
 - (IBAction)saveCategory:(id)sender{
-    
-//    [_titleTextField resignFirstResponder];
     [self performSelector:@selector(createNewCategory)  withObject:nil afterDelay:0.5];
-    
-    //checking if valid string
-
-    
 }
 
 - (void)createNewCategory{

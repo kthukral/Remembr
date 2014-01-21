@@ -60,8 +60,6 @@
 - (void)setUpNavButtons:(id)sender{
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
     
-    //UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editMode:)];
-    
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Group copy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(editMode:)];
     
     NSArray *buttons = [NSArray arrayWithObjects:addButton,edit,nil];
@@ -186,7 +184,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    //return 68;
+    
+    //dynamic type is used
     
     if ([self.categorySelected.itemArray[indexPath.row] isKindOfClass:[NSString class]] && [self.categorySelected.itemArray[indexPath.row] isEqualToString:@"EMPTYROW"]) {
         return 70;

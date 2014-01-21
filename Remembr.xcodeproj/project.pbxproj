@@ -655,7 +655,7 @@
 				ORGANIZATIONNAME = "Karan Thukral";
 				TargetAttributes = {
 					9EBD66B817C93B04002F41F7 = {
-						DevelopmentTeam = CK57PGK62G;
+						DevelopmentTeam = WYS6PCLZAG;
 					};
 				};
 			};
