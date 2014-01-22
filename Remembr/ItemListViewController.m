@@ -43,17 +43,20 @@
     self.itemListView.separatorInset = UIEdgeInsetsZero;  
     [self.view addSubview:self.itemListView];
     
+    //Notification set to check when the user changes the system text size from the settings application
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
     
 }
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    //BVReorderTableView library used to implement tap and hold to reorder
     [super setEditing:editing animated:animated];
     ((BVReorderTableView *)self.itemListView).canReorder = editing;
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    //base row height to make transistions smother when text size and cell size is changed
     return 68;
 }
 
@@ -68,11 +71,13 @@
 }
 
 - (void)noEditButton:(id)sender{
+    //Only called if the category item array is empty
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
     [[self navigationItem]setRightBarButtonItem:addButton];
 }
 
 - (void)preferredContentSizeChanged:(id)sender{
+    //react to the change in text size
     [self.itemListView reloadData];
 }
 
@@ -98,6 +103,7 @@
 }
 
 - (void)editMode:(id)sender{
+    //enter edit mode to delete or reorder the rows
     self.itemListView.editing = YES;
     UIBarButtonItem *done = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
@@ -107,6 +113,7 @@
 }
 
 - (void)done:(id)sender{
+    //to end editing mode
     self.itemListView.editing = NO;
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewItem:)];
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"Group copy.png"] style:UIBarButtonItemStylePlain target:self action:@selector(editMode:)];
@@ -148,12 +155,12 @@
         emptyCell.contentView.backgroundColor = [UIColor clearColor];
         emptyCell.accessoryType = UITableViewCellAccessoryNone;
         return emptyCell;
-    }
+    } //empty cell method used to conform to the BVReorderTableView library
     
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomTableViewCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+        cell = [nib objectAtIndex:0]; //register nib for custom table view cell
     }
     
     Item *currentItem = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
@@ -167,19 +174,19 @@
     [[cell itemTitle]setText:itemToAdd.itemTitle];
     cell.itemImage.contentMode = UIViewContentModeScaleAspectFit;
     cell.itemImage.clipsToBounds = YES;
-    [[cell itemImage]setImage:[[ImageStore imageStore]imageForKey:itemToAdd.imageKey]];
+    [[cell itemImage]setImage:[[ImageStore imageStore]imageForKey:itemToAdd.imageKey]]; //Image Store to retrieve saved images using the unique image key store in the item object
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NewItemViewController *newItemController = [[NewItemViewController alloc]init];
+    ItemViewController *itemViewController = [[ItemViewController alloc]init];
     
-    newItemController.categorySelected = self.categorySelected;
-    newItemController.itemIndex = indexPath.row;
+    itemViewController.categorySelected = self.categorySelected;
+    itemViewController.itemIndex = indexPath.row;
     
-    [self.navigationController pushViewController:newItemController animated:YES];
+    [self.navigationController pushViewController:itemViewController animated:YES];
     
 }
 
@@ -210,7 +217,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+
     if(editingStyle == UITableViewCellEditingStyleDelete){
         [[ItemStore itemStore]deleteItemAtIndex:indexPath.row withCategory:self.categorySelected];
         [self.itemListView beginUpdates];
@@ -223,12 +230,15 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
     
+    //reordering table view cells
+    
     Item *item = [self.categorySelected.itemArray objectAtIndex:sourceIndexPath.row];
     [self.categorySelected.itemArray removeObjectAtIndex:sourceIndexPath.row];
     [self.categorySelected.itemArray insertObject:item atIndex:destinationIndexPath.row];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
+        //In edit mode, does not show the - button to delete. Swipe to delete works.
     if (self.itemListView.editing){
         return UITableViewCellEditingStyleNone;
     } else {
@@ -246,15 +256,18 @@
 
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    //Hide the image so the delete button does not overlap
     cell.itemImage.alpha = 0.0f;
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     CustomTableViewCell *cell = (CustomTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
+    //unhide the image
     cell.itemImage.alpha = 1.0f;
 }
 
 - (id)saveObjectAndInsertBlankRowAtIndexPath:(NSIndexPath *)indexPath {
+    //Conforming to BVReorderTableView library
     Item *itemBeingMoved = [self.categorySelected.itemArray objectAtIndex:indexPath.row];
     [self.categorySelected.itemArray replaceObjectAtIndex:indexPath.row withObject:@"EMPTYROW"];
     
@@ -262,6 +275,7 @@
 }
 
 - (void)moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    //Conforming to BVReorderTableView library
     Item *item = self.categorySelected.itemArray[fromIndexPath.row];
     
     [self.categorySelected.itemArray removeObjectAtIndex:fromIndexPath.row];
@@ -269,6 +283,7 @@
 }
 
 - (void)finishReorderingWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath{
+    //Conforming to BVReorderTableView library
     [self.categorySelected.itemArray replaceObjectAtIndex:indexPath.row withObject:object];
     [[CategoryStore categoryStore]saveChanges];
 }

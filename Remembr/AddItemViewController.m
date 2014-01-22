@@ -45,6 +45,8 @@ CGFloat animatedDistance;
     
     self.itemBeingCreated = [[Item alloc]init];
     
+    //Base view setup
+    
     self.view.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     self.description.backgroundColor = [UIColor colorWithRed:0.92f green:0.92f blue:0.92f alpha:1.00f];
     self.description.textColor = [UIColor lightGrayColor];
@@ -254,6 +256,7 @@ CGFloat animatedDistance;
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
+    //To ensure that when the text view is the first responder, the view scrolls up to ensuare that the keyboard does not cover up text
     CGRect textViewRect = [self.view.window convertRect:textView.bounds fromView:textView];
     CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
     
@@ -296,6 +299,8 @@ CGFloat animatedDistance;
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     
+    //View should go back to normal (scroll down) after text view resignes as first responder
+    
     CGRect viewFrame = self.view.frame;
     viewFrame.origin.y += animatedDistance;
     
@@ -316,9 +321,11 @@ CGFloat animatedDistance;
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+    //Description is hint text, should dissapear when first responder and appear when text view is empty
     if ([self.description.text isEqualToString:@"Description"]) {
         self.description.text = @"";
     }
+    
     self.description.textColor = [UIColor blackColor];
     return YES;
 }

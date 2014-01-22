@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Karan Thukral. All rights reserved.
 //
 
-#import "NewItemViewController.h"
+#import "ItemViewController.h"
 #import <MWPhotoBrowser.h>
 
-@interface NewItemViewController ()
+@interface ItemViewController ()
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation NewItemViewController
+@implementation ItemViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,7 +39,7 @@
     
     self.photoArray = [NSMutableArray new];
     
-    [self layoutSubviews];
+    [self layoutSubviews]; //The view is created in code to ensure dynamic setup (if there is an image for the item or not?)
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(preferredContentSizeChanged:) name:UIContentSizeCategoryDidChangeNotification object:nil];
 

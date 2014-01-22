@@ -150,7 +150,7 @@
 		A4896B72182BFC7F00BB348A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A4896B71182BFC7E00BB348A /* libz.dylib */; };
 		A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */; };
 		A490ABB917F065970062FBEA /* EditExistingCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */; };
-		A49593FD1819DA73005988F5 /* NewItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A49593FC1819DA73005988F5 /* NewItemViewController.m */; };
+		A49593FD1819DA73005988F5 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A49593FC1819DA73005988F5 /* ItemViewController.m */; };
 		A499CCFA18332F8F00FB7F57 /* splash 1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A499CCF918332F8F00FB7F57 /* splash 1@2x.png */; };
 		A499CD06183331E900FB7F57 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A499CD05183331E900FB7F57 /* Images.xcassets */; };
 		A499CD08183332B400FB7F57 /* splash 1.png in Resources */ = {isa = PBXBuildFile; fileRef = A499CD07183332B400FB7F57 /* splash 1.png */; };
@@ -327,8 +327,8 @@
 		A490ABB517F065970062FBEA /* EditExistingCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExistingCategoryViewController.h; sourceTree = "<group>"; };
 		A490ABB617F065970062FBEA /* EditExistingCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExistingCategoryViewController.m; sourceTree = "<group>"; };
 		A490ABB717F065970062FBEA /* EditExistingCategoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditExistingCategoryViewController.xib; sourceTree = "<group>"; };
-		A49593FB1819DA73005988F5 /* NewItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewItemViewController.h; sourceTree = "<group>"; };
-		A49593FC1819DA73005988F5 /* NewItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewItemViewController.m; sourceTree = "<group>"; };
+		A49593FB1819DA73005988F5 /* ItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemViewController.h; sourceTree = "<group>"; };
+		A49593FC1819DA73005988F5 /* ItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemViewController.m; sourceTree = "<group>"; };
 		A499CCF918332F8F00FB7F57 /* splash 1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 1@2x.png"; sourceTree = "<group>"; };
 		A499CD05183331E900FB7F57 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A499CD07183332B400FB7F57 /* splash 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash 1.png"; sourceTree = "<group>"; };
@@ -446,8 +446,8 @@
 				9EBD66E517C93F6E002F41F7 /* AddCategoryViewController.m */,
 				9E0C715517CDA08200098B17 /* AddItemViewController.h */,
 				9E0C715617CDA08200098B17 /* AddItemViewController.m */,
-				A49593FB1819DA73005988F5 /* NewItemViewController.h */,
-				A49593FC1819DA73005988F5 /* NewItemViewController.m */,
+				A49593FB1819DA73005988F5 /* ItemViewController.h */,
+				A49593FC1819DA73005988F5 /* ItemViewController.m */,
 				9E15B7BF17CFC1200025AD8A /* EditItemViewController.h */,
 				9E15B7C017CFC1200025AD8A /* EditItemViewController.m */,
 				A4B128B617EFBEE800251312 /* EditCategoriesViewController.h */,
@@ -870,7 +870,7 @@
 				9E0C715817CDA08200098B17 /* AddItemViewController.m in Sources */,
 				9E15B7B717CFB3C90025AD8A /* CustomTableViewCell.m in Sources */,
 				A490ABB817F065970062FBEA /* EditExistingCategoryViewController.m in Sources */,
-				A49593FD1819DA73005988F5 /* NewItemViewController.m in Sources */,
+				A49593FD1819DA73005988F5 /* ItemViewController.m in Sources */,
 				9E15B7C117CFC1200025AD8A /* EditItemViewController.m in Sources */,
 				A4F6FEC61800BA23006D906B /* collectionStore.m in Sources */,
 			);

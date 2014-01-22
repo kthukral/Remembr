@@ -41,10 +41,12 @@
     [notificationCenter addObserver:self
                            selector:@selector (textFieldTextChanged:)
                                name:UITextFieldTextDidChangeNotification
-                             object:self.titleTextField];
+                             object:self.titleTextField]; //Listen to text size change
     
     UIColor *backgroundLabels = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
     self.view.backgroundColor = backgroundLabels;
+    
+    //Collection View Setups
     
     [self.titleTextField setHidden:YES];
     self.titleTextField.autocapitalizationType = UITextAutocapitalizationTypeWords;
@@ -126,26 +128,28 @@
         
         if(self.tempCategory.imageName && self.tempCategory.categoryColor){
         
-        [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName withIndex:self.tempCategory.imageIndex];
-            
-               NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
-        if(initialcount == newCount){
-            
-        }else{
-            
-            CustomCollectionViewCell *iconSelectedCell = (CustomCollectionViewCell *)[self.iconCollectionView cellForItemAtIndexPath:self.currentIconSelected];
-            iconSelectedCell.alpha = 1.0f;
-            CustomCollectionViewCell *backgroundSelectedCell = (CustomCollectionViewCell *)[self.backgroundCollectionView cellForItemAtIndexPath:self.currentBackgroundSelected];
-            backgroundSelectedCell.alpha = 1.0f;
+            [[CategoryStore categoryStore]createCategoryWithTitle:self.tempCategory.title withColor:self.tempCategory.categoryColor andImageName:self.tempCategory.imageName withIndex:self.tempCategory.imageIndex];
+                
+            NSInteger newCount = [[[CategoryStore categoryStore]allCatagories] count];
+            if (initialcount == newCount){
+                //Category was not created
+                NSLog(@"ERROR OCCURED");
+            } else {
+                
+                CustomCollectionViewCell *iconSelectedCell = (CustomCollectionViewCell *)[self.iconCollectionView cellForItemAtIndexPath:self.currentIconSelected];
+                iconSelectedCell.alpha = 1.0f;
+                CustomCollectionViewCell *backgroundSelectedCell = (CustomCollectionViewCell *)[self.backgroundCollectionView cellForItemAtIndexPath:self.currentBackgroundSelected];
+                backgroundSelectedCell.alpha = 1.0f;
 
-            [self.navigationController popToRootViewControllerAnimated:YES];
-        }
-        }else{
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }
+            
+        } else {
             UIAlertView *invalidCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Category" message:@"The Category Must Have an Icon and Background" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [invalidCategoryAlert show];
         }
         
-    }else{
+    } else {
         UIAlertView *invalidCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Invalid Category" message:@"The Category Must Have a Title" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [invalidCategoryAlert show];
     }

@@ -46,7 +46,15 @@
     
     [[self navigationItem]setLeftBarButtonItem:edit];
     
-    //collection view setup
+    //navigationController and bar appearence setup
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
+    [[UINavigationBar appearance]setTitleTextAttributes:textTitleOptions];
+
+    
+    //collection view setup (the cells need to be end to end and 2 cells occupy one row for the collecion view)
     CGRect mainScreen = [[UIScreen mainScreen]bounds];
     CGFloat requiredHeight = mainScreen.size.height;
     CGRect collectionViewFrame = CGRectMake(0, 0, mainScreen.size.width, requiredHeight);
@@ -58,22 +66,17 @@
     self.collectionView = [[UICollectionView alloc]initWithFrame:collectionViewFrame collectionViewLayout:self.layout];
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
-    self.layout.itemSize = CGSizeMake(160, 160);
-    self.layout.sectionInset = UIEdgeInsetsMake(0,0,0,0);
+    self.layout.itemSize = CGSizeMake(160, 160); //only 2 cells fit in a row
+    self.layout.sectionInset = UIEdgeInsetsMake(0,0,0,0); //no spacing between the cells
     self.layout.minimumInteritemSpacing = 0;
     self.layout.minimumLineSpacing = 0;
 
-    [self.collectionView registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"CustomCollectionViewCell"];
-    [self.collectionView removeFromSuperview];
+    [self.collectionView registerClass:[CustomCollectionViewCell class] forCellWithReuseIdentifier:@"CustomCollectionViewCell"]; //register custom collection view cell with its class
+    
     [self.view addSubview:self.collectionView];
     
     self.collectionView.backgroundColor = [UIColor colorWithRed:0.96f green:0.96f blue:0.96f alpha:1.00f];
     
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
-    NSDictionary *textTitleOptions = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, nil];
-    [[UINavigationBar appearance]setTitleTextAttributes:textTitleOptions];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -100,6 +103,7 @@
 
 
 - (IBAction)addNewCategory:(id)sender{
+    //launch new category view controller
     if(!self.addCategoryView){
         self.addCategoryView = [[AddCategoryViewController alloc]initWithNibName:@"AddCategoryViewController" bundle:nil];
     }
@@ -145,6 +149,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    //each category object has an aray of item objects that are its "children"
     Category *categoryClicked = [[[CategoryStore categoryStore]allCatagories]objectAtIndex:indexPath.row];
     self.itemListView = [[ItemListViewController alloc]init];
     self.itemListView.categorySelected = categoryClicked;
@@ -153,13 +158,16 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView itemAtIndexPath:(NSIndexPath *)fromIndexPath willMoveToIndexPath:(NSIndexPath *)toIndexPath {
+    //LXReorderableCollectionViewFlowLayout library method implementation to change the order of the catagories
     Category *category = [[CategoryStore categoryStore]allCatagories][fromIndexPath.row];
     [((NSMutableArray *)[[CategoryStore categoryStore]allCatagories]) removeObjectAtIndex:fromIndexPath.row];
     [((NSMutableArray *)[[CategoryStore categoryStore]allCatagories]) insertObject:category atIndex:toIndexPath.row];
     
+    //Category store is responsible for storing the changes to the local disc
     [[CategoryStore categoryStore]saveChanges];
 }
 
+/* LXReorderableCollectionViewFlowLayout library Debug methods to check when the user interacts with the collection view to reorder it
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout willBeginDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"will begin drag");
 }
@@ -175,6 +183,8 @@
 - (void)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout didEndDraggingItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"did end drag");
 }
+ 
+ */
 
 
 @end

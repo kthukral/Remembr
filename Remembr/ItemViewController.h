@@ -14,7 +14,7 @@
 #import "EditItemViewController.h"
 #import <MWPhotoBrowser.h>
 
-@interface NewItemViewController : UIViewController <MWPhotoBrowserDelegate>
+@interface ItemViewController : UIViewController <MWPhotoBrowserDelegate>
 
 @property (nonatomic, strong) Category *categorySelected;
 
