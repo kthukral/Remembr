@@ -141,6 +141,8 @@
                     }
                     else {
                         NSLog(@"Error sending message: %@", error);
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry the item could not be pushed to the pebble. Try a shorter note" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        [alert show];
                     }
                 }];
                 
@@ -149,6 +151,9 @@
             }
         }
          ];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Pebble" message:@"Sorry no connected pebble was found" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        [alert show];
     }
     
 }
