@@ -13,8 +13,9 @@
 #import "ImageStore.h"
 #import "EditItemViewController.h"
 #import <MWPhotoBrowser.h>
+#import <PebbleKit/PebbleKit.h>
 
-@interface ItemViewController : UIViewController <MWPhotoBrowserDelegate>
+@interface ItemViewController : UIViewController <MWPhotoBrowserDelegate, PBPebbleCentralDelegate>
 
 @property (nonatomic, strong) Category *categorySelected;
 

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UITextView *descriptionTextView;
+@property (nonatomic, strong) PBWatch *pebbleWatch;
 
 @end
 
@@ -106,15 +107,49 @@
     self.descriptionTextView.backgroundColor = background;
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
+    UIBarButtonItem *pebble = [[UIBarButtonItem alloc]initWithTitle:@"Pebble" style:UIBarButtonItemStylePlain target:self action:@selector(sendToPebble:)];
+    
+    NSArray *buttonArray = [[NSArray alloc]initWithObjects:edit,pebble, nil];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    
-    [[self navigationItem]setRightBarButtonItem:edit];
+    [[self navigationItem] setRightBarButtonItems:buttonArray];
     
     [self.view addSubview:self.imageView];
     [self.view addSubview:self.titleLabel];
     [self.view addSubview:self.descriptionTextView];
+    
+}
+
+- (void)sendToPebble:(id)sender {
+    [[PBPebbleCentral defaultCentral] setDelegate:self];
+    NSUUID *watchAppId = [[NSUUID alloc] initWithUUIDString:@"e0b2a8bc-6ff3-4e4f-9402-e131ee6ab1c6"];
+    uuid_t watchAppUUIDBytes;
+    [watchAppId getUUIDBytes:watchAppUUIDBytes];
+    [[PBPebbleCentral defaultCentral] setAppUUID:[NSData dataWithBytes:watchAppUUIDBytes length:16]];
+    self.pebbleWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
+    
+    if (self.pebbleWatch) {
+        [self.pebbleWatch appMessagesLaunch:^(PBWatch *watch, NSError *error) {
+            if (!error) {
+                NSLog(@"Successfully launched app.");
+                Item *item = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
+                NSDictionary *noteToSend = @{@1: item.itemDescription};
+                [self.pebbleWatch appMessagesPushUpdate:noteToSend onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
+                    if (!error) {
+                        NSLog(@"Successfully sent message.");
+                    }
+                    else {
+                        NSLog(@"Error sending message: %@", error);
+                    }
+                }];
+                
+            } else {
+                NSLog(@"Error launching app - Error: %@", error);
+            }
+        }
+         ];
+    }
     
 }
 
