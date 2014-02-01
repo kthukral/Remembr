@@ -172,17 +172,20 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if(collectionView == self.iconCollectionView){
+    if (collectionView == self.iconCollectionView){
+        
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         [[Customcell backgroundImage]setImage:[self.iconArray objectAtIndex:indexPath.row]];
         Customcell.backgroundImage.contentMode = UIViewContentModeScaleAspectFit;
         Customcell.backgroundImage.clipsToBounds = YES;
         [Customcell setAlpha:1];
         return Customcell;
-    }else{
+        
+    } else {
+        
         collectionViewCellCustom *Customcell = (collectionViewCellCustom *)[collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
         Customcell.backgroundColor = [self.backgroundColorArray objectAtIndex:indexPath.row];
-                return Customcell;
+        return Customcell;
         
     }
     

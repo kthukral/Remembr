@@ -79,7 +79,7 @@
     
     
     BOOL doesCategoryExist = NO;
-    for(int i=0;i<[allCatagories count];i++){
+    for (int i=0; i<[allCatagories count]; i++){
         Category *checkCategory = [allCatagories objectAtIndex:i];
         NSString *checkCategoryTitle = checkCategory.title;
         if([title isEqualToString:checkCategoryTitle]){
@@ -87,16 +87,20 @@
         }
         
     }
-    if(doesCategoryExist){
+    
+    if (doesCategoryExist){
         UIAlertView *existingCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Category Already Exists" message:@"This Category Already Exists. Please use a different title." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [existingCategoryAlert show];
         
         return nil;
-    }else{
+        
+    } else {
+        
         Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName];
         [allCatagories insertObject:newCategory atIndex:0];
         [[CategoryStore categoryStore] saveChanges];
         return newCategory;
+        
     }
 
 }
@@ -105,7 +109,7 @@
     
     
     BOOL doesCategoryExist = NO;
-    for(int i=0;i<[allCatagories count];i++){
+    for (int i=0;i<[allCatagories count];i++){
         Category *checkCategory = [allCatagories objectAtIndex:i];
         NSString *checkCategoryTitle = checkCategory.title;
         if([title isEqualToString:checkCategoryTitle]){
@@ -113,16 +117,20 @@
         }
         
     }
-    if(doesCategoryExist){
+    
+    if (doesCategoryExist){
         UIAlertView *existingCategoryAlert = [[UIAlertView alloc]initWithTitle:@"Category Already Exists" message:@"This Category Already Exists. Please use a different title." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [existingCategoryAlert show];
         
         return nil;
-    }else{
+        
+    } else {
+        
         Category *newCategory = [[Category alloc]initWithTitle:title withColor:color withImageName:iName withIndex:index];
         [allCatagories insertObject:newCategory atIndex:0];
         [[CategoryStore categoryStore] saveChanges];
         return newCategory;
+        
     }
     
 }
