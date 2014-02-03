@@ -134,7 +134,7 @@
             if (!error) {
                 NSLog(@"Successfully launched app.");
                 Item *item = [self.categorySelected.itemArray objectAtIndex:self.itemIndex];
-                NSDictionary *noteToSend = @{@1: item.itemDescription};
+                NSDictionary *noteToSend = @{@101: item.itemDescription};
                 [self.pebbleWatch appMessagesPushUpdate:noteToSend onSent:^(PBWatch *watch, NSDictionary *update, NSError *error) {
                     if (!error) {
                         NSLog(@"Successfully sent message.");
