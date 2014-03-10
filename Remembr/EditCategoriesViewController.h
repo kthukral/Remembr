@@ -12,7 +12,8 @@
 #import "CustomTableViewCell.h"
 #import "EditExistingCategoryViewController.h"
 #import "editCategoryTableViewCell.h"
+#import <BVReorderTableView/BVReorderTableView.h>
 
-@interface EditCategoriesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface EditCategoriesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, ReorderTableViewDelegate>
 
 @end

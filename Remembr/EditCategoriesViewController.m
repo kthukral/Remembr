@@ -7,10 +7,11 @@
 //
 
 #import "EditCategoriesViewController.h"
+#import <BVReorderTableView/BVReorderTableView.h>
 
 @interface EditCategoriesViewController ()
 
-@property (strong, nonatomic) UITableView *editCategoryTableView;
+@property (strong, nonatomic) BVReorderTableView *editCategoryTableView;
 @property (strong, nonatomic) NSMutableArray *editCategories;
 
 @end
@@ -42,7 +43,7 @@
 
     [[self navigationItem] setLeftBarButtonItem:edit];
     
-    self.editCategoryTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    self.editCategoryTableView = [[BVReorderTableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.29f green:0.61f blue:0.85f alpha:1.00f];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -121,6 +122,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if ([self.editCategories[indexPath.row] isKindOfClass:[NSString class]] && [self.editCategories[indexPath.row] isEqualToString:@"EMPTYROW"]) {
+        UITableViewCell *emptyCell = (CustomTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!emptyCell) {
+            emptyCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"eCell"];
+        }
+        emptyCell.textLabel.text = @"";
+        emptyCell.contentView.backgroundColor = [UIColor clearColor];
+        emptyCell.accessoryType = UITableViewCellAccessoryNone;
+        return emptyCell;
+    } //empty cell method used to conform to the BVReorderTableView library
+    
     NSLog(@"Index = %d",indexPath.row);
     editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     if(cell == nil){
@@ -177,6 +189,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if ([self.editCategories[indexPath.row] isKindOfClass:[NSString class]] && [self.editCategories[indexPath.row] isEqualToString:@"EMPTYROW"]) {
+        return 70;
+    }
+    
     Category *category = [self.editCategories objectAtIndex:indexPath.row];
     
     UIFont *titleLabelFont = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
@@ -199,8 +216,6 @@
     
 }
 
-
-
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath{
     editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.image.alpha = 0;
@@ -210,6 +225,28 @@
     editCategoryTableViewCell *cell = (editCategoryTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
     cell.image.alpha = 1;
 }
+
+//Conforming to BVReorderTableView library
+
+- (id)saveObjectAndInsertBlankRowAtIndexPath:(NSIndexPath *)indexPath {
+    Category *category = [self.editCategories objectAtIndex:indexPath.row];
+    [self.editCategories replaceObjectAtIndex:indexPath.row withObject:@"EMPTYROW"];
+    return category;
+    
+}
+
+- (void)moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+
+    Category *category = self.editCategories[fromIndexPath.row];
+    
+    [self.editCategories removeObjectAtIndex:fromIndexPath.row];
+    [self.editCategories insertObject:category atIndex:toIndexPath.row];
+}
+
+- (void)finishReorderingWithObject:(id)object atIndexPath:(NSIndexPath *)indexPath{
+    [self.editCategories replaceObjectAtIndex:indexPath.row withObject:object];
+}
+
 
 
 @end

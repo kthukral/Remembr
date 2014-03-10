@@ -229,9 +229,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath{
-    
     //reordering table view cells
-    
     Item *item = [self.categorySelected.itemArray objectAtIndex:sourceIndexPath.row];
     [self.categorySelected.itemArray removeObjectAtIndex:sourceIndexPath.row];
     [self.categorySelected.itemArray insertObject:item atIndex:destinationIndexPath.row];

@@ -107,9 +107,18 @@
     self.descriptionTextView.backgroundColor = background;
     
     UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editItem:)];
-    UIBarButtonItem *pebble = [[UIBarButtonItem alloc]initWithTitle:@"Pebble" style:UIBarButtonItemStylePlain target:self action:@selector(sendToPebble:)];
     
-    NSArray *buttonArray = [[NSArray alloc]initWithObjects:edit,pebble, nil];
+    NSArray *buttonArray;
+    
+    self.pebbleWatch = [[PBPebbleCentral defaultCentral] lastConnectedWatch];
+    
+    if (self.pebbleWatch) {
+        UIBarButtonItem *pebble = [[UIBarButtonItem alloc]initWithTitle:@"Pebble" style:UIBarButtonItemStylePlain target:self action:@selector(sendToPebble:)];
+        
+        buttonArray = [[NSArray alloc]initWithObjects:edit,pebble, nil];
+    } else {
+        buttonArray = [[NSArray alloc]initWithObjects:edit, nil];
+    }
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
@@ -141,7 +150,7 @@
                     }
                     else {
                         NSLog(@"Error sending message: %@", error);
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry the item could not be pushed to the pebble. Try a shorter note" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry the item could not be pushed to the pebble. Try again or a shorter note" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                         [alert show];
                     }
                 }];

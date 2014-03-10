@@ -1,4 +1,3 @@
-
 platform :ios, '7.0'
 pod 'MWPhotoBrowser',    '~>1.1.3'
 pod 'LXReorderableCollectionViewFlowLayout', '~>0.1.0.beta1'
