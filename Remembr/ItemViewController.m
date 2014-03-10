@@ -150,7 +150,7 @@
                     }
                     else {
                         NSLog(@"Error sending message: %@", error);
-                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry the item could not be pushed to the pebble. Try again or a shorter note" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+                        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Sorry the item could not be pushed to the pebble. Try again or a try a shorter note" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
                         [alert show];
                     }
                 }];
